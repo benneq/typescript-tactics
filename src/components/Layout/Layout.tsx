@@ -2,14 +2,14 @@ import type { ReactNode } from 'react';
 import Header from './Header';
 
 type Props = {
-    children: ReactNode
-}
+  children: ReactNode;
+};
 
 export default function Layout({ children }: Props) {
-    return (
-      <>
-        <Header />
-        <main>{children}</main>
-      </>
-    )
-  }
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+    </>
+  );
+}
