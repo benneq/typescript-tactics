@@ -12,7 +12,7 @@ import type { AppProps } from 'next/app';
 import 'i18n';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'styles/globals.scss';
-import Layout from 'components/layout/Layout';
+import Layout from '../components/layout/Layout';
 
 const SafeHydrate: FunctionComponent = ({ children }) => (
   <div suppressHydrationWarning>
