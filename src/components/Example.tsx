@@ -11,7 +11,7 @@ export default function Example({
 }: Props) {
   return (
     <details>
-      <summary>{summary}</summary>
+      <summary className="cursor-pointer">{summary}</summary>
       {children}
     </details>
   );

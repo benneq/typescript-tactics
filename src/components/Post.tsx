@@ -12,7 +12,7 @@ type Props = {
 export default function Post({ slug, title, tags = [], path }: Props) {
   return (
     <details>
-      <summary>{title}</summary>
+      <summary className="cursor-pointer">{title}</summary>
       <div className="flex flex-col">
         <div>Slug: {slug}</div>
         <div>

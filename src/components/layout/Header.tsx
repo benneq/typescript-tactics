@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 const Header = () => {
   const { query, replace } = useRouter();
 
-  const [q, setQ] = useState(query.q || '');
+  const [q, setQ] = useState(query.q && !Array.isArray(query.q) ? query.q : '');
 
   useEffect(() => {
-    setQ(query.q || '');
+    setQ(query.q && !Array.isArray(query.q) ? query.q : '');
   }, [query.q]);
 
   const timeout = useRef<NodeJS.Timeout>();
@@ -27,11 +27,16 @@ const Header = () => {
     runTimeout(value, 500);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    runTimeout(q, 0);
+  };
+
   return (
     <header className="flex flex-row py-4 px-4 shadow">
       <div className="flex-1">{/* <ul>Breadcrumb &gt;</ul> */}</div>
       <div className="">
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="search" className="mr-2">
             Serach:
           </label>
