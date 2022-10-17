@@ -11,7 +11,7 @@ export default function Example({
 }: Props) {
   return (
     <details>
-      <summary className="list-none">{summary}</summary>
+      <summary>{summary}</summary>
       {children}
     </details>
   );

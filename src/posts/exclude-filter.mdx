@@ -1,11 +1,15 @@
 ---
 title: Filter
+tags: ['exclude', 'filter']
 ---
 
 import Example from '../../components/Example';
 
 ```ts
-type Filter = <T, S extends T>(input: T[], predicate: (value: T) => value is S) => S[];
+type Filter = <T, S extends T>(
+  input: T[],
+  predicate: (value: T) => value is S
+) => S[];
 ```
 
 <Example>
@@ -15,7 +19,7 @@ const isNumber = (value: unknown): value is number => {
 }
 
 const isNotNull = <T>(arg: T): arg is Exclude<T, null> => {
-  return arg !== null
+return arg !== null
 }
 
 type Input = (number | null)[];
@@ -26,5 +30,7 @@ const resultIsNumber = filter(input, isNumber);
 
 type ResultIsNotNull = number[];
 const resultIsNotNull = filter(input, isNotNull);
+
 ```
 </Example>
+```

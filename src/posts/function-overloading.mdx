@@ -1,0 +1,21 @@
+---
+title: Function Overloading
+tags: ['function', 'overloading']
+---
+
+```ts
+const foo: {
+  <T>(value: T): T;
+  (value: string, multi: number): number;
+} = <T>(value: T | string, multi?: number) => {
+  return typeof value === 'string' ? value.length * multi! : value;
+};
+```
+
+```ts
+function foo<T>(value: T): T;
+function foo(value: string, multi: number): number;
+function foo<T>(value: T | string, multi?: number) {
+  return typeof value === 'string' ? value.length * multi! : value;
+}
+```
