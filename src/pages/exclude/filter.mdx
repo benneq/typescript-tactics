@@ -1,0 +1,30 @@
+---
+title: Filter
+---
+
+import Example from '../../components/Example';
+
+```ts
+type Filter = <T, S extends T>(input: T[], predicate: (value: T) => value is S) => S[];
+```
+
+<Example>
+```ts
+const isNumber = (value: unknown): value is number => {
+  return Number.isFinite(value);
+}
+
+const isNotNull = <T>(arg: T): arg is Exclude<T, null> => {
+  return arg !== null
+}
+
+type Input = (number | null)[];
+const input = [1, null, 2, 3, null];
+
+type ResultIsNumber = number[];
+const resultIsNumber = filter(input, isNumber);
+
+type ResultIsNotNull = number[];
+const resultIsNotNull = filter(input, isNotNull);
+```
+</Example>

@@ -23,7 +23,6 @@ export const DEFAULT_NS = 'translation';
 
 export const languagesOptions = {
   en: 'English',
-  pt: 'Português',
 };
 
 export const supportedLanguages = Object.keys(languagesOptions);

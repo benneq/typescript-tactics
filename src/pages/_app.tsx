@@ -10,8 +10,9 @@ import type { FunctionComponent } from 'react';
 import type { AppProps } from 'next/app';
 
 import 'i18n';
-
+import 'prismjs/themes/prism-tomorrow.css';
 import 'styles/globals.scss';
+import Layout from 'components/layout/Layout';
 
 const SafeHydrate: FunctionComponent = ({ children }) => (
   <div suppressHydrationWarning>
@@ -21,7 +22,9 @@ const SafeHydrate: FunctionComponent = ({ children }) => (
 
 export const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <SafeHydrate>
-    <Component {...pageProps} />
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   </SafeHydrate>
 );
 
