@@ -6,23 +6,30 @@ import Post from 'components/Post';
 
 interface Meta {
   slug: string;
+  path: string;
   title: string;
   tags: string[];
 }
 
 export const getStaticProps: GetStaticProps<{ posts: Meta[] }> = async () => {
-  const filenames = fs.readdirSync(path.join('src', 'posts'));
+  const dir = path.join('src', 'pages', 'exclude');
 
-  const posts = filenames.map((filename) => {
-    const slug = filename.replace('.mdx', '');
-    const file = fs.readFileSync(path.join('src', 'posts', filename), 'utf-8');
-    const { data } = grayMatter(file);
-    return {
-      slug,
-      title: data.title || '',
-      tags: data.tags || [],
-    };
-  });
+  const filenames = fs.readdirSync(dir);
+
+  const posts = filenames
+    .map((filename) => {
+      const slug = filename.replace('.mdx', '');
+      const file = fs.readFileSync(path.join(dir, filename), 'utf-8');
+
+      const { data } = grayMatter(file);
+      return {
+        slug,
+        title: data.title || '',
+        tags: data.tags || [],
+        path: path.join('/exclude', slug).replaceAll('\\', '/'),
+      };
+    })
+    .filter((post): post is Meta => post !== null);
 
   const jsonString = JSON.stringify(posts);
   fs.writeFileSync('./search.json', jsonString);
