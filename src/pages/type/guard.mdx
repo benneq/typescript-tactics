@@ -3,6 +3,8 @@ title: Type Guard
 tags: ['type', 'guard']
 ---
 
+### User-Defined Type Guards
+
 ```ts
 const isString = (value: unknown): value is string => {
   return typeof value === 'string';
@@ -13,17 +15,23 @@ if (isString(value)) {
 }
 ```
 
+### `in` opterator
+
 ```ts
 if ('prop' in value) {
   value.prop;
 }
 ```
 
+### `typeof`
+
 ```ts
 if (typeof value === 'string') {
   type Value = string;
 }
 ```
+
+### `instanceof`
 
 ```ts
 if (value instanceof Date) {

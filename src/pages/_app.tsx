@@ -13,6 +13,7 @@ import 'i18n';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'styles/globals.scss';
 import Layout from '../components/layout/Layout';
+import { MDXProvider } from '@mdx-js/react';
 
 const SafeHydrate: FunctionComponent = ({ children }) => (
   <div suppressHydrationWarning>
@@ -20,11 +21,22 @@ const SafeHydrate: FunctionComponent = ({ children }) => (
   </div>
 );
 
+const components: import('mdx/types').MDXComponents = {
+  h1: ({ children }) => <h1 className="text-5xl">{children}</h1>,
+  h2: ({ children }) => <h1 className="text-4xl">{children}</h1>,
+  h3: ({ children }) => <h1 className="text-3xl">{children}</h1>,
+  h4: ({ children }) => <h1 className="text-2xl">{children}</h1>,
+  h5: ({ children }) => <h1 className="text-xl">{children}</h1>,
+  h6: ({ children }) => <h1 className="text-lg">{children}</h1>,
+};
+
 export const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <SafeHydrate>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <MDXProvider components={components}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </MDXProvider>
   </SafeHydrate>
 );
 

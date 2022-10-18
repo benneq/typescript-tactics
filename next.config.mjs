@@ -16,8 +16,7 @@ const withMDX = mdx({
   options: {
     remarkPlugins: [remarkFrontmatter],
     rehypePlugins: [rehypePrism],
-    // If you use `MDXProvider`, uncomment the following line.
-    // providerImportSource: "@mdx-js/react",
+    providerImportSource: '@mdx-js/react',
   },
 });
 

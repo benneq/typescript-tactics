@@ -3,6 +3,8 @@ title: Function Overloading
 tags: ['function', 'overloading']
 ---
 
+### arrow function
+
 ```ts
 const foo: {
   <T>(value: T): T;
@@ -11,6 +13,8 @@ const foo: {
   return typeof value === 'string' ? value.length * multi! : value;
 };
 ```
+
+### traditional function
 
 ```ts
 function foo<T>(value: T): T;
