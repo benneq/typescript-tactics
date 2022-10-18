@@ -1,0 +1,13 @@
+---
+title: React Generics
+tags: ['react', 'generics']
+---
+
+### `const` {'in'} `tsx` file
+
+```ts
+// prettier-ignore
+const foo = <T,>(value: T): T | null => {
+  return value || null;
+};
+```

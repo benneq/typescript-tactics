@@ -19,6 +19,7 @@ const items = [
   item('Function', '/function', [item('Overloading', '/function/overloading')]),
   item('Exclude', '/exclude', [item('Filter', '/exclude/filter')]),
   item('Type', '/type', [item('Guard', '/type/guard')]),
+  item('React', '/react', [item('Generics', '/react/generics')]),
 ];
 
 const MenuItem = ({ title, href, children }: Item) => {
