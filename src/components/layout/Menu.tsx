@@ -18,6 +18,7 @@ const item = (title: string, href: string, children: Item[] = []): Item => {
 const items = [
   item('Function', '/function', [item('Overloading', '/function/overloading')]),
   item('Exclude', '/exclude', [item('Filter', '/exclude/filter')]),
+  item('Type', '/type', [item('Guard', '/type/guard')]),
 ];
 
 const MenuItem = ({ title, href, children }: Item) => {
@@ -28,7 +29,7 @@ const MenuItem = ({ title, href, children }: Item) => {
   };
 
   return (
-    <li>
+    <li className="w-full">
       <span className="flex">
         <Link href={href}>
           <a className="flex-1">{title}</a>
@@ -52,11 +53,9 @@ const MenuItem = ({ title, href, children }: Item) => {
       </span>
 
       <ul className={`flex list-inside pl-4 ${showChildren ? '' : 'hidden'}`}>
-        <span>
-          {children.map((item, i) => (
-            <MenuItem key={i} {...item} />
-          ))}
-        </span>
+        {children.map((item, i) => (
+          <MenuItem key={i} {...item} />
+        ))}
       </ul>
     </li>
   );

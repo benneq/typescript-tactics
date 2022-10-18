@@ -1,0 +1,32 @@
+---
+title: Type Guard
+tags: ['type', 'guard']
+---
+
+```ts
+const isString = (value: unknown): value is string => {
+  return typeof value === 'string';
+};
+
+if (isString(value)) {
+  type Value = string;
+}
+```
+
+```ts
+if ('prop' in value) {
+  value.prop;
+}
+```
+
+```ts
+if (typeof value === 'string') {
+  type Value = string;
+}
+```
+
+```ts
+if (value instanceof Date) {
+  type Value = Date;
+}
+```

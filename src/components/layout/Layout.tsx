@@ -10,10 +10,10 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <div className="flex min-h-screen flex-row">
-      <aside className="w-64 pl-2 pr-2 pt-1 md:shadow">
-        <Link href="/">
-          <a className="text-2xl font-bold">TypeScript Tactics</a>
-        </Link>
+      <aside className="flex w-64 flex-col gap-2 pl-2 pr-2 pt-1 md:shadow">
+        <div className="text-center text-2xl font-bold">
+          <Link href="/">TypeScript Tactics</Link>
+        </div>
         <Menu />
       </aside>
       <main className="flex flex-grow flex-col">
