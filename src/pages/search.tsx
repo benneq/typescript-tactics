@@ -24,16 +24,14 @@ const Filter = () => {
   } = useRouter();
 
   const [q1, setQ] = useState(q && !Array.isArray(q) ? q : '');
-  const [tag1, setTag] = useState(
-    Array.isArray(tag) ? tag : typeof tag === 'string' ? [tag] : []
-  );
+  const [tag1, setTag] = useState(tag && !Array.isArray(tag) ? tag : '');
 
   const handleQChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQ(e.target.value);
   };
 
   const handleTagsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTag([...e.target.selectedOptions].map((o) => o.value));
+    setTag(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,16 +41,14 @@ const Filter = () => {
 
   useEffect(() => {
     setQ(q && !Array.isArray(q) ? q : '');
-    setTag(
-      tag && Array.isArray(tag) ? tag : typeof tag === 'string' ? [tag] : []
-    );
+    setTag(tag && !Array.isArray(tag) ? tag : '');
   }, [q, tag]);
 
   return (
     <form onSubmit={handleSubmit}>
       Search: <input type="search" value={q1} onChange={handleQChange} />
       Tags:{' '}
-      <select value={tag1} onChange={handleTagsChange} multiple>
+      <select value={tag1} onChange={handleTagsChange}>
         {tags.map((tag) => (
           <option key={tag}>{tag}</option>
         ))}
@@ -75,7 +71,6 @@ export default function Search() {
   return (
     <>
       <Filter />
-      Searched for {JSON.stringify({ q, tag })}
       <div className="pt-2">
         {!result.length
           ? 'No results'

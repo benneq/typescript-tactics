@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { ReactKeyboardEventHTMLInputElement } from 'utils/react';
 
 const SearchBox = () => {
   const { query, replace } = useRouter();
@@ -32,6 +33,14 @@ const SearchBox = () => {
     runTimeout(q, 0);
   };
 
+  const handleKeyDown = (e: ReactKeyboardEventHTMLInputElement) => {
+    if (e.key === 'Escape') {
+      timeout.current && clearTimeout(timeout.current);
+      setQ('');
+      e.target.blur();
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="relative">
       <input
@@ -41,6 +50,7 @@ const SearchBox = () => {
         className="peer -mr-[8rem] w-full rounded-lg border p-1 pl-8 transition-[margin-right] focus:-mr-0 focus:outline-offset-2 [&:not(:placeholder-shown)]:-mr-0"
         value={q}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
       <svg
         aria-hidden="true"

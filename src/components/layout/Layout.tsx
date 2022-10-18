@@ -16,10 +16,10 @@ export default function Layout({ children }: Props) {
         </div>
         <Menu />
       </aside>
-      <main className="flex flex-grow flex-col">
+      <div className="flex flex-grow flex-col">
         <Header />
-        {children}
-      </main>
+        <main className="pl-4 pr-4 pt-2">{children}</main>
+      </div>
     </div>
   );
 }

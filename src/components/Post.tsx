@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import path from 'path';
 import Tag from './Tag';
 
 type Props = {
@@ -9,9 +8,9 @@ type Props = {
   path: string;
 };
 
-export default function Post({ slug, title, tags = [], path }: Props) {
+export default function Post({ slug, title, tags, path }: Props) {
   return (
-    <details>
+    <details open className="mb-4 border shadow">
       <summary className="cursor-pointer">{title}</summary>
       <div className="flex flex-col">
         <div>Slug: {slug}</div>
