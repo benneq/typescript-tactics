@@ -7,7 +7,7 @@ import Example from '../../components/Example';
 
 ### Filter
 
-```ts
+```ts showLineNumbers
 type Filter = <T, S extends T>(
   input: T[],
   predicate: (value: T) => value is S
@@ -15,7 +15,7 @@ type Filter = <T, S extends T>(
 ```
 
 <Example>
-```ts
+```ts showLineNumbers
 const isNumber = (value: unknown): value is number => {
   return Number.isFinite(value);
 }

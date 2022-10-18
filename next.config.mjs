@@ -4,7 +4,7 @@ import pkg from './package.json' assert { type: 'json' };
 import VERSION from './scripts/compute-version.js';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import remarkFrontmatter from 'remark-frontmatter';
-import rehypePrism from '@mapbox/rehype-prism';
+import rehypePrism from 'rehype-prism-plus';
 import mdx from '@next/mdx';
 
 const withBundleAnalyzer = bundleAnalyzer({

@@ -14,6 +14,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 import 'styles/globals.scss';
 import Layout from '../components/layout/Layout';
 import { MDXProvider } from '@mdx-js/react';
+import PreCode from 'components/PreCode';
 
 const SafeHydrate: FunctionComponent = ({ children }) => (
   <div suppressHydrationWarning>
@@ -28,6 +29,7 @@ const components: import('mdx/types').MDXComponents = {
   h4: ({ children }) => <h1 className="text-2xl">{children}</h1>,
   h5: ({ children }) => <h1 className="text-xl">{children}</h1>,
   h6: ({ children }) => <h1 className="text-lg">{children}</h1>,
+  pre: PreCode,
 };
 
 export const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (

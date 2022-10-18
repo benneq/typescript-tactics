@@ -5,7 +5,7 @@ tags: ['type', 'guard']
 
 ### User-Defined
 
-```ts
+```ts showLineNumbers
 const isString = (value: unknown): value is string => {
   return typeof value === 'string';
 };
@@ -17,14 +17,14 @@ if (isString(value)) {
 
 ### Inline
 
-```ts
+```ts showLineNumbers
 const result = input.filter((value): value is boolean => value !== null);
 type Result = boolean[];
 ```
 
 ### `in` opterator
 
-```ts
+```ts showLineNumbers
 if ('prop' in value) {
   value.prop;
 }
@@ -32,7 +32,7 @@ if ('prop' in value) {
 
 ### `typeof`
 
-```ts
+```ts showLineNumbers
 if (typeof value === 'string') {
   type Value = string;
 }
@@ -40,7 +40,7 @@ if (typeof value === 'string') {
 
 ### `instanceof`
 
-```ts
+```ts showLineNumbers
 if (value instanceof Date) {
   type Value = Date;
 }

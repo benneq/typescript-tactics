@@ -3,9 +3,9 @@ title: Function Overloading
 tags: ['function', 'overloading']
 ---
 
-### arrow function
+### Arrow Function
 
-```ts
+```ts showLineNumbers
 const foo: {
   <T>(value: T): T;
   (value: string, multi: number): number;
@@ -14,9 +14,9 @@ const foo: {
 };
 ```
 
-### traditional function
+### Traditional `function`
 
-```ts
+```ts showLineNumbers
 function foo<T>(value: T): T;
 function foo(value: string, multi: number): number;
 function foo<T>(value: T | string, multi?: number) {
