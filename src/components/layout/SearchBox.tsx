@@ -1,41 +1,37 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ReactKeyboardEventHTMLInputElement } from 'utils/react';
+import { cancel, delay, now, useDebounceCallback } from 'hooks/useDebounce';
 
 const SearchBox = () => {
   const { query, replace } = useRouter();
 
   const [q, setQ] = useState(query.q && !Array.isArray(query.q) ? query.q : '');
 
+  const debounce = useDebounceCallback((q: string) => {
+    replace({ pathname: '/search', query: { q } }, undefined, {
+      shallow: true,
+    });
+  });
+
   useEffect(() => {
     setQ(query.q && !Array.isArray(query.q) ? query.q : '');
   }, [query.q]);
 
-  const timeout = useRef<NodeJS.Timeout>();
-
-  const runTimeout = (q: string, ms: number) => {
-    timeout.current && clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => {
-      replace({ pathname: '/search', query: { q } }, undefined, {
-        shallow: true,
-      });
-    }, ms);
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQ(value);
-    runTimeout(value, 500);
+    debounce(delay(500, value));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    runTimeout(q, 0);
+    debounce(now(q));
   };
 
   const handleKeyDown = (e: ReactKeyboardEventHTMLInputElement) => {
     if (e.key === 'Escape') {
-      timeout.current && clearTimeout(timeout.current);
+      debounce(cancel);
       setQ('');
       e.target.blur();
     }

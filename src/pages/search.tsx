@@ -73,7 +73,7 @@ const Filter = () => {
 
 const Results = ({ items }: any) => {
   return (
-    <div className="grid grid-flow-col gap-4">
+    <div className="grid gap-4">
       {items.map((item: any) => (
         <Post key={item.slug} {...item} />
       ))}
@@ -88,7 +88,7 @@ export default function Search() {
 
   const result = filter(
     q && !Array.isArray(q) ? q : '',
-    tag && !Array.isArray(tag) ? [tag] : ['']
+    tag && !Array.isArray(tag) ? [tag] : []
   );
 
   return (
