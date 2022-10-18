@@ -8,7 +8,7 @@
   {
     "slug": "src/pages/config/tsconfig-json.mdx",
     "title": "tsconfig.json",
-    "tags": ["exclude"],
+    "tags": ["config", "tsconfig", "json"],
     "path": "/config/tsconfig-json"
   },
   {
