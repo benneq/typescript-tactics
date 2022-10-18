@@ -3,7 +3,7 @@ title: Type Guard
 tags: ['type', 'guard']
 ---
 
-### User-Defined Type Guards
+### User-Defined
 
 ```ts
 const isString = (value: unknown): value is string => {
@@ -13,6 +13,13 @@ const isString = (value: unknown): value is string => {
 if (isString(value)) {
   type Value = string;
 }
+```
+
+### Inline
+
+```ts
+const result = input.filter((value): value is boolean => value !== null);
+type Result = boolean[];
 ```
 
 ### `in` opterator

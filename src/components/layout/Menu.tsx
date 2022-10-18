@@ -16,6 +16,7 @@ const item = (title: string, href: string, children: Item[] = []): Item => {
 };
 
 const items = [
+  item('Config', '/config', [item('tsconfig.json', '/config/tsconfig-json')]),
   item('Function', '/function', [item('Overloading', '/function/overloading')]),
   item('Exclude', '/exclude', [item('Filter', '/exclude/filter')]),
   item('Type', '/type', [item('Guard', '/type/guard')]),
