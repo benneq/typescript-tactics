@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Post from 'components/Post';
 import { useRouter } from 'next/router';
 import search from '../../search.json' assert { type: 'json' };
+import SelectField from 'components/form/SelectField';
+import TextField from 'components/form/TextField';
 
 const tags = [...new Set(search.flatMap((e) => e.tags))];
 
@@ -26,14 +28,6 @@ const Filter = () => {
   const [q1, setQ] = useState(q && !Array.isArray(q) ? q : '');
   const [tag1, setTag] = useState(tag && !Array.isArray(tag) ? tag : '');
 
-  const handleQChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQ(e.target.value);
-  };
-
-  const handleTagsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTag(e.target.value);
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     replace({ query: { q: q1, tag: tag1 } });
@@ -46,24 +40,8 @@ const Filter = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      Search:{' '}
-      <input
-        type="search"
-        className="rounded border p-1"
-        value={q1}
-        onChange={handleQChange}
-      />
-      Tags:{' '}
-      <select
-        value={tag1}
-        onChange={handleTagsChange}
-        className="rounded border p-1"
-      >
-        <option>---</option>
-        {tags.map((tag) => (
-          <option key={tag}>{tag}</option>
-        ))}
-      </select>
+      Search: <TextField value={q1} onChange={setQ} />
+      Tags: <SelectField value={tag1} options={tags} onChange={setTag} />
       <button type="submit" className="rounded border p-1">
         search
       </button>
