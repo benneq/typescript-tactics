@@ -46,14 +46,26 @@ const Filter = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      Search: <input type="search" value={q1} onChange={handleQChange} />
+      Search:{' '}
+      <input
+        type="search"
+        className="rounded border p-1"
+        value={q1}
+        onChange={handleQChange}
+      />
       Tags:{' '}
-      <select value={tag1} onChange={handleTagsChange}>
+      <select
+        value={tag1}
+        onChange={handleTagsChange}
+        className="rounded border p-1"
+      >
         {tags.map((tag) => (
           <option key={tag}>{tag}</option>
         ))}
       </select>
-      <button type="submit">search</button>
+      <button type="submit" className="rounded border p-1">
+        search
+      </button>
     </form>
   );
 };

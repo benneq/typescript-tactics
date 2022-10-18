@@ -56,7 +56,7 @@ const MenuItem = ({ title, href, children }: Item) => {
         )}
       </span>
 
-      <ul className={`flex list-inside pl-4 ${showChildren ? '' : 'hidden'}`}>
+      <ul className={`flex pl-2 ${showChildren ? '' : 'hidden'}`}>
         {children.map((item, i) => (
           <MenuItem key={i} {...item} />
         ))}
@@ -67,10 +67,12 @@ const MenuItem = ({ title, href, children }: Item) => {
 
 export default function Menu() {
   return (
-    <ul className="list-inside">
-      {items.map((item, i) => (
-        <MenuItem key={i} {...item} />
-      ))}
-    </ul>
+    <nav>
+      <ul>
+        {items.map((item, i) => (
+          <MenuItem key={i} {...item} />
+        ))}
+      </ul>
+    </nav>
   );
 }
