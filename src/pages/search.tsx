@@ -59,6 +59,7 @@ const Filter = () => {
         onChange={handleTagsChange}
         className="rounded border p-1"
       >
+        <option>---</option>
         {tags.map((tag) => (
           <option key={tag}>{tag}</option>
         ))}
@@ -70,6 +71,16 @@ const Filter = () => {
   );
 };
 
+const Results = ({ items }: any) => {
+  return (
+    <div className="grid grid-flow-col gap-4">
+      {items.map((item: any) => (
+        <Post key={item.slug} {...item} />
+      ))}
+    </div>
+  );
+};
+
 export default function Search() {
   const {
     query: { q, tag },
@@ -77,20 +88,14 @@ export default function Search() {
 
   const result = filter(
     q && !Array.isArray(q) ? q : '',
-    Array.isArray(tag) ? tag : typeof tag === 'string' ? [tag] : []
+    tag && !Array.isArray(tag) ? [tag] : ['']
   );
 
   return (
     <>
       <Filter />
-      <div className="pt-2">
-        {!result.length
-          ? 'No results'
-          : result.map((post) => (
-              <div key={post.slug}>
-                <Post {...post} />
-              </div>
-            ))}
+      <div className="pt-4">
+        {!result.length ? 'No results' : <Results items={result} />}
       </div>
     </>
   );

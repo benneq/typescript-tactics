@@ -10,7 +10,7 @@ type Props = {
 
 export default function Post({ slug, title, tags, path }: Props) {
   return (
-    <details open className="mb-4 border shadow">
+    <details open className="border shadow">
       <summary className="cursor-pointer">{title}</summary>
       <div className="flex flex-col">
         <div>Slug: {slug}</div>
