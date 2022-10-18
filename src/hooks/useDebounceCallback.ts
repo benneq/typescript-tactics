@@ -9,19 +9,21 @@ type TransformFn<TArgs extends unknown[]> = (
   callback: Callback<TArgs>
 ) => Value;
 
+type UseDebounceCallbackReturn<TArgs extends unknown[]> = (
+  transform: TransformFn<TArgs>
+) => void;
+
 export const useDebounceCallback = <TArgs extends unknown[]>(
   callback: Callback<TArgs>
-) => {
+): UseDebounceCallbackReturn<TArgs> => {
   const timeout = useRef<NodeJS.Timeout | undefined>();
 
-  const transform = useCallback(
-    (transform: TransformFn<TArgs>): void => {
+  return useCallback(
+    (transform) => {
       timeout.current = transform(timeout.current, callback);
     },
     [callback]
   );
-
-  return transform;
 };
 
 export const cancel = (timeout: Value): undefined => {
