@@ -27,13 +27,13 @@ const SafeHydrate: FunctionComponent<{ children: ReactNode }> = ({
 const components: import('mdx/types').MDXComponents = {
   h1: ({ children }) => <h1 className="text-5xl">{children}</h1>,
   h2: ({ children }) => <h1 className="text-4xl">{children}</h1>,
-  h3: ({ children }) => <h1 className="text-3xl">{children}</h1>,
+  h3: ({ children }) => <h1 className="mb-2 text-3xl">{children}</h1>,
   h4: ({ children }) => <h1 className="text-2xl">{children}</h1>,
   h5: ({ children }) => <h1 className="text-xl">{children}</h1>,
   h6: ({ children }) => <h1 className="text-lg">{children}</h1>,
   pre: PreCode,
-  ul: ({ children }) => <ul className="list-disc">{children}</ul>,
-  ol: ({ children }) => <ul className="list-decimal">{children}</ul>,
+  ul: ({ children }) => <ul className="ml-6 list-disc">{children}</ul>,
+  ol: ({ children }) => <ul className="ml-6 list-decimal">{children}</ul>,
 };
 
 export const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
