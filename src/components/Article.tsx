@@ -8,7 +8,7 @@ type Props = {
   path: string;
 };
 
-export default function Post({ slug, title, tags, path }: Props) {
+export default function Article({ slug, title, tags, path }: Props) {
   return (
     <details open className="border shadow">
       <summary className="cursor-pointer">{title}</summary>

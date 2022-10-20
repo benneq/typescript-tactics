@@ -1,4 +1,4 @@
-import { writeText } from 'hooks/useClipboard';
+import { writeText } from 'utils/clipboard';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { ReactNode } from 'react';

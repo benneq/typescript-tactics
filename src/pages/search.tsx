@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Post from 'components/Post';
+import Article from 'components/Article';
 import { useRouter } from 'next/router';
 import search from '../../search.json' assert { type: 'json' };
 import SelectField from 'components/form/SelectField';
@@ -53,7 +53,7 @@ const Results = ({ items }: any) => {
   return (
     <div className="grid gap-4">
       {items.map((item: any) => (
-        <Post key={item.slug} {...item} />
+        <Article key={item.slug} {...item} />
       ))}
     </div>
   );

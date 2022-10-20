@@ -15,6 +15,7 @@ import 'styles/globals.scss';
 import Layout from '../components/layout/Layout';
 import { MDXProvider } from '@mdx-js/react';
 import PreCode from 'components/PreCode';
+import Heading from 'components/Heading';
 
 const SafeHydrate: FunctionComponent<{ children: ReactNode }> = ({
   children,
@@ -25,12 +26,36 @@ const SafeHydrate: FunctionComponent<{ children: ReactNode }> = ({
 );
 
 const components: import('mdx/types').MDXComponents = {
-  h1: ({ children }) => <h1 className="text-5xl">{children}</h1>,
-  h2: ({ children }) => <h1 className="text-4xl">{children}</h1>,
-  h3: ({ children }) => <h1 className="mb-2 text-3xl">{children}</h1>,
-  h4: ({ children }) => <h1 className="text-2xl">{children}</h1>,
-  h5: ({ children }) => <h1 className="text-xl">{children}</h1>,
-  h6: ({ children }) => <h1 className="text-lg">{children}</h1>,
+  h1: ({ children }) => (
+    <Heading component="h1" className="text-5xl">
+      {children}
+    </Heading>
+  ),
+  h2: ({ children }) => (
+    <Heading component="h1" className="text-4xl">
+      {children}
+    </Heading>
+  ),
+  h3: ({ children }) => (
+    <Heading component="h1" className="mb-2 text-3xl">
+      {children}
+    </Heading>
+  ),
+  h4: ({ children }) => (
+    <Heading component="h1" className="text-2xl">
+      {children}
+    </Heading>
+  ),
+  h5: ({ children }) => (
+    <Heading component="h1" className="text-xl">
+      {children}
+    </Heading>
+  ),
+  h6: ({ children }) => (
+    <Heading component="h1" className="text-lg">
+      {children}
+    </Heading>
+  ),
   pre: PreCode,
   ul: ({ children }) => <ul className="ml-6 list-disc">{children}</ul>,
   ol: ({ children }) => <ul className="ml-6 list-decimal">{children}</ul>,

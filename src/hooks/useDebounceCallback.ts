@@ -1,8 +1,7 @@
 import { env } from 'process';
 import { useRef, useCallback } from 'react';
 import { warn } from 'utils/log';
-
-type Callback<TArgs extends unknown[]> = (...args: TArgs) => void;
+import { Callback } from 'utils/types';
 
 type Value = NodeJS.Timeout | undefined;
 
@@ -39,14 +38,14 @@ export const cancel = (timeout: Value): undefined => {
 
 export const delay =
   <TArgs extends unknown[]>(ms: number, ...args: TArgs) =>
-  (timeout: Value, callback: Callback<TArgs>) => {
+  (timeout: Value, callback: Callback<TArgs>): NodeJS.Timeout => {
     cancel(timeout);
     return setTimeout(callback, ms, ...args);
   };
 
 export const now =
   <TArgs extends unknown[]>(...args: TArgs) =>
-  (timeout: Value, callback: Callback<TArgs>) => {
+  (timeout: Value, callback: Callback<TArgs>): undefined => {
     cancel(timeout);
     callback(...args);
     return undefined;

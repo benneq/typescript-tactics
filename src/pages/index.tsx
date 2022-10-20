@@ -2,7 +2,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import fs from 'fs';
 import path from 'path';
 import grayMatter from 'gray-matter';
-import Post from 'components/Post';
+import Article from 'components/Article';
 import { getFilesRecursive } from 'utils/file';
 
 interface Meta {
@@ -12,10 +12,12 @@ interface Meta {
   tags: string[];
 }
 
-export const getStaticProps: GetStaticProps<{ posts: Meta[] }> = async () => {
+export const getStaticProps: GetStaticProps<{
+  articles: Meta[];
+}> = async () => {
   const files = getFilesRecursive('src/pages');
 
-  const posts = files
+  const articles = files
     .map((filepath) => {
       const file = fs.readFileSync(path.normalize(filepath), 'utf-8');
 
@@ -30,22 +32,22 @@ export const getStaticProps: GetStaticProps<{ posts: Meta[] }> = async () => {
           .replaceAll('/index', ''),
       };
     })
-    .filter((post) => post.title && post.tags.length);
+    .filter((article) => article.title && article.tags.length);
 
-  const jsonString = JSON.stringify(posts);
+  const jsonString = JSON.stringify(articles);
   fs.writeFileSync('./search.json', jsonString);
 
-  return { props: { posts } };
+  return { props: { articles: articles } };
 };
 
 export default function Home({
-  posts,
+  articles: artciles,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      {posts.map((post) => (
-        <div key={post.path}>
-          <Post {...post} />
+      {artciles.map((article) => (
+        <div key={article.path}>
+          <Article {...article} />
         </div>
       ))}
     </>
