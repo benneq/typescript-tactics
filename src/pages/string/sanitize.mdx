@@ -1,0 +1,22 @@
+---
+title: String Sanizite
+tags: ['string', 'sanitize']
+---
+
+### Convert to ASCII
+
+```ts showLineNumbers
+string.normalize('NFKD');
+```
+
+### Only Letters (from every language)
+
+```ts showLineNumbers
+string.replace(/[^\p{L}]/gu, '');
+```
+
+### Only Visible Characters and Space
+
+```ts showLineNumbers
+string.replace(/[^\p{C} ]/gu, '');
+```
