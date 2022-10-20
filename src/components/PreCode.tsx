@@ -8,5 +8,5 @@ type Props = {
 };
 
 export default function Code({ children, className }: Props) {
-  return <pre className={className + ' ' + styles.root}>{children}</pre>;
+  return <pre className={className + ' ' + styles['root']}>{children}</pre>;
 }

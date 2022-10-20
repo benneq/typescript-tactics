@@ -22,8 +22,8 @@ export const getStaticProps: GetStaticProps<{ posts: Meta[] }> = async () => {
       const { data } = grayMatter(file);
       return {
         slug: filepath,
-        title: data.title || '',
-        tags: data.tags || [],
+        title: data['title'] || '',
+        tags: data['tags'] || [],
         path: filepath
           .replaceAll('src/pages', '')
           .replaceAll('.mdx', '')

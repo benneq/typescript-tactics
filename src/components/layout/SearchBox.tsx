@@ -12,7 +12,9 @@ import MagGlass from 'components/icon/MagGlass';
 const SearchBox = () => {
   const { query, replace } = useRouter();
 
-  const [q, setQ] = useState(query.q && !Array.isArray(query.q) ? query.q : '');
+  const [q, setQ] = useState(
+    query['q'] && !Array.isArray(query['q']) ? query['q'] : ''
+  );
 
   const debounce = useDebounceCallback((q: string) => {
     replace({ pathname: '/search', query: { q } }, undefined, {
@@ -21,8 +23,8 @@ const SearchBox = () => {
   });
 
   useEffect(() => {
-    setQ(query.q && !Array.isArray(query.q) ? query.q : '');
-  }, [query.q]);
+    setQ(query['q'] && !Array.isArray(query['q']) ? query['q'] : '');
+  }, [query['q']]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

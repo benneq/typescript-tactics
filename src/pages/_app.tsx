@@ -32,6 +32,8 @@ const components: import('mdx/types').MDXComponents = {
   h5: ({ children }) => <h1 className="text-xl">{children}</h1>,
   h6: ({ children }) => <h1 className="text-lg">{children}</h1>,
   pre: PreCode,
+  ul: ({ children }) => <ul className="list-disc">{children}</ul>,
+  ol: ({ children }) => <ul className="list-decimal">{children}</ul>,
 };
 
 export const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (

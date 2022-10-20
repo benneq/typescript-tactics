@@ -1,4 +1,4 @@
-const assetsPrefix = `${process.env.ASSETS_PREFIX}`;
+const assetsPrefix = `${process.env['ASSETS_PREFIX']}`;
 
 export const updateAssetsPrefix = (path: string) =>
   assetsPrefix ? `${assetsPrefix}/${path}` : `/${path}`;

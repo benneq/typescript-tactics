@@ -1,4 +1,6 @@
+import { env } from 'process';
 import { useRef, useCallback } from 'react';
+import { warn } from 'utils/log';
 
 type Callback<TArgs extends unknown[]> = (...args: TArgs) => void;
 
@@ -16,6 +18,10 @@ type UseDebounceCallbackReturn<TArgs extends unknown[]> = (
 export const useDebounceCallback = <TArgs extends unknown[]>(
   callback: Callback<TArgs>
 ): UseDebounceCallbackReturn<TArgs> => {
+  if (env.NODE_ENV === 'development') {
+    warn('callback should be defined', !callback);
+  }
+
   const timeout = useRef<NodeJS.Timeout | undefined>();
 
   return useCallback(

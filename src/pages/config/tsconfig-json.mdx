@@ -8,7 +8,25 @@ tags: ['config', 'tsconfig', 'json']
 ```json showLineNumbers
 {
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true
   }
 }
 ```
+
+### `strict` defaults
+
+- `noImplicitAny`
+- `noImplicitThis`
+- `alwaysStrict`
+- `strictBindCallApply`
+- `strictNullChecks`
+- `strictFunctionTypes`
+- `strictPropertyInitialization`
