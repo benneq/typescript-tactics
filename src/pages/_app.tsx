@@ -6,7 +6,7 @@
   https://frontend-digest.com/how-to-disable-ssr-for-a-nextjs-page-d6b19aa350e3
 */
 
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 
 import 'i18n';
@@ -16,7 +16,9 @@ import Layout from '../components/layout/Layout';
 import { MDXProvider } from '@mdx-js/react';
 import PreCode from 'components/PreCode';
 
-const SafeHydrate: FunctionComponent = ({ children }) => (
+const SafeHydrate: FunctionComponent<{ children: ReactNode }> = ({
+  children,
+}) => (
   <div suppressHydrationWarning>
     {typeof window === 'undefined' ? null : children}
   </div>
@@ -33,13 +35,13 @@ const components: import('mdx/types').MDXComponents = {
 };
 
 export const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
-  <SafeHydrate>
-    <MDXProvider components={components}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </MDXProvider>
-  </SafeHydrate>
+  // <SafeHydrate>
+  <MDXProvider components={components}>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  </MDXProvider>
+  // </SafeHydrate>
 );
 
 export default App;
