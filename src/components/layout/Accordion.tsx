@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useCallback } from 'react';
 import { ReactNode } from 'react';
-import { ValueOrProvider } from 'utils/types';
 import Collapse from './Collapse';
 
 type Props = {
   open?: number;
   children: Array<{
-    title: ValueOrProvider<ReactNode>;
+    title: ReactNode;
     content: ReactNode;
   }>;
 };

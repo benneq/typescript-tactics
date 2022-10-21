@@ -3,12 +3,12 @@ title: Function Arguments
 tags: ['function', 'arguments']
 ---
 
-import Example from '../../components/Example';
+import Example from 'components/Example';
 
 ### Matching generic `function` `arguments` in higher order functions
 
-```ts showLineNumbers
-export const run =
+```ts {6} showLineNumbers
+const run =
   <TArgs extends unknown[]>(...args: TArgs) =>
   <CArgs extends unknown[]>(
     // wrong:

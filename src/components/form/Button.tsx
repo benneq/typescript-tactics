@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function Button({ type, onClick, children }: Props) {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = () => {
     onClick && onClick();
   };
 
