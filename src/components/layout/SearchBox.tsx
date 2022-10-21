@@ -56,7 +56,9 @@ const SearchBox = () => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <MagGlass className="absolute top-1 left-1 h-6 w-6 peer-focus:stroke-gray-400" />
+      <label htmlFor="search">
+        <MagGlass className="absolute top-1.5 left-1.5 h-5 w-5 cursor-pointer peer-focus:stroke-gray-400" />
+      </label>
     </form>
   );
 };

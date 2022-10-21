@@ -10,9 +10,11 @@ export default function Example({
   children,
 }: Props) {
   return (
-    <details>
-      <summary className="cursor-pointer">{summary}</summary>
-      {children}
+    <details className="group">
+      <summary className="cursor-pointer list-none">{summary}</summary>
+      <div className="opacity-0 transition-opacity duration-300 group-open:opacity-100">
+        {children}
+      </div>
     </details>
   );
 }

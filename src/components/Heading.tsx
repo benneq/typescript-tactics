@@ -1,13 +1,17 @@
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { createElement, ReactNode } from 'react';
 
 const hrefId = (text: string): string => {
-  return text
-    .normalize('NFKD')
-    .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/g, '-');
+  return (
+    '#' +
+    text
+      .normalize('NFKD')
+      .toLowerCase()
+      .replaceAll(/[^a-z0-9]+/g, '-')
+  );
 };
 
 type Props = {
@@ -20,6 +24,12 @@ export default function Heading({ component, className, children }: Props) {
   const ref = useRef<HTMLElement>(null);
   const [id, setId] = useState<string>();
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (id === window.location.hash) {
+      ref.current?.scrollIntoView();
+    }
+  }, [id]);
 
   useEffect(() => {
     if (ref.current) {
@@ -50,6 +60,6 @@ export default function Heading({ component, className, children }: Props) {
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,
     },
-    <a href={`#${id}`}>{children}</a>
+    <a href={id}>{children}</a>
   );
 }

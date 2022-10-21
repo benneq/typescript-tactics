@@ -48,6 +48,18 @@
     "path": "/react"
   },
   {
+    "slug": "src/pages/string/index.mdx",
+    "title": "String",
+    "tags": ["string"],
+    "path": "/string"
+  },
+  {
+    "slug": "src/pages/string/sanitize.mdx",
+    "title": "String Sanizite",
+    "tags": ["string", "sanitize"],
+    "path": "/string/sanitize"
+  },
+  {
     "slug": "src/pages/type/guard.mdx",
     "title": "Type Guard",
     "tags": ["type", "guard"],
