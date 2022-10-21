@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Collapse from './layout/Collapse';
 import Tag from './Tag';
 
 type Props = {
@@ -10,8 +11,7 @@ type Props = {
 
 export default function Article({ slug, title, tags, path }: Props) {
   return (
-    <details open className="border shadow">
-      <summary className="cursor-pointer">{title}</summary>
+    <Collapse title={title}>
       <div className="flex flex-col">
         <div>Slug: {slug}</div>
         <div>
@@ -22,6 +22,6 @@ export default function Article({ slug, title, tags, path }: Props) {
           {tags.map((tag, i) => [i > 0 && ', ', <Tag key={tag} value={tag} />])}
         </div>
       </div>
-    </details>
+    </Collapse>
   );
 }

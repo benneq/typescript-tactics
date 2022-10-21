@@ -2,7 +2,7 @@ type Props = {
   className?: string;
 };
 
-export default function Chevron({ className }: Props) {
+export default function MagGlass({ className }: Props) {
   return (
     <svg
       aria-hidden="true"
