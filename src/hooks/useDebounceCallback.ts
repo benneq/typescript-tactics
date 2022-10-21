@@ -22,16 +22,16 @@ export const useDebounceCallback = <TArgs extends unknown[]>(
     warn('callback should be defined', !callback);
   }
 
-  const timeout = useRef<Value>();
+  const timeoutRef = useRef<Value>();
 
   const callbackRef = useUpdatingRef(callback);
 
   return useCallback((transform) => {
-    timeout.current = transform(timeout.current, (...args: TArgs) => {
-      timeout.current = undefined;
+    timeoutRef.current = transform(timeoutRef.current, (...args: TArgs) => {
+      timeoutRef.current = undefined;
       return callbackRef.current(...args);
     });
-    return timeout.current;
+    return timeoutRef.current;
   }, []);
 };
 
@@ -62,7 +62,7 @@ export const now =
   };
 
 export const isRunning = (
-  debounce: UseDebounceCallbackReturn<any>
+  debounce: UseDebounceCallbackReturn<unknown[]>
 ): boolean => {
   return debounce((value) => value) !== undefined;
 };
