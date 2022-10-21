@@ -1,4 +1,5 @@
-import { ReactNode, useCallback } from 'react';
+import { useMemo, useState } from 'react';
+import { ReactNode } from 'react';
 import Collapse from './layout/Collapse';
 
 type Props = {
@@ -7,9 +8,16 @@ type Props = {
 };
 
 export default function Example({ children }: Props) {
-  const title = useCallback((open: boolean) => {
-    return `Example (click to ${open ? 'close' : 'open'})`;
-  }, []);
+  const [open, setOpen] = useState(false);
 
-  return <Collapse title={title}>{children}</Collapse>;
+  const title = useMemo(
+    () => `Example (click to ${open ? 'close' : 'open'})`,
+    [open]
+  );
+
+  return (
+    <Collapse title={title} onToggle={setOpen}>
+      {children}
+    </Collapse>
+  );
 }

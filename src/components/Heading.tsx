@@ -49,7 +49,8 @@ export default function Heading({ component, className, children }: Props) {
       id,
       className: `${className}
         relative
-        before:absolute before:content-['#'] before:-translate-x-full before:-left-1 before:drop-shadow 
+        cursor-pointer
+        before:absolute before:content-['#'] before:-translate-x-full before:pr-1 before:drop-shadow 
         before:transition-opacity
         ${show ? 'before:opacity-100' : 'before:opacity-20'}
       `,
