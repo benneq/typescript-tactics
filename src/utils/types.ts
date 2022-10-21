@@ -1,12 +1,10 @@
-export type Callback<TArgs extends unknown[] = never[]> = (
-  ...args: TArgs
-) => void;
+export type Callback<TArgs extends unknown[] = []> = (...args: TArgs) => void;
 
-export type ValueOrProvider<T, TArgs extends unknown[] = never[]> =
+export type ValueOrProvider<T, TArgs extends unknown[] = []> =
   | T
   | ((...args: TArgs) => T);
 
-export const valueOrProviderResult = <T, TArgs extends unknown[] = never[]>(
+export const valueOrProviderResult = <T, TArgs extends unknown[] = []>(
   value: ValueOrProvider<T, TArgs>,
   ...args: TArgs
 ): T => {

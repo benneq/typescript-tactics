@@ -1,5 +1,5 @@
 import { env } from 'process';
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback } from 'react';
 import { warn } from '../utils/log';
 import { Callback } from '../utils/types';
 import { useUpdatingRef } from './useUpdatingRef';
@@ -13,7 +13,7 @@ type TransformFn<TArgs extends unknown[]> = (
 
 type UseDebounceCallbackReturn<TArgs extends unknown[]> = (
   transform: TransformFn<TArgs>
-) => void;
+) => Value;
 
 export const useDebounceCallback = <TArgs extends unknown[]>(
   callback: Callback<TArgs>
@@ -27,9 +27,11 @@ export const useDebounceCallback = <TArgs extends unknown[]>(
   const callbackRef = useUpdatingRef(callback);
 
   return useCallback((transform) => {
-    timeout.current = transform(timeout.current, (...args: TArgs) =>
-      callbackRef.current(...args)
-    );
+    timeout.current = transform(timeout.current, (...args: TArgs) => {
+      timeout.current = undefined;
+      return callbackRef.current(...args);
+    });
+    return timeout.current;
   }, []);
 };
 
@@ -58,3 +60,9 @@ export const now =
     callback(...args);
     return undefined;
   };
+
+export const isRunning = (
+  debounce: UseDebounceCallbackReturn<any>
+): boolean => {
+  return debounce((value) => value) !== undefined;
+};

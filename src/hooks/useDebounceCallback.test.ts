@@ -1,6 +1,12 @@
 import { renderHook } from '@testing-library/react';
 import { Callback } from 'utils/types';
-import { cancel, delay, now, useDebounceCallback } from './useDebounceCallback';
+import {
+  cancel,
+  delay,
+  isRunning,
+  now,
+  useDebounceCallback,
+} from './useDebounceCallback';
 
 const DELAY = 500;
 
@@ -204,6 +210,20 @@ describe('useDebounceCallback', () => {
       expect(prevCallback).not.toBeCalled();
       expect(callback).toHaveBeenNthCalledWith(1, arg);
       expect(callback).toHaveBeenCalledTimes(1);
+    });
+
+    it('isRunning', () => {
+      const callback = jest.fn();
+      const { result, rerender } = renderHook(() =>
+        useDebounceCallback(callback)
+      );
+      expect(isRunning(result.current)).toEqual(false);
+
+      result.current(delay(DELAY));
+      expect(isRunning(result.current)).toEqual(true);
+
+      jest.runAllTimers();
+      expect(isRunning(result.current)).toEqual(false);
     });
   });
 });
