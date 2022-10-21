@@ -3,17 +3,15 @@ import Collapse from './layout/Collapse';
 import Tag from './Tag';
 
 type Props = {
-  slug: string;
   title: string;
   tags: string[];
   path: string;
 };
 
-export default function Article({ slug, title, tags, path }: Props) {
+export default function Article({ title, tags, path }: Props) {
   return (
     <Collapse title={title}>
       <div className="flex flex-col">
-        <div>Slug: {slug}</div>
         <div>
           Path: <Link href={{ pathname: path }}>{path}</Link>
         </div>

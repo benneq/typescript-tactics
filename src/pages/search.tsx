@@ -14,8 +14,7 @@ const filter = (q: string, tags: string[]) => {
 
   return search.filter(
     (e) =>
-      (q && (e.slug.includes(q) || e.title?.includes(q))) ||
-      tags.some((tag) => e.tags?.includes(tag))
+      (q && e.title?.includes(q)) || tags.some((tag) => e.tags?.includes(tag))
   );
 };
 
@@ -53,7 +52,7 @@ const Results = ({ items }: any) => {
   return (
     <div className="grid gap-4">
       {items.map((item: any) => (
-        <Article key={item.slug} {...item} />
+        <Article key={item.path} {...item} />
       ))}
     </div>
   );

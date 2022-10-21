@@ -21,7 +21,7 @@ export const useDebounceCallback = <TArgs extends unknown[]>(
     warn('callback should be defined', !callback);
   }
 
-  const timeout = useRef<NodeJS.Timeout | undefined>();
+  const timeout = useRef<Value>();
 
   return useCallback(
     (transform) => {

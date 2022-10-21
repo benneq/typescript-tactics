@@ -6,7 +6,6 @@ import Article from 'components/Article';
 import { getFilesRecursive } from 'utils/file';
 
 interface Meta {
-  slug: string;
   path: string;
   title: string;
   tags: string[];
@@ -23,7 +22,6 @@ export const getStaticProps: GetStaticProps<{
 
       const { data } = grayMatter(file);
       return {
-        slug: filepath,
         title: data['title'] || '',
         tags: data['tags'] || [],
         path: filepath

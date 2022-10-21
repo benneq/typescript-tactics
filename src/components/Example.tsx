@@ -6,9 +6,10 @@ type Props = {
   children: ReactNode;
 };
 
-export default function Example({
-  summary = 'Example (click to open)',
-  children,
-}: Props) {
-  return <Collapse title={summary}>{children}</Collapse>;
+export default function Example({ children }: Props) {
+  return (
+    <Collapse title={(open) => `Example (click to ${open ? 'close' : 'open'})`}>
+      {children}
+    </Collapse>
+  );
 }
