@@ -40,9 +40,12 @@ export default function Heading({ component, className, children }: Props) {
     component,
     {
       id,
-      className: `${className} before:absolute before:content-['#'] before:-translate-x-full before:transition-opacity ${
-        show ? 'before:opacity-100' : 'before:opacity-20'
-      }`,
+      className: `${className}
+        relative
+        before:absolute before:content-['#'] before:-translate-x-full before:-left-1
+        before:transition-opacity
+        ${show ? 'before:opacity-100' : 'before:opacity-20'}
+      `,
       ref,
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave,

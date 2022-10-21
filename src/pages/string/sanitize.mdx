@@ -6,7 +6,9 @@ tags: ['string', 'sanitize']
 ### Convert to ASCII
 
 ```ts showLineNumbers
-string.normalize('NFKD');
+string
+  .normalize('NFKD') // normalize accents and diacritics
+  .replaceAll(/[^\x00-\x7F]+/g, ''); // remove remaining non-ascii characters
 ```
 
 ### Only Letters (from every language)

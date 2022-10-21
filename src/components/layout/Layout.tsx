@@ -18,7 +18,7 @@ export default function Layout({ children }: Props) {
       </aside>
       <div className="flex flex-grow flex-col">
         <Header />
-        <main className="p-4">{children}</main>
+        <main className="px-8 pt-4">{children}</main>
       </div>
     </div>
   );

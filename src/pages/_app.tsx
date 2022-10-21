@@ -37,7 +37,7 @@ const components: import('mdx/types').MDXComponents = {
     </Heading>
   ),
   h3: ({ children }) => (
-    <Heading component="h1" className="mb-2 text-3xl">
+    <Heading component="h1" className="mt-4 mb-2 text-3xl first:mt-0">
       {children}
     </Heading>
   ),
