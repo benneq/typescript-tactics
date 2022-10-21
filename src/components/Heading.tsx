@@ -1,8 +1,5 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useRef } from 'react';
-import { createElement, ReactNode } from 'react';
+import { type HTMLAttributes, useEffect, useState, useRef } from 'react';
+import { createElement, type ReactNode } from 'react';
 
 const hrefId = (text: string): string => {
   return (
@@ -21,7 +18,7 @@ type Props = {
 };
 
 export default function Heading({ component, className, children }: Props) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLHeadingElement>(null);
   const [id, setId] = useState<string>();
   const [show, setShow] = useState(false);
 
@@ -46,7 +43,7 @@ export default function Heading({ component, className, children }: Props) {
     setShow(false);
   };
 
-  return createElement(
+  return createElement<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>(
     component,
     {
       id,

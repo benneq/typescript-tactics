@@ -1,7 +1,7 @@
 import { env } from 'process';
 import { useRef, useCallback } from 'react';
-import { warn } from 'utils/log';
-import { Callback } from 'utils/types';
+import { warn } from '../utils/log';
+import { Callback } from '../utils/types';
 
 type Value = NodeJS.Timeout | undefined;
 

@@ -16,7 +16,10 @@ export default function Code({ children, className }: Props) {
   const content = useRef<HTMLPreElement>(null);
 
   const handleCopyClick = () => {
-    writeText(content.current!.textContent!);
+    const text = content.current?.textContent;
+    if (text) {
+      writeText(text);
+    }
   };
 
   const handleMouseEnter = () => {
