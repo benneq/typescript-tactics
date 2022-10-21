@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ReactKeyboardEventHTMLInputElement } from 'utils/react';
 import {
@@ -8,39 +7,35 @@ import {
   useDebounceCallback,
 } from 'hooks/useDebounceCallback';
 import MagGlass from 'components/icon/MagGlass';
+import { useCallback } from 'react';
+import { useRef } from 'react';
 
 const SearchBox = () => {
-  const { query, replace } = useRouter();
+  const { replace } = useRouter();
 
-  const [q, setQ] = useState(
-    query['q'] && !Array.isArray(query['q']) ? query['q'] : ''
-  );
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const debounce = useDebounceCallback((q: string) => {
-    replace({ pathname: '/search', query: { q } }, undefined, {
-      shallow: true,
-    });
-  });
+  const executeSearch = useCallback(() => {
+    replace({ pathname: '/search', query: { q: inputRef.current?.value } });
+  }, []);
 
-  useEffect(() => {
-    setQ(query['q'] && !Array.isArray(query['q']) ? query['q'] : '');
-  }, [query['q']]);
+  const debounce = useDebounceCallback(executeSearch);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQ(value);
-    debounce(delay(500, value));
+  const handleChange = () => {
+    debounce(delay(500));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    debounce(now(q));
+    if (inputRef.current) {
+      debounce(now());
+    }
   };
 
   const handleKeyDown = (e: ReactKeyboardEventHTMLInputElement) => {
     if (e.key === 'Escape') {
       debounce(cancel);
-      setQ('');
+      e.target.value = '';
       e.target.blur();
     }
   };
@@ -48,16 +43,19 @@ const SearchBox = () => {
   return (
     <form onSubmit={handleSubmit} className="relative">
       <input
+        ref={inputRef}
         id="search"
-        type="text"
+        type="search"
         placeholder="Search"
-        className="peer -mr-[8rem] w-full rounded-lg border p-1 pl-8 transition-[margin-right] focus:-mr-0 focus:outline-offset-2 [&:not(:placeholder-shown)]:-mr-0"
-        value={q}
+        className="peer -mr-[8rem] w-full rounded-lg border p-1 pl-8 text-slate-500 transition-[margin-right] focus:-mr-0 focus:text-black focus:outline-offset-2"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <label htmlFor="search">
-        <MagGlass className="absolute top-1.5 left-1.5 h-5 w-5 cursor-pointer peer-focus:stroke-gray-400" />
+      <label
+        className="absolute top-1.5 left-1.5 h-5 w-5 cursor-pointer peer-focus:text-slate-500"
+        htmlFor="search"
+      >
+        <MagGlass />
       </label>
     </form>
   );
