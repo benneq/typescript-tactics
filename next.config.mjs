@@ -33,6 +33,10 @@ const basePath = isProduction ? `/${pkg.name}` : '';
  **/
 const nextConfig = {
   swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+    reactRemoveProperties: true,
+  },
   trailingSlash: true,
   reactStrictMode: true,
   basePath,

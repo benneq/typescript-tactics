@@ -61,7 +61,7 @@ export const now =
     return undefined;
   };
 
-export const isRunning = (
+export const isPending = (
   debounce: UseDebounceCallbackReturn<unknown[]>
 ): boolean => {
   return debounce((value) => value) !== undefined;

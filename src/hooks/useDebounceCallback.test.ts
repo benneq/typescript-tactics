@@ -3,7 +3,7 @@ import { Callback } from 'utils/types';
 import {
   cancel,
   delay,
-  isRunning,
+  isPending,
   now,
   useDebounceCallback,
 } from './useDebounceCallback';
@@ -212,18 +212,24 @@ describe('useDebounceCallback', () => {
       expect(callback).toHaveBeenCalledTimes(1);
     });
 
-    it('isRunning', () => {
+    it('isPending', () => {
       const callback = jest.fn();
       const { result, rerender } = renderHook(() =>
         useDebounceCallback(callback)
       );
-      expect(isRunning(result.current)).toEqual(false);
+      expect(isPending(result.current)).toEqual(false);
+      rerender(jest.fn());
+      expect(isPending(result.current)).toEqual(false);
 
       result.current(delay(DELAY));
-      expect(isRunning(result.current)).toEqual(true);
+      expect(isPending(result.current)).toEqual(true);
+      rerender(jest.fn());
+      expect(isPending(result.current)).toEqual(true);
 
       jest.runAllTimers();
-      expect(isRunning(result.current)).toEqual(false);
+      expect(isPending(result.current)).toEqual(false);
+      rerender(jest.fn());
+      expect(isPending(result.current)).toEqual(false);
     });
   });
 });
