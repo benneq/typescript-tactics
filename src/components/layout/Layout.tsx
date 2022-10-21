@@ -17,7 +17,9 @@ export default function Layout({ children }: Props) {
         <Menu />
       </aside>
       <div className="flex min-w-0 flex-grow flex-col">
-        <Header />
+        <div className="sticky top-0 z-50 bg-white">
+          <Header />
+        </div>
         <main className="px-8 pt-4">{children}</main>
       </div>
     </div>
