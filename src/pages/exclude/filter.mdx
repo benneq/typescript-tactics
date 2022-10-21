@@ -33,6 +33,13 @@ const resultIsNumber = filter(input, isNumber);
 type ResultIsNotNull = number[];
 const resultIsNotNull = filter(input, isNotNull);
 
-```
+````
 </Example>
-```
+
+### Default if `undefined`
+
+```ts showLineNumbers
+const defaultIfUndefined = <T>(value: T | undefined, defaultValue: T & {}): T => {
+  return value === undefined ? defaultValue : value;
+};
+````

@@ -47,7 +47,7 @@ const SearchBox = () => {
         id="search"
         type="search"
         placeholder="Search"
-        className="peer -mr-[8rem] w-full rounded-lg border p-1 pl-8 text-slate-500 transition-[margin-right] focus:-mr-0 focus:text-black focus:outline-offset-2"
+        className="peer -mr-[7rem] w-full rounded-lg border p-1 pl-8 text-slate-500 transition-[margin-right] focus:-mr-0 focus:text-black focus:outline-offset-2"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
