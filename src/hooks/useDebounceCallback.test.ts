@@ -85,6 +85,17 @@ describe('useDebounceCallback', () => {
     expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
+  it('callback undefined', () => {
+    const env = process.env.NODE_ENV;
+    (process.env.NODE_ENV as any) = 'development';
+
+    const logSpy = jest.spyOn(console, 'warn');
+    renderHook(() => useDebounceCallback(undefined!));
+    expect(logSpy).toHaveBeenCalled();
+
+    (process.env.NODE_ENV as any) = env;
+  });
+
   it('return value change', () => {
     const prevCallback = jest.fn();
     const { result, rerender } = renderHook(
@@ -123,45 +134,53 @@ describe('useDebounceCallback', () => {
     });
 
     it('delay new', () => {
+      const arg = Symbol();
       const callback = jest.fn();
-      const res = delay(DELAY)(undefined, callback);
+      const res = delay(DELAY, arg)(undefined, callback);
       expect(res).toBeDefined();
 
       jest.runAllTimers();
+      expect(callback).toHaveBeenNthCalledWith(1, arg);
       expect(callback).toHaveBeenCalledTimes(1);
     });
 
     it('delay override', () => {
+      const arg = Symbol();
       const prevCallback = jest.fn();
       const timeout = setTimeout(prevCallback, DELAY);
 
       const callback = jest.fn();
-      const res = delay(DELAY)(timeout, callback);
+      const res = delay(DELAY, arg)(timeout, callback);
       expect(res).toBeDefined();
 
       jest.runAllTimers();
       expect(prevCallback).not.toBeCalled();
+      expect(callback).toHaveBeenNthCalledWith(1, arg);
       expect(callback).toHaveBeenCalledTimes(1);
     });
 
     it('now new', () => {
+      const arg = Symbol();
       const callback = jest.fn();
-      const res = now()(undefined, callback);
+      const res = now(arg)(undefined, callback);
       expect(res).toBeUndefined();
 
+      expect(callback).toHaveBeenNthCalledWith(1, arg);
       expect(callback).toHaveBeenCalledTimes(1);
     });
 
     it('now override', () => {
+      const arg = Symbol();
       const prevCallback = jest.fn();
       const timeout = setTimeout(prevCallback, DELAY);
 
       const callback = jest.fn();
-      const res = now()(timeout, callback);
+      const res = now(arg)(timeout, callback);
       expect(res).toBeUndefined();
 
       jest.runAllTimers();
       expect(prevCallback).not.toBeCalled();
+      expect(callback).toHaveBeenNthCalledWith(1, arg);
       expect(callback).toHaveBeenCalledTimes(1);
     });
   });
