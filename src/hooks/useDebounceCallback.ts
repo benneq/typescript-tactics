@@ -1,7 +1,8 @@
 import { env } from 'process';
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { warn } from '../utils/log';
 import { Callback } from '../utils/types';
+import { useUpdatingRef } from './useUpdatingRef';
 
 type Value = NodeJS.Timeout | undefined;
 
@@ -23,12 +24,13 @@ export const useDebounceCallback = <TArgs extends unknown[]>(
 
   const timeout = useRef<Value>();
 
-  return useCallback(
-    (transform) => {
-      timeout.current = transform(timeout.current, callback);
-    },
-    [callback]
-  );
+  const callbackRef = useUpdatingRef(callback);
+
+  return useCallback((transform) => {
+    timeout.current = transform(timeout.current, (...args: TArgs) =>
+      callbackRef.current(...args)
+    );
+  }, []);
 };
 
 export const cancel = (timeout: Value): undefined => {

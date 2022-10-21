@@ -7,7 +7,7 @@ import {
   useDebounceCallback,
 } from 'hooks/useDebounceCallback';
 import MagGlass from 'components/icon/MagGlass';
-import { useCallback } from 'react';
+import { FormEvent, useCallback } from 'react';
 import { useRef } from 'react';
 
 const SearchBox = () => {
@@ -25,7 +25,7 @@ const SearchBox = () => {
     debounce(delay(500));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (inputRef.current) {
       debounce(now());

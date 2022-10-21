@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import { KeyboardEvent, ReactNode } from 'react';
 import { isString } from './types';
 
 export type ReactKeyboardEventHTMLInputElement =
-  React.KeyboardEvent<HTMLInputElement> & {
+  KeyboardEvent<HTMLInputElement> & {
     target: HTMLInputElement;
   };
 

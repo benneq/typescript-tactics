@@ -1,10 +1,12 @@
+import { ChangeEvent } from 'react';
+
 type Props = {
   value: string;
   onChange: (value: string) => void;
 };
 
 export default function TextField({ value, onChange }: Props) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 

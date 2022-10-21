@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Callback } from 'utils/types';
 
 type Props = {
-  type?: 'button' | 'submit' | 'reset';
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   onClick?: Callback;
   children: ReactNode;
 };

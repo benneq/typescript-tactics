@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { Callback } from 'utils/types';
 import { cancel, delay, now, useDebounceCallback } from './useDebounceCallback';
 
 const DELAY = 500;
@@ -31,7 +32,7 @@ describe('useDebounceCallback', () => {
 
     const mockFn = jest.fn();
     result.current(mockFn);
-    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, callback);
+    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, expect.any(Function));
 
     jest.runAllTimers();
     expect(callback).not.toBeCalled();
@@ -47,7 +48,7 @@ describe('useDebounceCallback', () => {
     const mockFn = jest.fn();
     result.current(mockFn);
     expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, callback);
+    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, expect.any(Function));
     expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
@@ -61,14 +62,14 @@ describe('useDebounceCallback', () => {
     const mockFn = jest.fn();
     result.current(mockFn);
     expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenNthCalledWith(1, timeout, callback);
+    expect(mockFn).toHaveBeenNthCalledWith(1, timeout, expect.any(Function));
     expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
   it('callback change', () => {
     const prevCallback = jest.fn();
     const { result, rerender } = renderHook(
-      (callback: any) => useDebounceCallback(callback),
+      (callback: Callback) => useDebounceCallback(callback),
       {
         initialProps: prevCallback,
       }
@@ -81,8 +82,29 @@ describe('useDebounceCallback', () => {
     result.current(mockFn);
     expect(prevCallback).not.toBeCalled();
     expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, callback);
+    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, expect.any(Function));
     expect(mockFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('callback change while running', () => {
+    const prevCallback = jest.fn();
+    const { result, rerender } = renderHook(
+      (callback: Callback) => useDebounceCallback(callback),
+      {
+        initialProps: prevCallback,
+      }
+    );
+
+    result.current(delay(DELAY));
+    jest.advanceTimersByTime(DELAY / 2);
+
+    const callback = jest.fn();
+    rerender(callback);
+
+    jest.runAllTimers();
+
+    expect(prevCallback).not.toBeCalled();
+    expect(callback).toBeCalled();
   });
 
   it('callback undefined', () => {
@@ -99,7 +121,7 @@ describe('useDebounceCallback', () => {
   it('return value change', () => {
     const prevCallback = jest.fn();
     const { result, rerender } = renderHook(
-      (callback: any) => useDebounceCallback(callback),
+      (callback: Callback) => useDebounceCallback(callback),
       {
         initialProps: prevCallback,
       }
@@ -113,7 +135,7 @@ describe('useDebounceCallback', () => {
     expect(result.current).toBe(prevResultCurrent);
 
     rerender(jest.fn());
-    expect(result.current).not.toBe(prevResultCurrent);
+    expect(result.current).toBe(prevResultCurrent);
   });
 
   describe('mutations', () => {

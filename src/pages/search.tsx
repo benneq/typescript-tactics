@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import Article from 'components/Article';
 import { useRouter } from 'next/router';
 import search from '../../search.json' assert { type: 'json' };
@@ -28,7 +28,7 @@ const Filter = () => {
   const [q1, setQ] = useState(q && !Array.isArray(q) ? q : '');
   const [tag1, setTag] = useState(tag && !Array.isArray(tag) ? tag : '');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     replace({ query: { q: q1, tag: tag1 } });
   };
