@@ -1,0 +1,27 @@
+---
+title: Function Arguments
+tags: ['function', 'arguments']
+---
+
+import Example from '../../components/Example';
+
+### Matching generic `function` `arguments` in higher order functions
+
+```ts showLineNumbers
+export const run =
+  <TArgs extends unknown[]>(...args: TArgs) =>
+  <CArgs extends unknown[]>(
+    // wrong:
+    // callback: Callback<TArgs>
+    callback: CArgs extends TArgs ? (...args: CArgs) => void : never
+  ): void => {
+    callback(...args);
+  };
+```
+
+<Example>
+```ts showLineNumbers
+// without `CArgs extends TArgs ? Callback<CArgs> : never` this is allowed
+run(42)(() => {});
+```
+</Example>

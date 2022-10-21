@@ -38,14 +38,20 @@ export const cancel = (timeout: Value): undefined => {
 
 export const delay =
   <TArgs extends unknown[]>(ms: number, ...args: TArgs) =>
-  (timeout: Value, callback: Callback<TArgs>): NodeJS.Timeout => {
+  <CArgs extends unknown[]>(
+    timeout: Value,
+    callback: CArgs extends TArgs ? Callback<CArgs> : never
+  ): NodeJS.Timeout => {
     cancel(timeout);
     return setTimeout(callback, ms, ...args);
   };
 
 export const now =
   <TArgs extends unknown[]>(...args: TArgs) =>
-  (timeout: Value, callback: Callback<TArgs>): undefined => {
+  <CArgs extends unknown[]>(
+    timeout: Value,
+    callback: CArgs extends TArgs ? Callback<CArgs> : never
+  ): undefined => {
     cancel(timeout);
     callback(...args);
     return undefined;

@@ -11,6 +11,11 @@
     "path": "/exclude/filter"
   },
   { "title": "Exclude", "tags": ["exclude"], "path": "/exclude" },
+  {
+    "title": "Function Arguments",
+    "tags": ["function", "arguments"],
+    "path": "/function/arguments"
+  },
   { "title": "Function", "tags": ["function"], "path": "/function" },
   {
     "title": "Function Overloading",

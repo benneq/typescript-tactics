@@ -18,7 +18,10 @@ const item = (title: string, href: string, children: Item[] = []): Item => {
 
 const items = [
   item('Config', '/config', [item('tsconfig.json', '/config/tsconfig-json')]),
-  item('Function', '/function', [item('Overloading', '/function/overloading')]),
+  item('Function', '/function', [
+    item('Arguments', '/function/arguments'),
+    item('Overloading', '/function/overloading'),
+  ]),
   item('Exclude', '/exclude', [item('Filter', '/exclude/filter')]),
   item('Type', '/type', [item('Guard', '/type/guard')]),
   item('String', '/string', [item('Sanitize', '/string/sanitize')]),
@@ -49,7 +52,7 @@ const MenuItem = ({ title, href, children }: Item) => {
         )}
       </span>
 
-      <ul className={`flex pl-2 ${showChildren ? '' : 'hidden'}`}>
+      <ul className={`flex flex-col pl-2 ${showChildren ? '' : 'hidden'}`}>
         {children.map((item, i) => (
           <MenuItem key={i} {...item} />
         ))}
