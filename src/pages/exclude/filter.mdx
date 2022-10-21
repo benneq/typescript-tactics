@@ -20,8 +20,8 @@ const isNumber = (value: unknown): value is number => {
   return Number.isFinite(value);
 }
 
-const isNotNull = <T>(arg: T): arg is Exclude<T, null> => {
-return arg !== null
+const isNotNull = <T>(arg: T): arg is Exclude<T, null> => {{/* prettier-ignore */}
+  return arg !== null;
 }
 
 type Input = (number | null)[];

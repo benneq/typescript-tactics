@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import search from '../../search.json' assert { type: 'json' };
 import SelectField from 'components/form/SelectField';
 import TextField from 'components/form/TextField';
+import Button from 'components/form/Button';
 
 const tags = [...new Set(search.flatMap((e) => e.tags))];
 
@@ -41,9 +42,7 @@ const Filter = () => {
     <form onSubmit={handleSubmit}>
       Search: <TextField value={q1} onChange={setQ} />
       Tags: <SelectField value={tag1} options={tags} onChange={setTag} />
-      <button type="submit" className="rounded border p-1">
-        search
-      </button>
+      <Button type="submit">search</Button>
     </form>
   );
 };

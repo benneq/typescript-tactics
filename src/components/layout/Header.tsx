@@ -11,7 +11,7 @@ const Header = () => {
       >
         <Breadcrumb>
           {[1, 2, 3, 4].map((i) => (
-            <a key={i} className="hover:underline" href="#">
+            <a key={i} className="p-2 hover:underline" href="#">
               Breadcrumb {i}
             </a>
           ))}

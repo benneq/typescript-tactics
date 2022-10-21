@@ -11,9 +11,9 @@ export default function Layout({ children }: Props) {
   return (
     <div className="flex min-h-screen flex-row">
       <aside className="flex w-64 min-w-max flex-col gap-2 pl-2 pr-2 pt-1 shadow">
-        <div className="text-center text-2xl font-bold">
-          <Link href="/">TypeScript Tactics</Link>
-        </div>
+        <Link href="/">
+          <a className="text-center text-2xl font-bold">TypeScript Tactics</a>
+        </Link>
         <Menu />
       </aside>
       <div className="flex min-w-0 flex-grow flex-col">
