@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import Collapse from './layout/Collapse';
 
 type Props = {
@@ -7,9 +7,9 @@ type Props = {
 };
 
 export default function Example({ children }: Props) {
-  return (
-    <Collapse title={(open) => `Example (click to ${open ? 'close' : 'open'})`}>
-      {children}
-    </Collapse>
-  );
+  const title = useCallback((open: boolean) => {
+    return `Example (click to ${open ? 'close' : 'open'})`;
+  }, []);
+
+  return <Collapse title={title}>{children}</Collapse>;
 }

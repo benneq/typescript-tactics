@@ -36,7 +36,7 @@ const MenuItem = ({ title, href, children }: Item) => {
     <li className="w-full">
       <span className="flex">
         <Link href={href}>
-          <a className="flex-1">{title}</a>
+          <a className="flex-1 hover:underline">{title}</a>
         </Link>
         {children.length > 0 && (
           <button className="rounded" onClick={handleClick}>

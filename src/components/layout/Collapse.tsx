@@ -1,11 +1,11 @@
 import Chevron from 'components/icon/Chevron';
 import { ChangeEvent, useMemo, ReactNode } from 'react';
-import { valueOrProviderResult, ValueOrProvider } from 'utils/types';
+import { valueOrProviderResult, ValueOrProvider, Callback } from 'utils/types';
 
 type Props = {
   title: ValueOrProvider<ReactNode>;
   open?: boolean;
-  onToggle?: (open: boolean) => void;
+  onToggle?: Callback<[boolean]>;
   children: ReactNode;
 };
 

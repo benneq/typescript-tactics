@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { join } from 'utils/react';
 import Collapse from './layout/Collapse';
 import Tag from './Tag';
 
@@ -17,7 +18,10 @@ export default function Article({ title, tags, path }: Props) {
         </div>
         <div>
           Tags:{' '}
-          {tags.map((tag, i) => [i > 0 && ', ', <Tag key={tag} value={tag} />])}
+          {join(
+            tags.map((tag) => <Tag key={tag} value={tag} />),
+            ', '
+          )}
         </div>
       </div>
     </Collapse>

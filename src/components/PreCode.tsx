@@ -36,7 +36,7 @@ export default function Code({ children, className }: Props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <pre className={className + ' ' + styles['root']} ref={content}>
+      <pre className={`${className} ${styles['root']}`} ref={content}>
         {children}
       </pre>
 

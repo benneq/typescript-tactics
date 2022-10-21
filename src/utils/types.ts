@@ -16,3 +16,7 @@ export const valueOrProviderResult = <T, TArgs extends unknown[] = never[]>(
     return value;
   }
 };
+
+export const isString = (value: unknown): value is string => {
+  return typeof value === 'string';
+};
