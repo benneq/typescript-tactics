@@ -34,15 +34,12 @@ export const shallowEquals = (objA: unknown, objB: unknown): boolean => {
   const keysA = Object.keys(objA);
   const keysB = Object.keys(objB);
 
-  const x = objA;
-
   if (keysA.length !== keysB.length) {
     return false;
   }
 
   // Test for A's keys different from B.
-  for (let i = 0; i < keysA.length; i++) {
-    const currentKey = keysA[i]!;
+  for (const currentKey of keysA) {
     if (
       !(currentKey in objB) ||
       !Object.is(objA[currentKey], objB[currentKey])
