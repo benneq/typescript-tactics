@@ -41,6 +41,18 @@ describe('useDebounceCallback', () => {
     expect(transform).toHaveBeenCalledTimes(1);
   });
 
+  it('unmount', () => {
+    const callback = jest.fn();
+    const { result, rerender, unmount } = renderHook(() =>
+      useDebounceCallback(callback)
+    );
+    result.current(delay(DELAY));
+    unmount();
+    jest.runAllTimers();
+
+    expect(callback).not.toBeCalled();
+  });
+
   it('callback call', () => {
     const callback = jest.fn();
     const arg = Symbol();

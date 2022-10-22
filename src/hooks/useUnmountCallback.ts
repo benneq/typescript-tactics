@@ -1,7 +1,8 @@
+import { Callback } from 'utils/types';
 import { useEffectOnce } from './useEffectOnce';
 import { useUpdatingRef } from './useUpdatingRef';
 
-export const useUnmountCallback = (fn: () => any): void => {
-  const fnRef = useUpdatingRef(fn);
-  useEffectOnce(() => () => fnRef.current());
+export const useUnmountCallback = (destructor: Callback): void => {
+  const destructorRef = useUpdatingRef(destructor);
+  useEffectOnce(() => () => destructorRef.current());
 };
