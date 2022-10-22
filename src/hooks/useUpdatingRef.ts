@@ -1,13 +1,13 @@
 import { MutableRefObject, DependencyList, useEffect, useRef } from 'react';
 
 export const useUpdatingRef = <T extends DependencyList[number]>(
-  dep: T
+  value: T
 ): MutableRefObject<T> => {
-  const ref = useRef(dep);
+  const ref = useRef(value);
 
   useEffect(() => {
-    ref.current = dep;
-  }, [dep]);
+    ref.current = value;
+  }, [value]);
 
   return ref;
 };
