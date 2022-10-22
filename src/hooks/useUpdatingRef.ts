@@ -1,6 +1,8 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, DependencyList, useEffect, useRef } from 'react';
 
-export const useUpdatingRef = <T>(dep: T): MutableRefObject<T> => {
+export const useUpdatingRef = <T extends DependencyList[number]>(
+  dep: T
+): MutableRefObject<T> => {
   const ref = useRef(dep);
 
   useEffect(() => {

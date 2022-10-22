@@ -19,7 +19,7 @@ export const useDebounceCallback = <TArgs extends unknown[]>(
   callback: Callback<TArgs>
 ): UseDebounceCallbackReturn<TArgs> => {
   if (env.NODE_ENV === 'development') {
-    warn('callback should be defined', !callback);
+    warn('callback must be defined', !callback);
   }
 
   const timeoutRef = useRef<Value>();
