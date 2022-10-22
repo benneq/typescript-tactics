@@ -1,8 +1,8 @@
 import { env } from 'process';
 import { useRef, useCallback } from 'react';
+import { identity } from '../utils/function';
 import { warn } from '../utils/log';
 import { Callback } from '../utils/types';
-import { useEffectOnce } from './useEffectOnce';
 import { useUnmountCallback } from './useUnmountCallback';
 import { useUpdatingRef } from './useUpdatingRef';
 
@@ -33,7 +33,7 @@ export const useDebounceCallback = <TArgs extends unknown[]>(
   });
 
   return useCallback((transform) => {
-    timeoutRef.current = transform(timeoutRef.current, (...args: TArgs) => {
+    timeoutRef.current = transform(timeoutRef.current, (...args) => {
       timeoutRef.current = undefined;
       return callbackRef.current(...args);
     });
@@ -70,5 +70,5 @@ export const now =
 export const isPending = (
   debounce: UseDebounceCallbackReturn<unknown[]>
 ): boolean => {
-  return debounce((value) => value) !== undefined;
+  return debounce(identity) !== undefined;
 };

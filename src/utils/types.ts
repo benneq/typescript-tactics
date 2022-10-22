@@ -2,19 +2,27 @@ export type Callback<TArgs extends readonly unknown[] = []> = (
   ...args: TArgs
 ) => void;
 
+export type Provider<T, TArgs extends unknown[] = []> = (...args: TArgs) => T;
+
 export type ValueOrProvider<T, TArgs extends unknown[] = []> =
   | T
-  | ((...args: TArgs) => T);
+  | Provider<T, TArgs>;
 
 export const valueOrProviderResult = <T, TArgs extends unknown[] = []>(
   value: ValueOrProvider<T, TArgs>,
   ...args: TArgs
 ): T => {
-  if (value instanceof Function) {
+  if (isFunction(value)) {
     return value(...args);
   } else {
     return value;
   }
+};
+
+export const isFunction = <T, TArgs extends unknown[] = []>(
+  value: unknown
+): value is (...args: TArgs) => T => {
+  return typeof value === 'function';
 };
 
 export const isString = (value: unknown): value is string => {
