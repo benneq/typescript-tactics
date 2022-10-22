@@ -1,4 +1,6 @@
-export type Callback<TArgs extends unknown[] = []> = (...args: TArgs) => void;
+export type Callback<TArgs extends readonly unknown[] = []> = (
+  ...args: TArgs
+) => void;
 
 export type ValueOrProvider<T, TArgs extends unknown[] = []> =
   | T

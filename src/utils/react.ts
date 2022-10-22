@@ -15,3 +15,41 @@ export const join = (
     node,
   ]);
 };
+
+const hasProperties = (
+  obj: unknown
+): obj is Record<string, unknown> & Array<unknown> => {
+  return typeof obj === 'object' && obj !== null;
+};
+
+export const shallowEquals = (objA: unknown, objB: unknown): boolean => {
+  if (Object.is(objA, objB)) {
+    return true;
+  }
+
+  if (!hasProperties(objA) || !hasProperties(objB)) {
+    return false;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  const x = objA;
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (let i = 0; i < keysA.length; i++) {
+    const currentKey = keysA[i]!;
+    if (
+      !(currentKey in objB) ||
+      !Object.is(objA[currentKey], objB[currentKey])
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+};

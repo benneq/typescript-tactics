@@ -9,11 +9,11 @@ describe('useUpdatingRef', () => {
   });
 
   it('deps change', () => {
-    const prevValue = Symbol();
+    const value1 = Symbol();
     const { result, rerender } = renderHook(
       (value: {}) => useUpdatingRef(value),
       {
-        initialProps: prevValue,
+        initialProps: value1,
       }
     );
     const prevResultCurrent = result.current;
