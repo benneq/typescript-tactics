@@ -128,7 +128,7 @@ describe('useDebounceSubset', () => {
   it('depsSubset change', () => {
     const callback = jest.fn();
     const deps = [Symbol()];
-    const prevSubset = [Symbol()];
+    const depsSubset1 = [Symbol()];
     const { rerender } = renderHook(
       ({ callback, ms, deps, subset }) =>
         useDebounceSubset(callback, ms, deps, subset),
@@ -137,15 +137,15 @@ describe('useDebounceSubset', () => {
           callback: callback,
           ms: DELAY,
           deps,
-          subset: prevSubset,
+          subset: depsSubset1,
         },
       }
     );
 
-    const subset = [Symbol()];
-    rerender({ callback, ms: DELAY, deps, subset });
-    rerender({ callback, ms: DELAY, deps, subset });
-    rerender({ callback, ms: DELAY, deps, subset: prevSubset });
+    const depsSubset2 = [Symbol()];
+    rerender({ callback, ms: DELAY, deps, subset: depsSubset2 });
+    rerender({ callback, ms: DELAY, deps, subset: depsSubset2 });
+    rerender({ callback, ms: DELAY, deps, subset: depsSubset1 });
     expect(callback).not.toBeCalled();
   });
 
@@ -161,25 +161,25 @@ describe('useDebounceSubset', () => {
         initialProps: { callback, ms, deps, depsSubset },
       }
     );
-    const prevResultCurrent = result.current;
+    const resultCurrent = result.current;
 
     rerender({ callback, ms, deps, depsSubset });
-    expect(result.current).toBe(prevResultCurrent);
+    expect(result.current).toBe(resultCurrent);
 
     rerender({ callback, ms: 0, deps: [Symbol()], depsSubset: [Symbol()] });
-    expect(result.current).toBe(prevResultCurrent);
+    expect(result.current).toBe(resultCurrent);
 
     rerender({ callback, ms, deps: deps, depsSubset: [Symbol()] });
-    expect(result.current).toBe(prevResultCurrent);
+    expect(result.current).toBe(resultCurrent);
 
     result.current(jest.fn(() => undefined));
-    expect(result.current).toBe(prevResultCurrent);
+    expect(result.current).toBe(resultCurrent);
 
     result.current(jest.fn(() => setTimeout(() => {}, 0)));
-    expect(result.current).toBe(prevResultCurrent);
+    expect(result.current).toBe(resultCurrent);
 
     rerender({ callback: jest.fn(), ms, deps, depsSubset });
-    expect(result.current).toBe(prevResultCurrent);
+    expect(result.current).toBe(resultCurrent);
   });
 });
 

@@ -1,10 +1,13 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import Article from 'components/Article';
 import { useRouter } from 'next/router';
 import search from '../../search.json' assert { type: 'json' };
 import SelectField from 'components/form/SelectField';
 import TextField from 'components/form/TextField';
 import Button from 'components/form/Button';
+import { useDebounceSubset } from 'hooks/useDebounceSubset';
+import { now } from 'hooks/useDebounceCallback';
+import { useCallback } from 'react';
 
 const tags = [...new Set(search.flatMap((e) => e.tags))];
 
@@ -28,15 +31,22 @@ const Filter = () => {
   const [q1, setQ] = useState(q && !Array.isArray(q) ? q : '');
   const [tag1, setTag] = useState(tag && !Array.isArray(tag) ? tag : '');
 
+  const executeSearch = useCallback(() => {
+    console.log('eep');
+    replace({ query: { q: q1, tag: tag1 } });
+  }, [replace, q1, tag1]);
+
+  const debounce = useDebounceSubset(executeSearch, 500, [q1, tag1], [q1]);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    replace({ query: { q: q1, tag: tag1 } });
+    debounce(now());
   };
 
-  useEffect(() => {
-    setQ(q && !Array.isArray(q) ? q : '');
-    setTag(tag && !Array.isArray(tag) ? tag : '');
-  }, [q, tag]);
+  // useEffect(() => {
+  //   setQ(q && !Array.isArray(q) ? q : '');
+  //   setTag(tag && !Array.isArray(tag) ? tag : '');
+  // }, [q, tag]);
 
   return (
     <form onSubmit={handleSubmit}>

@@ -4,10 +4,6 @@ export const useUpdatingRef = <T extends DependencyList[number]>(
   value: T
 ): MutableRefObject<T> => {
   const ref = useRef(value);
-
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-
+  ref.current = value;
   return ref;
 };
