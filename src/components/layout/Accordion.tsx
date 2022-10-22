@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useCallback } from 'react';
+import { toggle, useSingleSelection } from 'hooks/useSingleSelection';
 import { ReactNode } from 'react';
 import Collapse from './Collapse';
 
@@ -12,18 +11,11 @@ type Props = {
 };
 
 const Accordion = ({ open, children }: Props) => {
-  const [openIndex, setOpenIndex] = useState<number | undefined>(open);
+  const [openIndex, setOpenIndex] = useSingleSelection(open, undefined);
 
-  const handleToggle = useCallback(
-    (i: number) => (value: boolean) => {
-      if (value) {
-        setOpenIndex(i);
-      } else if (openIndex === i) {
-        setOpenIndex(undefined);
-      }
-    },
-    []
-  );
+  const handleToggle = (i: number) => () => {
+    setOpenIndex(toggle(i));
+  };
 
   const isOpen = (i: number | undefined): boolean => {
     return openIndex === i;
