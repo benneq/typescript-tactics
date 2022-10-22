@@ -16,12 +16,12 @@ describe('useUpdatingRef', () => {
         initialProps: value1,
       }
     );
-    const prevResultCurrent = result.current;
+    const resultCurrent = result.current;
 
     const value = Symbol();
     rerender(value);
     expect(result.current.current).toEqual(value);
-    expect(result.current).toEqual(prevResultCurrent);
+    expect(result.current).toEqual(resultCurrent);
   });
 });
 

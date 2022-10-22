@@ -11,7 +11,7 @@ type TransformFn<TArgs extends unknown[]> = (
   callback: Callback<TArgs>
 ) => Value;
 
-type UseDebounceCallbackReturn<TArgs extends unknown[]> = (
+export type UseDebounceCallbackReturn<TArgs extends unknown[]> = (
   transform: TransformFn<TArgs>
 ) => Value;
 

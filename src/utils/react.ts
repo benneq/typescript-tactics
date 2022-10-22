@@ -9,7 +9,7 @@ export type ReactKeyboardEventHTMLInputElement =
 export const join = (
   nodes: ReactNode[],
   separator: string | ((index: number) => ReactNode)
-): ReactNode[][] => {
+): [ReactNode, ReactNode][] => {
   return nodes.map((node, i) => [
     i > 0 && (isString(separator) ? separator : separator(i)),
     node,
