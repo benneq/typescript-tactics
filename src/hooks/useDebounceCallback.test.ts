@@ -27,90 +27,79 @@ describe('useDebounceCallback', () => {
     const callback = jest.fn();
     const { result } = renderHook(() => useDebounceCallback(callback));
 
-    jest.runAllTimers();
-    expect(result.current).toBeDefined();
+    const value = setTimeout(jest.fn());
+    const transform = jest.fn(() => value);
+    const res = result.current(transform);
+
+    expect(res).toEqual(value);
     expect(callback).not.toBeCalled();
+    expect(transform).toHaveBeenNthCalledWith(
+      1,
+      undefined,
+      expect.any(Function)
+    );
+    expect(transform).toHaveBeenCalledTimes(1);
   });
 
-  it('first setValue', () => {
+  it('callback call', () => {
     const callback = jest.fn();
+    const arg = Symbol();
     const { result } = renderHook(() => useDebounceCallback(callback));
 
-    const mockFn = jest.fn();
-    result.current(mockFn);
-    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, expect.any(Function));
+    result.current((_, cb) => {
+      cb(arg);
+      return undefined;
+    });
 
-    jest.runAllTimers();
-    expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenCalledTimes(1);
-  });
-
-  it('second setValue undefined', () => {
-    const callback = jest.fn();
-    const { result } = renderHook(() => useDebounceCallback(callback));
-
-    result.current(() => undefined);
-
-    const mockFn = jest.fn();
-    result.current(mockFn);
-    expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, expect.any(Function));
-    expect(mockFn).toHaveBeenCalledTimes(1);
-  });
-
-  it('second setValue timeout', () => {
-    const callback = jest.fn();
-    const { result } = renderHook(() => useDebounceCallback(callback));
-
-    const timeout = setTimeout(() => {}, DELAY);
-    result.current(() => timeout);
-
-    const mockFn = jest.fn();
-    result.current(mockFn);
-    expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenNthCalledWith(1, timeout, expect.any(Function));
-    expect(mockFn).toHaveBeenCalledTimes(1);
+    expect(callback).toHaveBeenNthCalledWith(1, arg);
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it('callback change', () => {
-    const prevCallback = jest.fn();
+    const callback1 = jest.fn();
     const { result, rerender } = renderHook(
       (callback: Callback) => useDebounceCallback(callback),
       {
-        initialProps: prevCallback,
+        initialProps: callback1,
       }
     );
 
-    const callback = jest.fn();
-    rerender(callback);
+    const callback2 = jest.fn();
+    rerender(callback2);
 
-    const mockFn = jest.fn();
-    result.current(mockFn);
-    expect(prevCallback).not.toBeCalled();
-    expect(callback).not.toBeCalled();
-    expect(mockFn).toHaveBeenNthCalledWith(1, undefined, expect.any(Function));
-    expect(mockFn).toHaveBeenCalledTimes(1);
+    result.current((_, cb) => {
+      cb();
+      return undefined;
+    });
+
+    expect(callback1).not.toBeCalled();
+    expect(callback2).toHaveBeenNthCalledWith(1);
+    expect(callback2).toHaveBeenCalledTimes(1);
   });
 
-  it('callback change while running', () => {
-    const prevCallback = jest.fn();
+  it('callback change while pending', () => {
+    const callback1 = jest.fn();
     const { result, rerender } = renderHook(
-      (callback: Callback) => useDebounceCallback(callback),
+      (callback) => useDebounceCallback(callback),
       {
-        initialProps: prevCallback,
+        initialProps: callback1,
       }
     );
 
-    result.current(delay(DELAY));
-    jest.advanceTimersByTime(DELAY / 2);
+    const arg = Symbol();
+    result.current((_, cb) => {
+      setTimeout(cb, 0, arg);
+      return undefined;
+    });
 
-    const callback = jest.fn();
-    rerender(callback);
+    const callback2 = jest.fn();
+    rerender(callback2);
 
     jest.runAllTimers();
 
-    expect(prevCallback).not.toBeCalled();
-    expect(callback).toBeCalled();
+    expect(callback1).not.toBeCalled();
+    expect(callback2).toHaveBeenNthCalledWith(1, arg);
+    expect(callback2).toHaveBeenCalledTimes(1);
   });
 
   it('callback undefined', () => {
@@ -124,41 +113,39 @@ describe('useDebounceCallback', () => {
     (process.env.NODE_ENV as any) = env;
   });
 
-  it('return value change', () => {
-    const prevCallback = jest.fn();
-    const { result, rerender } = renderHook(
-      (callback: Callback) => useDebounceCallback(callback),
-      {
-        initialProps: prevCallback,
-      }
-    );
-    const prevResultCurrent = result.current;
+  it('value change', () => {
+    const callback = jest.fn();
+    const { result } = renderHook(() => useDebounceCallback(callback));
 
-    result.current(() => setTimeout(() => {}, DELAY));
-    expect(result.current).toBe(prevResultCurrent);
+    const value1 = setTimeout(jest.fn());
+    const res1 = result.current(() => value1);
 
-    result.current(() => undefined);
-    expect(result.current).toBe(prevResultCurrent);
+    const value2 = setTimeout(jest.fn());
+    const transform2 = jest.fn(() => value2);
+    const res2 = result.current(transform2);
 
-    rerender(jest.fn());
-    expect(result.current).toBe(prevResultCurrent);
+    expect(value1).not.toEqual(value2);
+    expect(res1).toEqual(value1);
+    expect(res2).toEqual(value2);
+    expect(transform2).toHaveBeenNthCalledWith(1, value1, expect.any(Function));
+    expect(transform2).toHaveBeenCalledTimes(1);
   });
 
-  describe('mutations', () => {
+  describe('transform', () => {
     it('cancel undefined', () => {
       const res = cancel(undefined);
       expect(res).toBeUndefined();
     });
 
     it('cancel timeout', () => {
-      const prevCallback = jest.fn();
-      const timeout = setTimeout(prevCallback, DELAY);
+      const callback = jest.fn();
+      const timeout = setTimeout(callback, DELAY);
 
       const res = cancel(timeout);
       expect(res).toBeUndefined();
 
       jest.runAllTimers();
-      expect(prevCallback).not.toBeCalled();
+      expect(callback).not.toBeCalled();
     });
 
     it('delay new', () => {
@@ -166,6 +153,7 @@ describe('useDebounceCallback', () => {
       const callback = jest.fn();
       const res = delay(DELAY, arg)(undefined, callback);
       expect(res).toBeDefined();
+      expect(callback).not.toHaveBeenCalled();
 
       jest.runAllTimers();
       expect(callback).toHaveBeenNthCalledWith(1, arg);
@@ -174,17 +162,18 @@ describe('useDebounceCallback', () => {
 
     it('delay override', () => {
       const arg = Symbol();
-      const prevCallback = jest.fn();
-      const timeout = setTimeout(prevCallback, DELAY);
+      const callback1 = jest.fn();
+      const timeout = setTimeout(callback1, DELAY);
 
-      const callback = jest.fn();
-      const res = delay(DELAY, arg)(timeout, callback);
+      const callback2 = jest.fn();
+      const res = delay(DELAY, arg)(timeout, callback2);
       expect(res).toBeDefined();
+      expect(callback2).not.toBeCalled();
 
       jest.runAllTimers();
-      expect(prevCallback).not.toBeCalled();
-      expect(callback).toHaveBeenNthCalledWith(1, arg);
-      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback1).not.toBeCalled();
+      expect(callback2).toHaveBeenNthCalledWith(1, arg);
+      expect(callback2).toHaveBeenCalledTimes(1);
     });
 
     it('now new', () => {
@@ -199,17 +188,17 @@ describe('useDebounceCallback', () => {
 
     it('now override', () => {
       const arg = Symbol();
-      const prevCallback = jest.fn();
-      const timeout = setTimeout(prevCallback, DELAY);
+      const callback1 = jest.fn();
+      const timeout = setTimeout(callback1, DELAY);
 
-      const callback = jest.fn();
-      const res = now(arg)(timeout, callback);
+      const callback2 = jest.fn();
+      const res = now(arg)(timeout, callback2);
       expect(res).toBeUndefined();
+      expect(callback2).toHaveBeenNthCalledWith(1, arg);
 
       jest.runAllTimers();
-      expect(prevCallback).not.toBeCalled();
-      expect(callback).toHaveBeenNthCalledWith(1, arg);
-      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback1).not.toBeCalled();
+      expect(callback2).toHaveBeenCalledTimes(1);
     });
 
     it('isPending', () => {
