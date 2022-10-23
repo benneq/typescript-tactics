@@ -1,4 +1,4 @@
-import { toIterable } from './iterable';
+import { every, some, toIterable } from './iterable';
 
 export const toggle =
   <T>(set: Set<T>) =>
@@ -18,24 +18,18 @@ export const toSet = <T>(value: T | Iterable<T>): Set<T> => {
   return new Set(toIterable(value));
 };
 
-export const every =
+export const isSet = <T>(value: unknown): value is Set<T> => {
+  return value instanceof Set;
+};
+
+export const containsAll =
   <T>(set: Set<T>) =>
   (value: T | Iterable<T>): boolean => {
-    for (const e of toIterable(value)) {
-      if (!set.has(e)) {
-        return false;
-      }
-    }
-    return true;
+    return every(toIterable(value))((e) => set.has(e));
   };
 
-export const some =
+export const containsAny =
   <T>(set: Set<T>) =>
   (value: T | Iterable<T>): boolean => {
-    for (const e of toIterable(value)) {
-      if (set.has(e)) {
-        return true;
-      }
-    }
-    return false;
+    return some(toIterable(value))((e) => set.has(e));
   };

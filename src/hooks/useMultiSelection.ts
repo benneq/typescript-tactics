@@ -4,8 +4,8 @@ import {
   toggle as toggleSet,
   isEmpty as isEmptySet,
   toSet,
-  every,
-  some,
+  containsAll,
+  containsAny,
 } from '../utils/set';
 
 type Value<T> = Set<T>;
@@ -31,11 +31,11 @@ export const useMultiSelection = <T>(
   return [value, transform];
 };
 
-export const clearAll = <T>(_: Value<T>): Value<T> => {
+export const clear = <T>(_: Value<T>): Value<T> => {
   return new Set();
 };
 
-export const setSelection =
+export const set =
   <T>(value: Value<T>) =>
   (_: Value<T>): Value<T> => {
     return value;
@@ -73,19 +73,19 @@ export const isSelected = <T>(
   multiSelectionValue: Value<T>,
   value: T | Iterable<T>
 ): boolean => {
-  return every(multiSelectionValue)(value);
+  return containsAll(multiSelectionValue)(value);
 };
 
-export const anySelected = <T>(
+export const isAnySelected = <T>(
   multiSelectionValue: Value<T>,
   value: T | Iterable<T>
 ): boolean => {
-  return some(multiSelectionValue)(value);
+  return containsAny(multiSelectionValue)(value);
 };
 
-export const notSelected = <T>(
+export const isNotSelected = <T>(
   multiSelectionValue: Value<T>,
   value: T | Iterable<T>
 ): boolean => {
-  return !anySelected(multiSelectionValue, value);
+  return !isAnySelected(multiSelectionValue, value);
 };

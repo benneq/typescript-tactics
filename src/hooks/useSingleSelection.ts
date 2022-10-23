@@ -55,6 +55,9 @@ export const isSelected = <T>(singleSelectionValue: T, value: T): boolean => {
   return singleSelectionValue === value;
 };
 
-export const notSelected = <T>(singleSelectionValue: T, value: T): boolean => {
+export const isNotSelected = <T>(
+  singleSelectionValue: T,
+  value: T
+): boolean => {
   return !isSelected(singleSelectionValue, value);
 };

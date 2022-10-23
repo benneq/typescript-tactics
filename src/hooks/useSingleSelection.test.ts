@@ -3,7 +3,7 @@ import {
   clear,
   deselect,
   isSelected,
-  notSelected,
+  isNotSelected,
   select,
   toggle,
   useSingleSelection,
@@ -87,16 +87,16 @@ describe('useSingleSelection', () => {
       expect(isSelected<symbol>(value1, value2)).toEqual(false);
     });
 
-    it('notSelected', () => {
+    it('isNotSelected', () => {
       const value1 = Symbol();
       const value2 = Symbol();
       const empty = Symbol();
 
-      expect(notSelected(empty, empty)).toEqual(false);
-      expect(notSelected<symbol>(value1, empty)).toEqual(true);
-      expect(notSelected<symbol>(empty, value1)).toEqual(true);
-      expect(notSelected(value1, value1)).toEqual(false);
-      expect(notSelected<symbol>(value1, value2)).toEqual(true);
+      expect(isNotSelected(empty, empty)).toEqual(false);
+      expect(isNotSelected<symbol>(value1, empty)).toEqual(true);
+      expect(isNotSelected<symbol>(empty, value1)).toEqual(true);
+      expect(isNotSelected(value1, value1)).toEqual(false);
+      expect(isNotSelected<symbol>(value1, value2)).toEqual(true);
     });
   });
 });

@@ -1,13 +1,13 @@
 import { act, renderHook } from '@testing-library/react';
 import {
-  anySelected,
-  clearAll,
+  isAnySelected,
+  clear,
   deselect,
   isEmpty,
   isSelected,
-  notSelected,
+  isNotSelected,
   select,
-  setSelection,
+  set,
   toggle,
   useMultiSelection,
 } from './useMultiSelection';
@@ -37,14 +37,14 @@ describe('useMultiSelection', () => {
   });
 
   describe('', () => {
-    it('clearAll', () => {
+    it('clear', () => {
       const selection = new Set([Symbol()]);
-      expect(clearAll(selection)).toEqual(new Set());
+      expect(clear(selection)).toEqual(new Set());
     });
 
-    it('setSelection', () => {
+    it('set', () => {
       const selection = new Set([Symbol()]);
-      expect(setSelection(selection)(expect.anything())).toEqual(selection);
+      expect(set(selection)(expect.anything())).toEqual(selection);
     });
 
     it('toggle', () => {
@@ -141,44 +141,48 @@ describe('useMultiSelection', () => {
       expect(isSelected(selection1, new Set([value2]))).toEqual(false);
     });
 
-    it('anySelected', () => {
+    it('isAnySelected', () => {
       const value1 = Symbol();
       const value2 = Symbol();
 
       const selection1 = new Set([value1]);
 
-      expect(anySelected(selection1, [])).toEqual(false);
+      expect(isAnySelected(selection1, [])).toEqual(false);
 
-      expect(anySelected(selection1, value1)).toEqual(true);
-      expect(anySelected(selection1, [value1])).toEqual(true);
-      expect(anySelected(selection1, new Set([value1]))).toEqual(true);
+      expect(isAnySelected(selection1, value1)).toEqual(true);
+      expect(isAnySelected(selection1, [value1])).toEqual(true);
+      expect(isAnySelected(selection1, new Set([value1]))).toEqual(true);
 
-      expect(anySelected(selection1, value2)).toEqual(false);
-      expect(anySelected(selection1, [value2])).toEqual(false);
-      expect(anySelected(selection1, new Set([value2]))).toEqual(false);
+      expect(isAnySelected(selection1, value2)).toEqual(false);
+      expect(isAnySelected(selection1, [value2])).toEqual(false);
+      expect(isAnySelected(selection1, new Set([value2]))).toEqual(false);
 
-      expect(anySelected(selection1, [value1, value2])).toEqual(true);
-      expect(anySelected(selection1, new Set([value1, value2]))).toEqual(true);
+      expect(isAnySelected(selection1, [value1, value2])).toEqual(true);
+      expect(isAnySelected(selection1, new Set([value1, value2]))).toEqual(
+        true
+      );
     });
 
-    it('notSelected', () => {
+    it('isNotSelected', () => {
       const value1 = Symbol();
       const value2 = Symbol();
 
       const selection1 = new Set([value1]);
 
-      expect(notSelected(selection1, [])).toEqual(true);
+      expect(isNotSelected(selection1, [])).toEqual(true);
 
-      expect(notSelected(selection1, value1)).toEqual(false);
-      expect(notSelected(selection1, [value1])).toEqual(false);
-      expect(notSelected(selection1, new Set([value1]))).toEqual(false);
+      expect(isNotSelected(selection1, value1)).toEqual(false);
+      expect(isNotSelected(selection1, [value1])).toEqual(false);
+      expect(isNotSelected(selection1, new Set([value1]))).toEqual(false);
 
-      expect(notSelected(selection1, value2)).toEqual(true);
-      expect(notSelected(selection1, [value2])).toEqual(true);
-      expect(notSelected(selection1, new Set([value2]))).toEqual(true);
+      expect(isNotSelected(selection1, value2)).toEqual(true);
+      expect(isNotSelected(selection1, [value2])).toEqual(true);
+      expect(isNotSelected(selection1, new Set([value2]))).toEqual(true);
 
-      expect(notSelected(selection1, [value1, value2])).toEqual(false);
-      expect(notSelected(selection1, new Set([value1, value2]))).toEqual(false);
+      expect(isNotSelected(selection1, [value1, value2])).toEqual(false);
+      expect(isNotSelected(selection1, new Set([value1, value2]))).toEqual(
+        false
+      );
     });
   });
 });
