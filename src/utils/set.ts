@@ -1,5 +1,5 @@
 import { toArray } from './array';
-import { every, forEach, some } from './iterable';
+import { every, some } from './iterable';
 import { Predicate } from './types';
 
 export type SetCompatible<T> = T[] | Set<T>;
@@ -19,6 +19,68 @@ export const toSet = <T>(value: T | SetCompatible<T>): Set<T> => {
 export const copy = <T>(set: Set<T>): Set<T> => {
   return new Set(set);
 };
+
+export const filter =
+  <T>(set: Set<T>) =>
+  (predicate: Predicate<T>): Set<T> => {
+    const res = new Set<T>();
+    set.forEach((e) => predicate(e) && res.add(e));
+    return res;
+  };
+
+export const isEmpty = <T>(set: Set<T>): boolean => {
+  return !set.size;
+};
+
+export const contains =
+  <T>(set: Set<T>) =>
+  (value: T): boolean => {
+    return set.has(value);
+  };
+
+export const containsAll =
+  <T>(set: Set<T>) =>
+  (value: SetCompatible<T>): boolean => {
+    return every(value)(contains(set));
+  };
+
+export const containsAny =
+  <T>(set: Set<T>) =>
+  (value: SetCompatible<T>): boolean => {
+    return some(value)(contains(set));
+  };
+
+export const isSuperset = <T>(set: Set<T>, subset: Set<T>): boolean => {
+  return containsAll(set)(subset);
+};
+
+export const isSubset = <T>(set: Set<T>, superset: Set<T>): boolean => {
+  return containsAll(superset)(set);
+};
+
+export const union = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+  const union = copy(setA);
+  setB.forEach(add(union));
+  return union;
+};
+
+export const intersection = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+  return filter(setB)(contains(setA));
+};
+
+export const symmetricDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+  const difference = copy(setA);
+  toggleAll(difference)(setB);
+  return difference;
+};
+
+export const difference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+  const difference = copy(setA);
+  removeAll(difference)(setB);
+  return difference;
+};
+
+// mutations
 
 export const add =
   <T>(set: Set<T>) =>
@@ -59,53 +121,3 @@ export const toggleAll =
   (value: SetCompatible<T>): void => {
     value.forEach(toggle(set));
   };
-
-export const filter =
-  <T>(set: Set<T>) =>
-  (predicate: Predicate<T>): Set<T> => {
-    const res = new Set<T>();
-    set.forEach((e) => predicate(e) && res.add(e));
-    return res;
-  };
-
-export const isEmpty = <T>(set: Set<T>): boolean => {
-  return !set.size;
-};
-
-export const contains =
-  <T>(set: Set<T>) =>
-  (value: T): boolean => {
-    return set.has(value);
-  };
-
-export const containsAll =
-  <T>(set: Set<T>) =>
-  (value: SetCompatible<T>): boolean => {
-    return every(value)(contains(set));
-  };
-
-export const containsAny =
-  <T>(set: Set<T>) =>
-  (value: SetCompatible<T>): boolean => {
-    return some(value)(contains(set));
-  };
-
-export const isSuperset = <T>(set: Set<T>, subset: Set<T>): boolean => {
-  return containsAll(set)(subset);
-};
-
-export const union = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  const union = copy(setA);
-  setB.forEach(add(union));
-  return union;
-};
-
-export const intersection = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  return filter(setB)(contains(setA));
-};
-
-export const difference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  const difference = copy(setA);
-  removeAll(difference)(setB);
-  return difference;
-};
