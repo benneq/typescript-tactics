@@ -1,4 +1,4 @@
-import { Predicate } from './types';
+import { Callback, Predicate } from './types';
 
 export const isIterable = <T>(value: unknown): value is Iterable<T> => {
   return Symbol.iterator in Object(value);
@@ -7,6 +7,14 @@ export const isIterable = <T>(value: unknown): value is Iterable<T> => {
 export const toIterable = <T>(value: T | Iterable<T>): Iterable<T> => {
   return isIterable(value) ? value : [value];
 };
+
+export const forEach =
+  <T>(iterable: Iterable<T>) =>
+  (callback: Callback<[T]>) => {
+    for (const e of iterable) {
+      callback(e);
+    }
+  };
 
 export const every =
   <T>(iterable: Iterable<T>) =>

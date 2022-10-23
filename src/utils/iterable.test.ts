@@ -1,4 +1,11 @@
-import { every, isEmpty, isIterable, some, toIterable } from './iterable';
+import {
+  every,
+  forEach,
+  isEmpty,
+  isIterable,
+  some,
+  toIterable,
+} from './iterable';
 
 describe('iterable', () => {
   it('isIterable', () => {
@@ -28,6 +35,15 @@ describe('iterable', () => {
     expect(toIterable(new Map([[value, value]]))).toEqual(
       new Map([[value, value]])
     );
+  });
+
+  it('forEach', () => {
+    const value = Symbol();
+    const callback = jest.fn();
+
+    forEach([value])(callback);
+    expect(callback).toHaveBeenNthCalledWith(1, value);
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it('every', () => {
