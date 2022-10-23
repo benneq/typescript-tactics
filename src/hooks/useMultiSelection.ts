@@ -8,6 +8,7 @@ import {
   toggleAll,
   addAll,
   removeAll,
+  copy,
 } from '../utils/set';
 
 type Value<T> = Set<T>;
@@ -41,7 +42,7 @@ export const set =
 export const toggle =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
-    const selection = new Set(prevValue);
+    const selection = copy(prevValue);
     toggleAll(selection)(value);
     return selection;
   };
@@ -49,7 +50,7 @@ export const toggle =
 export const select =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
-    const selection = new Set(prevValue);
+    const selection = copy(prevValue);
     addAll(selection)(value);
     return selection;
   };
@@ -57,7 +58,7 @@ export const select =
 export const deselect =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
-    const selection = new Set(prevValue);
+    const selection = copy(prevValue);
     removeAll(selection)(value);
     return selection;
   };

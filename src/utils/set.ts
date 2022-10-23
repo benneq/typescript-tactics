@@ -15,6 +15,10 @@ export const toSet = <T>(value: T | SetCompatible<T>): Set<T> => {
   return new Set(toArray(value));
 };
 
+export const copy = <T>(set: Set<T>): Set<T> => {
+  return new Set(set);
+};
+
 export const add =
   <T>(set: Set<T>) =>
   (value: T) => {
