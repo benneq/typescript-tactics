@@ -22,12 +22,7 @@ export const useMultiSelection = <T>(
   const [value, setValue] = useState(initialValue);
 
   const transform = useCallback((transform: TransformFn<T>) => {
-    const ref = { current: new Set<T>() };
-    setValue((prevValue) => {
-      const res = transform(prevValue);
-      ref.current = res;
-      return res;
-    });
+    setValue((prevValue) => transform(prevValue));
   }, []);
 
   return [value, transform];

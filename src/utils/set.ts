@@ -56,7 +56,7 @@ export const toggleAll =
   };
 
 export const isEmpty = <T>(set: Set<T>): boolean => {
-  return set.size === 0;
+  return !set.size;
 };
 
 export const contains =
