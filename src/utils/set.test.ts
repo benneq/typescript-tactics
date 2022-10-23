@@ -1,7 +1,9 @@
 import {
+  addAll,
   contains,
   containsAll,
   containsAny,
+  deleteAll,
   isEmpty,
   isSet,
   toggle,
@@ -38,6 +40,26 @@ describe('set', () => {
     expect(toSet(new Map([[value, value]]))).toEqual(
       new Set([new Map([[value, value]])])
     );
+  });
+
+  it('addAll', () => {
+    const set = new Set();
+    addAll(set)([]);
+    expect(set).toEqual(new Set());
+
+    const value1 = Symbol();
+    const value2 = Symbol();
+    addAll(set)([value1, value2]);
+    expect(set).toEqual(new Set([value2, value1]));
+  });
+
+  it('deletell', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+
+    const set = new Set([value1]);
+    deleteAll(set)([value1, value2]);
+    expect(set).toEqual(new Set());
   });
 
   it('toggle', () => {

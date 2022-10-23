@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react';
 import { ValueOrProvider } from '../utils/types';
 import {
-  toggle as toggleSet,
   isEmpty as isEmptySet,
   toSet,
   containsAny,
   SetCompatible,
   contains,
+  toggleAll,
+  addAll,
+  deleteAll,
 } from '../utils/set';
 
 type Value<T> = Set<T>;
@@ -46,7 +48,7 @@ export const toggle =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    toSet(value).forEach(toggleSet(selection));
+    toggleAll(selection)(value);
     return selection;
   };
 
@@ -54,7 +56,7 @@ export const select =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    toSet(value).forEach((e) => selection.add(e));
+    addAll(selection)(value);
     return selection;
   };
 
@@ -62,7 +64,7 @@ export const deselect =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    toSet(value).forEach((e) => selection.delete(e));
+    deleteAll(selection)(value);
     return selection;
   };
 

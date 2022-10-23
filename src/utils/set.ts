@@ -15,6 +15,18 @@ export const toSet = <T>(value: T | SetCompatible<T>): Set<T> => {
   return new Set(toArray(value));
 };
 
+export const addAll =
+  <T>(set: Set<T>) =>
+  (value: SetCompatible<T>) => {
+    value.forEach((e) => set.add(e));
+  };
+
+export const deleteAll =
+  <T>(set: Set<T>) =>
+  (value: SetCompatible<T>) => {
+    value.forEach((e) => set.delete(e));
+  };
+
 export const toggle =
   <T>(set: Set<T>) =>
   (value: T): void => {

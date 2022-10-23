@@ -56,13 +56,9 @@ describe('useMultiSelection', () => {
       expect(toggle<symbol>([])(selection1)).toEqual(selection1);
 
       expect(toggle<symbol>([value1])(selection1)).toEqual(new Set());
-      expect(toggle<symbol>(value1)(selection1)).toEqual(new Set());
       expect(toggle<symbol>(new Set([value1]))(selection1)).toEqual(new Set());
 
       expect(toggle<symbol>([value2])(selection1)).toEqual(
-        new Set([value1, value2])
-      );
-      expect(toggle<symbol>(value2)(selection1)).toEqual(
         new Set([value1, value2])
       );
       expect(toggle<symbol>(new Set([value2]))(selection1)).toEqual(
@@ -79,13 +75,9 @@ describe('useMultiSelection', () => {
       expect(select<symbol>([])(selection1)).toEqual(selection1);
 
       expect(select<symbol>([value1])(selection1)).toEqual(selection1);
-      expect(select<symbol>(value1)(selection1)).toEqual(selection1);
       expect(select<symbol>(new Set([value1]))(selection1)).toEqual(selection1);
 
       expect(select<symbol>([value2])(selection1)).toEqual(
-        new Set([value1, value2])
-      );
-      expect(select<symbol>(value2)(selection1)).toEqual(
         new Set([value1, value2])
       );
       expect(select<symbol>(new Set([value2]))(selection1)).toEqual(
@@ -102,7 +94,6 @@ describe('useMultiSelection', () => {
       expect(deselect<symbol>([])(selection1)).toEqual(selection1);
 
       expect(deselect<symbol>([value1])(selection1)).toEqual(new Set());
-      expect(deselect<symbol>(value1)(selection1)).toEqual(new Set());
       expect(deselect<symbol>(new Set([value1]))(selection1)).toEqual(
         new Set()
       );
@@ -110,7 +101,6 @@ describe('useMultiSelection', () => {
       expect(deselect<symbol>([value2])(selection1)).toEqual(
         new Set(selection1)
       );
-      expect(deselect<symbol>(value2)(selection1)).toEqual(new Set(selection1));
       expect(deselect<symbol>(new Set([value2]))(selection1)).toEqual(
         new Set(selection1)
       );
