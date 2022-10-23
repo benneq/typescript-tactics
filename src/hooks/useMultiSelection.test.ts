@@ -3,6 +3,7 @@ import {
   anySelected,
   clearAll,
   deselect,
+  isEmpty,
   isSelected,
   notSelected,
   select,
@@ -13,25 +14,25 @@ import {
 
 describe('useMultiSelection', () => {
   it('initial state', () => {
-    const value = new Set([Symbol()]);
-    const { result } = renderHook(() => useMultiSelection(value));
-    expect(result.current[0]).toEqual(value);
+    const selection = new Set([Symbol()]);
+    const { result } = renderHook(() => useMultiSelection(selection));
+    expect(result.current[0]).toEqual(selection);
     expect(result.current[1]).toEqual(expect.any(Function));
   });
 
   it('transform', () => {
-    const value1 = new Set([Symbol()]);
-    const { result } = renderHook(() => useMultiSelection<symbol>(value1));
+    const selection1 = new Set([Symbol()]);
+    const { result } = renderHook(() => useMultiSelection<symbol>(selection1));
 
-    const value2 = new Set([Symbol()]);
-    const transform = jest.fn(() => value2);
+    const selection2 = new Set([Symbol()]);
+    const transform = jest.fn(() => selection2);
 
     act(() => {
       result.current[1](transform);
     });
 
-    expect(result.current[0]).toEqual(value2);
-    expect(transform).toHaveBeenNthCalledWith(1, value1);
+    expect(result.current[0]).toEqual(selection2);
+    expect(transform).toHaveBeenNthCalledWith(1, selection1);
     expect(transform).toHaveBeenCalledTimes(1);
   });
 
@@ -113,6 +114,16 @@ describe('useMultiSelection', () => {
       expect(deselect<symbol>(new Set([value2]))(selection1)).toEqual(
         new Set(selection1)
       );
+    });
+
+    it('isEmpty', () => {
+      const value1 = Symbol();
+
+      const selection1 = new Set();
+      const selection2 = new Set([value1]);
+
+      expect(isEmpty(selection1)).toEqual(true);
+      expect(isEmpty(selection2)).toEqual(false);
     });
 
     it('isSelected', () => {

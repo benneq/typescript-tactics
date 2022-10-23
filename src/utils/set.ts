@@ -7,3 +7,7 @@ export const toggle =
       set.add(value);
     }
   };
+
+export const isEmpty = <T>(set: Set<T>): boolean => {
+  return set.size === 0;
+};

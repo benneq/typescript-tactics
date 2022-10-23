@@ -11,29 +11,29 @@ import {
 
 describe('useSingleSelection', () => {
   it('initial state', () => {
-    const value = Symbol();
+    const selection = Symbol();
     const empty = Symbol();
-    const { result } = renderHook(() => useSingleSelection(value, empty));
-    expect(result.current[0]).toEqual(value);
+    const { result } = renderHook(() => useSingleSelection(selection, empty));
+    expect(result.current[0]).toEqual(selection);
     expect(result.current[1]).toEqual(expect.any(Function));
   });
 
   it('transform', () => {
-    const value1 = Symbol();
+    const selection1 = Symbol();
     const empty = Symbol();
     const { result } = renderHook(() =>
-      useSingleSelection<symbol, symbol>(value1, empty)
+      useSingleSelection<symbol, symbol>(selection1, empty)
     );
 
-    const value2 = Symbol();
-    const transform = jest.fn(() => value2);
+    const selection2 = Symbol();
+    const transform = jest.fn(() => selection2);
 
     act(() => {
       result.current[1](transform);
     });
 
-    expect(result.current[0]).toEqual(value2);
-    expect(transform).toHaveBeenNthCalledWith(1, value1, empty);
+    expect(result.current[0]).toEqual(selection2);
+    expect(transform).toHaveBeenNthCalledWith(1, selection1, empty);
     expect(transform).toHaveBeenCalledTimes(1);
   });
 

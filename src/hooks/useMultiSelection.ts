@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { toIterable } from '../utils/iterable';
 import { ValueOrProvider } from '../utils/types';
-import { toggle as toggleSet } from '../utils/set';
+import { toggle as toggleSet, isEmpty as isEmptySet } from '../utils/set';
 
 type TransformFn<T> = (prevValue: Set<T>) => Set<T>;
 
@@ -63,6 +63,10 @@ export const deselect =
     }
     return selection;
   };
+
+export const isEmpty = <T>(multiSelectionValue: Set<T>): boolean => {
+  return isEmptySet(multiSelectionValue);
+};
 
 export const isSelected = <T>(
   multiSelectionValue: Set<T>,
