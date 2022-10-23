@@ -1,7 +1,7 @@
 import { Predicate } from './types';
 
 export const isIterable = <T>(value: unknown): value is Iterable<T> => {
-  return typeof (value as Iterable<T>)[Symbol.iterator] === 'function';
+  return Symbol.iterator in Object(value);
 };
 
 export const toIterable = <T>(value: T | Iterable<T>): Iterable<T> => {
@@ -29,3 +29,10 @@ export const some =
     }
     return false;
   };
+
+export const isEmpty = <T>(iterable: Iterable<T>): boolean => {
+  for (const _ of iterable) {
+    return false;
+  }
+  return true;
+};
