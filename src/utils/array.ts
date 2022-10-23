@@ -16,3 +16,13 @@ export const nth = <T extends unknown[], I extends number = 0>(
 ): T[I] => {
   return array.at(index);
 };
+
+// mutating
+
+export const insertAtIndex = <T>(
+  array: T[],
+  index: number,
+  ...values: T[]
+): void => {
+  array.splice(index, 0, ...values);
+};

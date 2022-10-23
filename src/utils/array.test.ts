@@ -1,4 +1,4 @@
-import { isArray, nth, toArray } from './array';
+import { insertAtIndex, isArray, nth, toArray } from './array';
 
 describe('array', () => {
   it('isArray', () => {
@@ -36,6 +36,22 @@ describe('array', () => {
     expect(nth([], 1)).toEqual(undefined);
     expect(nth([0], 1)).toEqual(undefined);
     expect(nth([0, 1], 1)).toEqual(1);
+  });
+
+  describe('mutating', () => {
+    it('insertAtIndex', () => {
+      const array1: unknown[] = [];
+      insertAtIndex(array1, 0);
+      expect(array1).toEqual([]);
+
+      insertAtIndex(array1, 1);
+      expect(array1).toEqual([]);
+
+      const value1 = Symbol();
+      const value2 = Symbol();
+      insertAtIndex(array1, 0, value1, value2);
+      expect(array1).toEqual([value1, value2]);
+    });
   });
 });
 
