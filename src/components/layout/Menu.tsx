@@ -17,6 +17,7 @@ const item = (title: string, href: string, children: Item[] = []): Item => {
 };
 
 const items = [
+  item('Array', '/array', [item('nth', '/array/nth')]),
   item('Config', '/config', [item('tsconfig.json', '/config/tsconfig-json')]),
   item('Function', '/function', [
     item('Arguments', '/function/arguments'),

@@ -1,4 +1,4 @@
-import { copy, filter, isEmpty, isMap, toMap } from './map';
+import { copy, filter, isEmpty, isMap, keySet, toMap } from './map';
 
 describe('map', () => {
   it('isMap', () => {
@@ -70,6 +70,12 @@ describe('map', () => {
   it('isEmpty', () => {
     expect(isEmpty(new Map())).toEqual(true);
     expect(isEmpty(new Map([[Symbol(), Symbol()]]))).toEqual(false);
+  });
+
+  it('keySet', () => {
+    const key = Symbol();
+    expect(keySet(new Map())).toEqual(new Set());
+    expect(keySet(new Map([[key, Symbol()]]))).toEqual(new Set([key]));
   });
 });
 

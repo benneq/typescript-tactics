@@ -1,4 +1,6 @@
 [
+  { "title": "Array", "tags": ["array"], "path": "/array" },
+  { "title": "nth", "tags": ["array", "index", "nth"], "path": "/array/nth" },
   { "title": "Config", "tags": ["config"], "path": "/config" },
   {
     "title": "tsconfig.json",

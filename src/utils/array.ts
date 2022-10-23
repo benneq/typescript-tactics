@@ -9,3 +9,10 @@ export const isArray = <T>(value: unknown): value is Array<T> => {
 export const toArray = <T>(value: T | ArrayCompatible<T>): T[] => {
   return isArray(value) ? value : isSet(value) ? Array.from(value) : [value];
 };
+
+export const nth = <T extends unknown[], I extends number = 0>(
+  array: T,
+  index: I = 0 as I
+): T[I] => {
+  return array.at(index);
+};
