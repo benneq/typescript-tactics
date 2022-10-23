@@ -1,4 +1,12 @@
-import { copy, filter, isEmpty, isMap, keySet, toMap } from './map';
+import {
+  copy,
+  filter,
+  fromIterable,
+  isEmpty,
+  isMap,
+  keySet,
+  toMap,
+} from './map';
 
 describe('map', () => {
   it('isMap', () => {
@@ -76,6 +84,22 @@ describe('map', () => {
     const key = Symbol();
     expect(keySet(new Map())).toEqual(new Set());
     expect(keySet(new Map([[key, Symbol()]]))).toEqual(new Set([key]));
+  });
+
+  it('fromIterable', () => {
+    const key = Symbol();
+    const value = Symbol();
+    expect(fromIterable([], () => [key, value])).toEqual(new Map());
+    expect(fromIterable(new Set(), () => [key, value])).toEqual(new Map());
+    expect(fromIterable(new Map(), () => [key, value])).toEqual(new Map());
+
+    expect(fromIterable([0], (e) => [key, e])).toEqual(new Map([[key, 0]]));
+    expect(fromIterable([0, 1], (e) => [e, value])).toEqual(
+      new Map([
+        [0, value],
+        [1, value],
+      ])
+    );
   });
 });
 

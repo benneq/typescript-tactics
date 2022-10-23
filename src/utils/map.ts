@@ -1,4 +1,4 @@
-import { IterableCompabile } from './iterable';
+import { forEach, IterableCompabile } from './iterable';
 import { Predicate } from './types';
 
 export type MapCompatible<K, V> = IterableCompabile<[K, V]> | Map<K, V>;
@@ -33,4 +33,13 @@ export const isEmpty = <K, V>(map: Map<K, V>): boolean => {
 
 export const keySet = <K, V>(map: Map<K, V>) => {
   return new Set(map.keys());
+};
+
+export const fromIterable = <T, K, V>(
+  iterable: Iterable<T>,
+  mapper: (value: T) => [K, V]
+): Map<K, V> => {
+  const res = new Map<K, V>();
+  forEach(iterable)((e) => res.set(...mapper(e)));
+  return res;
 };

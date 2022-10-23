@@ -119,7 +119,7 @@ describe('set', () => {
     ).toEqual(true);
   });
 
-  it('containsAll', () => {
+  it('containsAny', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
