@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { ValueOrProvider } from 'utils/types';
+import { ValueOrProvider } from '../utils/types';
 
 type TransformFn<T, E> = (prevValue: T | E, empty: E) => T | E;
 
@@ -31,12 +31,30 @@ export const toggle =
     }
   };
 
-export const set =
+export const select =
   <T>(value: T) =>
   (): T => {
     return value;
   };
 
+export const deselect =
+  <T, E>(value: T) =>
+  (prevValue: T | E, empty: E): T | E => {
+    if (value === prevValue) {
+      return empty;
+    } else {
+      return prevValue;
+    }
+  };
+
 export const clear = <T, E>(_: T | E, empty: E): E => {
   return empty;
+};
+
+export const isSelected = <T>(singleSelectionValue: T, value: T): boolean => {
+  return singleSelectionValue === value;
+};
+
+export const notSelected = <T>(singleSelectionValue: T, value: T): boolean => {
+  return !isSelected(singleSelectionValue, value);
 };

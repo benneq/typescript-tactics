@@ -1,5 +1,13 @@
 import { act, renderHook } from '@testing-library/react';
-import { clear, set, toggle, useSingleSelection } from './useSingleSelection';
+import {
+  clear,
+  deselect,
+  isSelected,
+  notSelected,
+  select,
+  toggle,
+  useSingleSelection,
+} from './useSingleSelection';
 
 describe('useSingleSelection', () => {
   it('initial state', () => {
@@ -42,20 +50,53 @@ describe('useSingleSelection', () => {
       expect(toggle(empty)(value1, empty)).toEqual(empty);
     });
 
-    it('set', () => {
+    it('select', () => {
       const value1 = Symbol();
-      const res = set(value1)();
+      expect(select(value1)()).toEqual(value1);
+    });
 
-      expect(res).toEqual(value1);
+    it('deselect', () => {
+      const value1 = Symbol();
+      const value2 = Symbol();
+      const empty = Symbol();
+
+      expect(deselect(value1)(value1, empty)).toEqual(empty);
+      expect(deselect(value2)(value1, empty)).toEqual(value1);
+
+      expect(deselect(value1)(empty, empty)).toEqual(empty);
+      expect(deselect(value2)(empty, empty)).toEqual(empty);
     });
 
     it('clear', () => {
       const value = Symbol();
       const empty = Symbol();
 
-      const res = clear(value, empty);
+      expect(clear(empty, empty)).toEqual(empty);
+      expect(clear(value, empty)).toEqual(empty);
+    });
 
-      expect(res).toEqual(empty);
+    it('isSelected', () => {
+      const value1 = Symbol();
+      const value2 = Symbol();
+      const empty = Symbol();
+
+      expect(isSelected(empty, empty)).toEqual(true);
+      expect(isSelected<symbol>(value1, empty)).toEqual(false);
+      expect(isSelected<symbol>(empty, value1)).toEqual(false);
+      expect(isSelected(value1, value1)).toEqual(true);
+      expect(isSelected<symbol>(value1, value2)).toEqual(false);
+    });
+
+    it('notSelected', () => {
+      const value1 = Symbol();
+      const value2 = Symbol();
+      const empty = Symbol();
+
+      expect(notSelected(empty, empty)).toEqual(false);
+      expect(notSelected<symbol>(value1, empty)).toEqual(true);
+      expect(notSelected<symbol>(empty, value1)).toEqual(true);
+      expect(notSelected(value1, value1)).toEqual(false);
+      expect(notSelected<symbol>(value1, value2)).toEqual(true);
     });
   });
 });
