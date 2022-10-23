@@ -128,7 +128,7 @@ describe('useDidSubsetUpdate', () => {
     const env = process.env.NODE_ENV;
     (process.env.NODE_ENV as any) = 'development';
 
-    const logSpy = jest.spyOn(console, 'warn');
+    const logSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
     const callback = jest.fn();
     const deps = [Symbol()];

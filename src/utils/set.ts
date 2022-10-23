@@ -58,9 +58,9 @@ export const isSubset = <T>(set: Set<T>, superset: Set<T>): boolean => {
   return containsAll(superset)(set);
 };
 
-export const union = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+export const union = <T>(setA: Set<T>, setB: SetCompatible<T>): Set<T> => {
   const union = copy(setA);
-  setB.forEach(add(union));
+  addAll(union)(setB);
   return union;
 };
 
@@ -68,13 +68,16 @@ export const intersection = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
   return filter(setB)(contains(setA));
 };
 
-export const symmetricDifference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+export const symmetricDifference = <T>(
+  setA: Set<T>,
+  setB: SetCompatible<T>
+): Set<T> => {
   const difference = copy(setA);
   toggleAll(difference)(setB);
   return difference;
 };
 
-export const difference = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+export const difference = <T>(setA: Set<T>, setB: SetCompatible<T>): Set<T> => {
   const difference = copy(setA);
   removeAll(difference)(setB);
   return difference;

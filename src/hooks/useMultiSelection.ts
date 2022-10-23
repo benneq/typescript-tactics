@@ -5,10 +5,9 @@ import {
   containsAny,
   SetCompatible,
   contains,
-  toggleAll,
-  addAll,
-  removeAll,
-  copy,
+  difference,
+  union,
+  symmetricDifference,
 } from '../utils/set';
 
 type Value<T> = Set<T>;
@@ -42,25 +41,19 @@ export const set =
 export const toggle =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
-    const selection = copy(prevValue);
-    toggleAll(selection)(value);
-    return selection;
+    return symmetricDifference(prevValue, value);
   };
 
 export const select =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
-    const selection = copy(prevValue);
-    addAll(selection)(value);
-    return selection;
+    return union(prevValue, value);
   };
 
 export const deselect =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
-    const selection = copy(prevValue);
-    removeAll(selection)(value);
-    return selection;
+    return difference(prevValue, value);
   };
 
 export const isEmpty = <T>(multiSelectionValue: Value<T>): boolean => {

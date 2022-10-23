@@ -53,7 +53,7 @@ describe('useDidUpdate', () => {
     const env = process.env.NODE_ENV;
     (process.env.NODE_ENV as any) = 'development';
 
-    const logSpy = jest.spyOn(console, 'warn');
+    const logSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     renderHook(() => useDidUpdate(undefined!, []));
     expect(logSpy).toHaveBeenCalled();
 
@@ -64,7 +64,7 @@ describe('useDidUpdate', () => {
     const env = process.env.NODE_ENV;
     (process.env.NODE_ENV as any) = 'development';
 
-    const logSpy = jest.spyOn(console, 'warn');
+    const logSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     renderHook(() => useDidUpdate(jest.fn(), undefined!));
     expect(logSpy).toHaveBeenCalled();
 

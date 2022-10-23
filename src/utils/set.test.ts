@@ -65,74 +65,6 @@ describe('set', () => {
     expect(res2).not.toBe(set2);
   });
 
-  it('add', () => {
-    const set = new Set();
-    const value1 = Symbol();
-    add(set)(value1);
-    expect(set).toEqual(new Set([value1]));
-
-    const value2 = Symbol();
-    add(set)(value2);
-    expect(set).toEqual(new Set([value2, value1]));
-  });
-
-  it('addAll', () => {
-    const set = new Set();
-    addAll(set)([]);
-    expect(set).toEqual(new Set());
-
-    const value1 = Symbol();
-    const value2 = Symbol();
-    addAll(set)([value1, value2]);
-    expect(set).toEqual(new Set([value2, value1]));
-  });
-
-  it('remove', () => {
-    const value1 = Symbol();
-    const value2 = Symbol();
-
-    const set = new Set([value1, value2]);
-    remove(set)(value1);
-    expect(set).toEqual(new Set([value2]));
-  });
-
-  it('removeAll', () => {
-    const value1 = Symbol();
-    const value2 = Symbol();
-
-    const set = new Set([value1]);
-    removeAll(set)([value1, value2]);
-    expect(set).toEqual(new Set());
-  });
-
-  it('toggle', () => {
-    const value = Symbol();
-    const set1 = new Set();
-    toggle(set1)(value);
-    expect(set1).toEqual(new Set([value]));
-
-    const set2 = new Set([value]);
-    toggle(set2)(value);
-    expect(set2).toEqual(new Set());
-  });
-
-  it('toggleAll', () => {
-    const value1 = Symbol();
-    const value2 = Symbol();
-    const set1 = new Set();
-    toggleAll(set1)([]);
-    expect(set1).toEqual(new Set());
-
-    toggleAll(set1)([value1]);
-    expect(set1).toEqual(new Set([value1]));
-
-    toggleAll(set1)([value2]);
-    expect(set1).toEqual(new Set([value1, value2]));
-
-    toggleAll(set1)([value2, value1]);
-    expect(set1).toEqual(new Set());
-  });
-
   it('filter', () => {
     expect(filter(new Set())(() => true)).toEqual(new Set());
     expect(filter(new Set())(() => false)).toEqual(new Set());
@@ -335,6 +267,76 @@ describe('set', () => {
     expect(difference(new Set([value1, value2]), new Set([value1]))).toEqual(
       new Set([value2])
     );
+  });
+
+  describe('mutations', () => {
+    it('add', () => {
+      const set = new Set();
+      const value1 = Symbol();
+      add(set)(value1);
+      expect(set).toEqual(new Set([value1]));
+
+      const value2 = Symbol();
+      add(set)(value2);
+      expect(set).toEqual(new Set([value2, value1]));
+    });
+
+    it('addAll', () => {
+      const set = new Set();
+      addAll(set)([]);
+      expect(set).toEqual(new Set());
+
+      const value1 = Symbol();
+      const value2 = Symbol();
+      addAll(set)([value1, value2]);
+      expect(set).toEqual(new Set([value2, value1]));
+    });
+
+    it('remove', () => {
+      const value1 = Symbol();
+      const value2 = Symbol();
+
+      const set = new Set([value1, value2]);
+      remove(set)(value1);
+      expect(set).toEqual(new Set([value2]));
+    });
+
+    it('removeAll', () => {
+      const value1 = Symbol();
+      const value2 = Symbol();
+
+      const set = new Set([value1]);
+      removeAll(set)([value1, value2]);
+      expect(set).toEqual(new Set());
+    });
+
+    it('toggle', () => {
+      const value = Symbol();
+      const set1 = new Set();
+      toggle(set1)(value);
+      expect(set1).toEqual(new Set([value]));
+
+      const set2 = new Set([value]);
+      toggle(set2)(value);
+      expect(set2).toEqual(new Set());
+    });
+
+    it('toggleAll', () => {
+      const value1 = Symbol();
+      const value2 = Symbol();
+      const set1 = new Set();
+      toggleAll(set1)([]);
+      expect(set1).toEqual(new Set());
+
+      toggleAll(set1)([value1]);
+      expect(set1).toEqual(new Set([value1]));
+
+      toggleAll(set1)([value2]);
+      expect(set1).toEqual(new Set([value1, value2]));
+
+      toggleAll(set1)([value2, value1]);
+      expect(set1).toEqual(new Set());
+    });
   });
 });
 
