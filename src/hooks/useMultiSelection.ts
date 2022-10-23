@@ -7,7 +7,7 @@ import {
   contains,
   toggleAll,
   addAll,
-  deleteAll,
+  removeAll,
 } from '../utils/set';
 
 type Value<T> = Set<T>;
@@ -63,7 +63,7 @@ export const deselect =
   <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    deleteAll(selection)(value);
+    removeAll(selection)(value);
     return selection;
   };
 

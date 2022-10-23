@@ -3,12 +3,14 @@ import {
   contains,
   containsAll,
   containsAny,
-  deleteAll,
+  removeAll,
   isEmpty,
   isSet,
   toggle,
   toggleAll,
   toSet,
+  add,
+  remove,
 } from './set';
 
 describe('set', () => {
@@ -42,6 +44,17 @@ describe('set', () => {
     );
   });
 
+  it('add', () => {
+    const set = new Set();
+    const value1 = Symbol();
+    add(set)(value1);
+    expect(set).toEqual(new Set([value1]));
+
+    const value2 = Symbol();
+    add(set)(value2);
+    expect(set).toEqual(new Set([value2, value1]));
+  });
+
   it('addAll', () => {
     const set = new Set();
     addAll(set)([]);
@@ -53,12 +66,21 @@ describe('set', () => {
     expect(set).toEqual(new Set([value2, value1]));
   });
 
-  it('deletell', () => {
+  it('remove', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+
+    const set = new Set([value1, value2]);
+    remove(set)(value1);
+    expect(set).toEqual(new Set([value2]));
+  });
+
+  it('removeAll', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
     const set = new Set([value1]);
-    deleteAll(set)([value1, value2]);
+    removeAll(set)([value1, value2]);
     expect(set).toEqual(new Set());
   });
 
