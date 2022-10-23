@@ -1,5 +1,6 @@
 import { KeyboardEvent, ReactNode } from 'react';
 import { isString } from './string';
+import { Provider } from './types';
 
 export type ReactKeyboardEventHTMLInputElement =
   KeyboardEvent<HTMLInputElement> & {
@@ -8,7 +9,7 @@ export type ReactKeyboardEventHTMLInputElement =
 
 export const join = (
   nodes: ReactNode[],
-  separator: string | ((index: number) => ReactNode)
+  separator: string | Provider<ReactNode, [number]>
 ): [ReactNode, ReactNode][] => {
   return nodes.map((node, i) => [
     i > 0 && (isString(separator) ? separator : separator(i)),

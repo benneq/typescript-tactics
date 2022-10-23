@@ -12,6 +12,11 @@ import {
   add,
   remove,
   copy,
+  filter,
+  isSuperset,
+  union,
+  intersection,
+  difference,
 } from './set';
 
 describe('set', () => {
@@ -126,6 +131,21 @@ describe('set', () => {
     expect(set1).toEqual(new Set());
   });
 
+  it('filter', () => {
+    expect(filter(new Set())(() => true)).toEqual(new Set());
+    expect(filter(new Set())(() => false)).toEqual(new Set());
+
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const value3 = Symbol();
+    expect(
+      filter(new Set([value1, value2, value3]))((e) => e === value2)
+    ).toEqual(new Set([value2]));
+    expect(
+      filter(new Set([value1, value2, value3]))((e) => e !== value2)
+    ).toEqual(new Set([value1, value3]));
+  });
+
   it('isEmpty', () => {
     expect(isEmpty(new Set())).toEqual(true);
     expect(isEmpty(new Set([Symbol()]))).toEqual(false);
@@ -193,6 +213,84 @@ describe('set', () => {
     expect(
       containsAny(new Set([value1, value2]))(new Set([value2, value1]))
     ).toEqual(true);
+  });
+
+  it('isSuperset', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    expect(isSuperset(new Set(), new Set())).toEqual(true);
+    expect(isSuperset(new Set([value1]), new Set())).toEqual(true);
+    expect(isSuperset(new Set(), new Set([value1]))).toEqual(false);
+    expect(isSuperset(new Set([value1]), new Set([value1]))).toEqual(true);
+
+    expect(isSuperset(new Set([value1]), new Set([value2]))).toEqual(false);
+    expect(isSuperset(new Set([value1]), new Set([value1, value2]))).toEqual(
+      false
+    );
+    expect(isSuperset(new Set([value1, value2]), new Set([value1]))).toEqual(
+      true
+    );
+  });
+
+  it('union', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    expect(union(new Set(), new Set())).toEqual(new Set());
+    expect(union(new Set([value1]), new Set())).toEqual(new Set([value1]));
+    expect(union(new Set(), new Set([value1]))).toEqual(new Set([value1]));
+    expect(union(new Set([value1]), new Set([value1]))).toEqual(
+      new Set([value1])
+    );
+
+    expect(union(new Set([value1]), new Set([value2]))).toEqual(
+      new Set([value1, value2])
+    );
+    expect(union(new Set([value1]), new Set([value1, value2]))).toEqual(
+      new Set([value1, value2])
+    );
+    expect(union(new Set([value1, value2]), new Set([value1]))).toEqual(
+      new Set([value1, value2])
+    );
+  });
+
+  it('intersection', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    expect(intersection(new Set(), new Set())).toEqual(new Set());
+    expect(intersection(new Set([value1]), new Set())).toEqual(new Set());
+    expect(intersection(new Set(), new Set([value1]))).toEqual(new Set());
+    expect(intersection(new Set([value1]), new Set([value1]))).toEqual(
+      new Set([value1])
+    );
+
+    expect(intersection(new Set([value1]), new Set([value2]))).toEqual(
+      new Set()
+    );
+    expect(intersection(new Set([value1]), new Set([value1, value2]))).toEqual(
+      new Set([value1])
+    );
+    expect(intersection(new Set([value1, value2]), new Set([value1]))).toEqual(
+      new Set([value1])
+    );
+  });
+
+  it('difference', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    expect(difference(new Set(), new Set())).toEqual(new Set());
+    expect(difference(new Set([value1]), new Set())).toEqual(new Set([value1]));
+    expect(difference(new Set(), new Set([value1]))).toEqual(new Set());
+    expect(difference(new Set([value1]), new Set([value1]))).toEqual(new Set());
+
+    expect(difference(new Set([value1]), new Set([value2]))).toEqual(
+      new Set([value1])
+    );
+    expect(difference(new Set([value1]), new Set([value1, value2]))).toEqual(
+      new Set()
+    );
+    expect(difference(new Set([value1, value2]), new Set([value1]))).toEqual(
+      new Set([value2])
+    );
   });
 });
 
