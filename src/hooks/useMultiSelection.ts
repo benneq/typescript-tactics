@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { ValueOrProvider } from '../utils/types';
 import {
   isEmpty as isEmptySet,
-  toSet,
   containsAny,
   SetCompatible,
   contains,
