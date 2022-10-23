@@ -117,10 +117,8 @@ describe('useMultiSelection', () => {
     });
 
     it('isEmpty', () => {
-      const value1 = Symbol();
-
       const selection1 = new Set();
-      const selection2 = new Set([value1]);
+      const selection2 = new Set([Symbol()]);
 
       expect(isEmpty(selection1)).toEqual(true);
       expect(isEmpty(selection2)).toEqual(false);

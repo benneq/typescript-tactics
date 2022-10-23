@@ -1,14 +1,21 @@
 import { useCallback, useState } from 'react';
-import { toIterable } from '../utils/iterable';
 import { ValueOrProvider } from '../utils/types';
-import { toggle as toggleSet, isEmpty as isEmptySet } from '../utils/set';
+import {
+  toggle as toggleSet,
+  isEmpty as isEmptySet,
+  toSet,
+  every,
+  some,
+} from '../utils/set';
 
-type TransformFn<T> = (prevValue: Set<T>) => Set<T>;
+type Value<T> = Set<T>;
 
-type UseMultiSelectionReturn<T> = [Set<T>, (val: TransformFn<T>) => void];
+type TransformFn<T> = (prevValue: Value<T>) => Value<T>;
+
+type UseMultiSelectionReturn<T> = [Value<T>, (val: TransformFn<T>) => void];
 
 export const useMultiSelection = <T>(
-  initialValue: ValueOrProvider<Set<T>>
+  initialValue: ValueOrProvider<Value<T>>
 ): UseMultiSelectionReturn<T> => {
   const [value, setValue] = useState(initialValue);
 
@@ -24,77 +31,61 @@ export const useMultiSelection = <T>(
   return [value, transform];
 };
 
-export const clearAll = <T>(_: Set<T>): Set<T> => {
+export const clearAll = <T>(_: Value<T>): Value<T> => {
   return new Set();
 };
 
 export const setSelection =
-  <T>(value: Set<T>) =>
-  (_: Set<T>) => {
+  <T>(value: Value<T>) =>
+  (_: Value<T>): Value<T> => {
     return value;
   };
 
 export const toggle =
-  <T>(value: T | T[] | Set<T>) =>
-  (prevValue: Set<T>): Set<T> => {
+  <T>(value: T | Iterable<T>) =>
+  (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    for (const e of toIterable(value)) {
-      toggleSet(selection)(e);
-    }
+    toSet(value).forEach(toggleSet(selection));
     return selection;
   };
 
 export const select =
-  <T>(value: T | T[] | Set<T>) =>
-  (prevValue: Set<T>): Set<T> => {
+  <T>(value: T | Iterable<T>) =>
+  (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    for (const e of toIterable(value)) {
-      selection.add(e);
-    }
+    toSet(value).forEach((e) => selection.add(e));
     return selection;
   };
 
 export const deselect =
-  <T>(value: T | T[] | Set<T>) =>
-  (prevValue: Set<T>): Set<T> => {
+  <T>(value: T | Iterable<T>) =>
+  (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
-    for (const e of toIterable(value)) {
-      selection.delete(e);
-    }
+    toSet(value).forEach((e) => selection.delete(e));
     return selection;
   };
 
-export const isEmpty = <T>(multiSelectionValue: Set<T>): boolean => {
+export const isEmpty = <T>(multiSelectionValue: Value<T>): boolean => {
   return isEmptySet(multiSelectionValue);
 };
 
 export const isSelected = <T>(
-  multiSelectionValue: Set<T>,
-  value: T | T[] | Set<T>
+  multiSelectionValue: Value<T>,
+  value: T | Iterable<T>
 ): boolean => {
-  for (const e of toIterable(value)) {
-    if (!multiSelectionValue.has(e)) {
-      return false;
-    }
-  }
-  return true;
+  return every(multiSelectionValue)(value);
 };
 
 export const anySelected = <T>(
-  multiSelectionValue: Set<T>,
-  value: T | T[] | Set<T>
+  multiSelectionValue: Value<T>,
+  value: T | Iterable<T>
 ): boolean => {
-  for (const e of toIterable(value)) {
-    if (multiSelectionValue.has(e)) {
-      return true;
-    }
-  }
-  return false;
+  return some(multiSelectionValue)(value);
 };
 
 export const notSelected = <T>(
-  multiSelectionValue: Set<T>,
-  value: T | T[] | Set<T>
+  multiSelectionValue: Value<T>,
+  value: T | Iterable<T>
 ): boolean => {
   return !anySelected(multiSelectionValue, value);
 };
