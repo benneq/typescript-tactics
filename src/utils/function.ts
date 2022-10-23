@@ -7,3 +7,10 @@ export const isFunction = <T, TArgs extends unknown[] = []>(
 export const identity = <T>(arg: T): T => {
   return arg;
 };
+
+export const callIfDefined = <TArgs extends unknown[], T>(
+  fn: undefined | ((...args: TArgs) => T),
+  ...args: TArgs
+): T | undefined => {
+  return fn && fn(...args);
+};

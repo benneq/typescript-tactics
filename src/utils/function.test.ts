@@ -1,4 +1,4 @@
-import { identity, isFunction } from './function';
+import { callIfDefined, identity, isFunction } from './function';
 
 describe('function', () => {
   it('isFunction', () => {
@@ -20,6 +20,14 @@ describe('function', () => {
 
     const value = Symbol();
     expect(identity(value)).toEqual(value);
+  });
+
+  it('callIfDefined', () => {
+    const value = Symbol();
+    const fn = jest.fn((value) => value);
+
+    expect(callIfDefined(undefined)).toEqual(undefined);
+    expect(callIfDefined(fn, value)).toEqual(value);
   });
 });
 
