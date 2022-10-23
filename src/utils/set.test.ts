@@ -1,5 +1,13 @@
-import { every, isEmpty, some } from './iterable';
-import { isSet, toggle, toSet } from './set';
+import {
+  contains,
+  containsAll,
+  containsAny,
+  isEmpty,
+  isSet,
+  toggle,
+  toggleAll,
+  toSet,
+} from './set';
 
 describe('set', () => {
   it('isSet', () => {
@@ -13,6 +21,7 @@ describe('set', () => {
     expect(isSet([])).toEqual(false);
     expect(isSet(new Set())).toEqual(true);
     expect(isSet(new Map())).toEqual(false);
+    expect(isSet(jest.fn())).toEqual(false);
   });
 
   it('toSet', () => {
@@ -42,38 +51,90 @@ describe('set', () => {
     expect(set2).toEqual(new Set());
   });
 
-  it('every', () => {
-    expect(every([])(() => true)).toEqual(true);
-    expect(every([])(() => false)).toEqual(true);
+  it('toggleAll', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const set1 = new Set();
+    toggleAll(set1)([]);
+    expect(set1).toEqual(new Set());
 
-    const value = Symbol();
-    const predicate = jest.fn((val) => val === value);
-    expect(every([value])(predicate)).toEqual(true);
-    expect(every([Symbol()])(predicate)).toEqual(false);
-    expect(every([value, Symbol()])(predicate)).toEqual(false);
-  });
+    toggleAll(set1)([value1]);
+    expect(set1).toEqual(new Set([value1]));
 
-  it('some', () => {
-    expect(some([])(() => true)).toEqual(false);
-    expect(some([])(() => false)).toEqual(false);
+    toggleAll(set1)([value2]);
+    expect(set1).toEqual(new Set([value1, value2]));
 
-    const value = Symbol();
-    const predicate = jest.fn((val) => val === value);
-    expect(some([value])(predicate)).toEqual(true);
-    expect(some([Symbol()])(predicate)).toEqual(false);
-    expect(some([value, Symbol()])(predicate)).toEqual(true);
+    toggleAll(set1)([value2, value1]);
+    expect(set1).toEqual(new Set());
   });
 
   it('isEmpty', () => {
-    expect(isEmpty('')).toEqual(true);
-    expect(isEmpty([])).toEqual(true);
     expect(isEmpty(new Set())).toEqual(true);
-    expect(isEmpty(new Map())).toEqual(true);
-
-    expect(isEmpty('a')).toEqual(false);
-    expect(isEmpty([Symbol()])).toEqual(false);
     expect(isEmpty(new Set([Symbol()]))).toEqual(false);
-    expect(isEmpty(new Map([[Symbol(), Symbol()]]))).toEqual(false);
+  });
+
+  it('contains', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    expect(contains(new Set())(value1)).toEqual(false);
+    expect(contains(new Set([value1]))(value2)).toEqual(false);
+    expect(contains(new Set([value1]))(value1)).toEqual(true);
+  });
+
+  it('containsAll', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+
+    expect(containsAll(new Set())([])).toEqual(true);
+    expect(containsAll(new Set())(new Set())).toEqual(true);
+    expect(containsAll(new Set())([value1])).toEqual(false);
+    expect(containsAll(new Set())(new Set([value1]))).toEqual(false);
+    expect(containsAll(new Set([value1]))([])).toEqual(true);
+    expect(containsAll(new Set([value1]))(new Set())).toEqual(true);
+    expect(containsAll(new Set([value1]))([value1])).toEqual(true);
+    expect(containsAll(new Set([value1]))(new Set([value1]))).toEqual(true);
+    expect(containsAll(new Set([value1]))([value2])).toEqual(false);
+    expect(containsAll(new Set([value1]))(new Set([value2]))).toEqual(false);
+
+    expect(containsAll(new Set([value1, value2]))(new Set([value1]))).toEqual(
+      true
+    );
+    expect(containsAll(new Set([value1, value2]))(new Set([value2]))).toEqual(
+      true
+    );
+    expect(
+      containsAll(new Set([value1, value2]))(new Set([value2, value1]))
+    ).toEqual(true);
+  });
+
+  it('containsAll', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+
+    expect(containsAny(new Set())([])).toEqual(false);
+    expect(containsAny(new Set())(new Set())).toEqual(false);
+    expect(containsAny(new Set())([value1])).toEqual(false);
+    expect(containsAny(new Set())(new Set([value1]))).toEqual(false);
+    expect(containsAny(new Set([value1]))([])).toEqual(false);
+    expect(containsAny(new Set([value1]))(new Set())).toEqual(false);
+    expect(containsAny(new Set([value1]))([value1])).toEqual(true);
+    expect(containsAny(new Set([value1]))(new Set([value1]))).toEqual(true);
+    expect(containsAny(new Set([value1]))([value2])).toEqual(false);
+    expect(containsAny(new Set([value1]))(new Set([value2]))).toEqual(false);
+    expect(containsAny(new Set([value1]))([value2, value1])).toEqual(true);
+    expect(containsAny(new Set([value1]))(new Set([value2, value1]))).toEqual(
+      true
+    );
+
+    expect(containsAny(new Set([value1, value2]))(new Set([value1]))).toEqual(
+      true
+    );
+    expect(containsAny(new Set([value1, value2]))(new Set([value2]))).toEqual(
+      true
+    );
+    expect(
+      containsAny(new Set([value1, value2]))(new Set([value2, value1]))
+    ).toEqual(true);
   });
 });
 

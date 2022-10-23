@@ -14,22 +14,25 @@ describe('iterable', () => {
     expect(isIterable(NaN)).toEqual(false);
     expect(isIterable(0)).toEqual(false);
     expect(isIterable(true)).toEqual(false);
+    expect(isIterable(Symbol())).toEqual(false);
     expect(isIterable({})).toEqual(false);
     expect(isIterable('')).toEqual(true);
     expect(isIterable([])).toEqual(true);
     expect(isIterable(new Set())).toEqual(true);
     expect(isIterable(new Map())).toEqual(true);
+    expect(isIterable(jest.fn())).toEqual(false);
   });
 
   it('toIterable', () => {
+    const value = Symbol();
     expect(toIterable(null)).toEqual([null]);
     expect(toIterable({})).toEqual([{}]);
+    expect(toIterable(value)).toEqual([value]);
     expect(toIterable('')).toEqual('');
     expect(toIterable([])).toEqual([]);
     expect(toIterable(new Set())).toEqual(new Set());
     expect(toIterable(new Map())).toEqual(new Map());
 
-    const value = Symbol();
     expect(toIterable([value])).toEqual([value]);
     expect(toIterable(new Set([value]))).toEqual(new Set([value]));
     expect(toIterable(new Map([[value, value]]))).toEqual(

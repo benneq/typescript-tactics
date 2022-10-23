@@ -1,10 +1,12 @@
 import { Callback, Predicate } from './types';
 
+export type IterableCompabile<T> = T | Iterable<T>;
+
 export const isIterable = <T>(value: unknown): value is Iterable<T> => {
   return Symbol.iterator in Object(value);
 };
 
-export const toIterable = <T>(value: T | Iterable<T>): Iterable<T> => {
+export const toIterable = <T>(value: IterableCompabile<T>): Iterable<T> => {
   return isIterable(value) ? value : [value];
 };
 

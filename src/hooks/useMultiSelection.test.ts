@@ -130,15 +130,8 @@ describe('useMultiSelection', () => {
 
       const selection1 = new Set([value1]);
 
-      expect(isSelected(selection1, [])).toEqual(true);
-
       expect(isSelected(selection1, value1)).toEqual(true);
-      expect(isSelected(selection1, [value1])).toEqual(true);
-      expect(isSelected(selection1, new Set([value1]))).toEqual(true);
-
       expect(isSelected(selection1, value2)).toEqual(false);
-      expect(isSelected(selection1, [value2])).toEqual(false);
-      expect(isSelected(selection1, new Set([value2]))).toEqual(false);
     });
 
     it('isAnySelected', () => {
@@ -149,11 +142,9 @@ describe('useMultiSelection', () => {
 
       expect(isAnySelected(selection1, [])).toEqual(false);
 
-      expect(isAnySelected(selection1, value1)).toEqual(true);
       expect(isAnySelected(selection1, [value1])).toEqual(true);
       expect(isAnySelected(selection1, new Set([value1]))).toEqual(true);
 
-      expect(isAnySelected(selection1, value2)).toEqual(false);
       expect(isAnySelected(selection1, [value2])).toEqual(false);
       expect(isAnySelected(selection1, new Set([value2]))).toEqual(false);
 
@@ -171,11 +162,9 @@ describe('useMultiSelection', () => {
 
       expect(isNotSelected(selection1, [])).toEqual(true);
 
-      expect(isNotSelected(selection1, value1)).toEqual(false);
       expect(isNotSelected(selection1, [value1])).toEqual(false);
       expect(isNotSelected(selection1, new Set([value1]))).toEqual(false);
 
-      expect(isNotSelected(selection1, value2)).toEqual(true);
       expect(isNotSelected(selection1, [value2])).toEqual(true);
       expect(isNotSelected(selection1, new Set([value2]))).toEqual(true);
 

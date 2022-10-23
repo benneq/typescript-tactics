@@ -4,8 +4,9 @@ import {
   toggle as toggleSet,
   isEmpty as isEmptySet,
   toSet,
-  containsAll,
   containsAny,
+  SetCompatible,
+  contains,
 } from '../utils/set';
 
 type Value<T> = Set<T>;
@@ -42,7 +43,7 @@ export const set =
   };
 
 export const toggle =
-  <T>(value: T | Iterable<T>) =>
+  <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
     toSet(value).forEach(toggleSet(selection));
@@ -50,7 +51,7 @@ export const toggle =
   };
 
 export const select =
-  <T>(value: T | Iterable<T>) =>
+  <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
     toSet(value).forEach((e) => selection.add(e));
@@ -58,7 +59,7 @@ export const select =
   };
 
 export const deselect =
-  <T>(value: T | Iterable<T>) =>
+  <T>(value: SetCompatible<T>) =>
   (prevValue: Value<T>): Value<T> => {
     const selection = new Set(prevValue);
     toSet(value).forEach((e) => selection.delete(e));
@@ -71,21 +72,21 @@ export const isEmpty = <T>(multiSelectionValue: Value<T>): boolean => {
 
 export const isSelected = <T>(
   multiSelectionValue: Value<T>,
-  value: T | Iterable<T>
+  value: T
 ): boolean => {
-  return containsAll(multiSelectionValue)(value);
+  return contains(multiSelectionValue)(value);
 };
 
 export const isAnySelected = <T>(
   multiSelectionValue: Value<T>,
-  value: T | Iterable<T>
+  value: SetCompatible<T>
 ): boolean => {
   return containsAny(multiSelectionValue)(value);
 };
 
 export const isNotSelected = <T>(
   multiSelectionValue: Value<T>,
-  value: T | Iterable<T>
+  value: SetCompatible<T>
 ): boolean => {
   return !isAnySelected(multiSelectionValue, value);
 };

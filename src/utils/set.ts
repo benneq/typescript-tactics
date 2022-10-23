@@ -1,11 +1,13 @@
 import { toArray } from './array';
-import { every, some, toIterable } from './iterable';
+import { every, some } from './iterable';
+
+export type SetCompatible<T> = T[] | Set<T>;
 
 export const isSet = <T>(value: unknown): value is Set<T> => {
   return value instanceof Set;
 };
 
-export const toSet = <T>(value: T | T[] | Set<T>): Set<T> => {
+export const toSet = <T>(value: T | SetCompatible<T>): Set<T> => {
   if (isSet(value)) {
     return value;
   }
@@ -23,18 +25,30 @@ export const toggle =
     }
   };
 
+export const toggleAll =
+  <T>(set: Set<T>) =>
+  (value: SetCompatible<T>): void => {
+    value.forEach(toggle(set));
+  };
+
 export const isEmpty = <T>(set: Set<T>): boolean => {
   return set.size === 0;
 };
 
+export const contains =
+  <T>(set: Set<T>) =>
+  (value: T): boolean => {
+    return set.has(value);
+  };
+
 export const containsAll =
   <T>(set: Set<T>) =>
-  (value: T | Iterable<T>): boolean => {
-    return every(toIterable(value))((e) => set.has(e));
+  (value: SetCompatible<T>): boolean => {
+    return every(value)(contains(set));
   };
 
 export const containsAny =
   <T>(set: Set<T>) =>
-  (value: T | Iterable<T>): boolean => {
-    return some(toIterable(value))((e) => set.has(e));
+  (value: SetCompatible<T>): boolean => {
+    return some(value)(contains(set));
   };

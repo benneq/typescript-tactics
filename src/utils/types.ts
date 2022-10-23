@@ -1,3 +1,5 @@
+import { isFunction } from './function';
+
 export type Callback<TArgs extends readonly unknown[] = []> = (
   ...args: TArgs
 ) => void;
@@ -19,12 +21,6 @@ export const valueOrProviderResult = <T, TArgs extends unknown[] = []>(
   } else {
     return value;
   }
-};
-
-export const isFunction = <T, TArgs extends unknown[] = []>(
-  value: unknown
-): value is (...args: TArgs) => T => {
-  return typeof value === 'function';
 };
 
 export const isString = (value: unknown): value is string => {
