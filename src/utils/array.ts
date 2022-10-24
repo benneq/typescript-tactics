@@ -18,6 +18,10 @@ export const nth = <T extends unknown[], I extends number = 0>(
   return array.at(index);
 };
 
+export const inArray = <T>(array: T[]): ((value: number) => boolean) => {
+  return inRange(0, array.length);
+};
+
 // mutations
 
 export const insertAt = <T>(
@@ -40,10 +44,6 @@ export const move = <T>(
   if (sourceIndex < array.length) {
     array.splice(targetIndex, 0, array.splice(sourceIndex, 1)[0] as T);
   }
-};
-
-export const inArray = <T>(array: T[]): ((value: number) => boolean) => {
-  return inRange(0, array.length);
 };
 
 export const swap = <T>(array: T[], indexA: number, indexB: number): void => {
