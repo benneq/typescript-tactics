@@ -1,12 +1,24 @@
+export type NumberCompatible = number | bigint;
+
+export const isNumber = (value: unknown): value is number => {
+  return typeof value === 'number';
+};
+
+export const toNumber = (value: NumberCompatible): number => {
+  if (isNumber(value)) {
+    return value;
+  }
+
+  return Number(value);
+};
+
 export const isInteger = (value: unknown): value is number => {
   return Number.isInteger(value);
 };
 
-export const inRange =
-  (from: number, to: number) =>
-  (value: number): boolean => {
-    return value >= from && value < to;
-  };
+export const isFloat = (value: unknown): value is number => {
+  return Number.isFinite(value);
+};
 
 export const clamp =
   (min: number, max: number) =>

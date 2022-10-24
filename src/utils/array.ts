@@ -1,4 +1,4 @@
-import { inRange } from './number';
+import { inRange } from './range';
 import { isSet } from './set';
 
 export type ArrayCompatible<T> = T[] | Set<T>;
@@ -18,9 +18,11 @@ export const nth = <T extends unknown[], I extends number = 0>(
   return array.at(index);
 };
 
-export const inArray = <T>(array: T[]): ((value: number) => boolean) => {
-  return inRange(0, array.length);
-};
+export const inArray =
+  <T>(array: T[]) =>
+  (value: number): boolean => {
+    return inRange(0, array.length)(value);
+  };
 
 // mutations
 
