@@ -1,4 +1,11 @@
-import { insertAtIndex, isArray, moveIndex, nth, toArray } from './array';
+import {
+  insertAtIndex,
+  isArray,
+  moveIndex,
+  nth,
+  swapIndex,
+  toArray,
+} from './array';
 
 describe('array', () => {
   it('isArray', () => {
@@ -38,7 +45,7 @@ describe('array', () => {
     expect(nth([0, 1], 1)).toEqual(1);
   });
 
-  describe('mutating', () => {
+  describe('mutations', () => {
     it('insertAtIndex', () => {
       const array1: unknown[] = [];
       insertAtIndex(array1, 0);
@@ -88,7 +95,45 @@ describe('array', () => {
       expect(array2).toEqual([value2, value1]);
 
       moveIndex(array2, 2, 0);
-      expect(array2).toEqual([undefined, value2, value1]);
+      expect(array2).toEqual([value2, value1]);
+    });
+
+    it('swapIndex', () => {
+      const array1: unknown[] = [];
+
+      swapIndex(array1, 0, 0);
+      expect(array1).toEqual([]);
+
+      swapIndex(array1, -1, 0);
+      expect(array1).toEqual([]);
+
+      swapIndex(array1, 0, -1);
+      expect(array1).toEqual([]);
+
+      const value1 = Symbol();
+      const value2 = Symbol();
+      const array2 = [value1, value2];
+
+      swapIndex(array2, 0, 0);
+      expect(array2).toEqual([value1, value2]);
+
+      swapIndex(array2, 0, 1);
+      expect(array2).toEqual([value2, value1]);
+
+      swapIndex(array2, 1, 0);
+      expect(array2).toEqual([value1, value2]);
+
+      swapIndex(array2, 0, 2);
+      expect(array2).toEqual([value1, value2]);
+
+      swapIndex(array2, 2, 0);
+      expect(array2).toEqual([value1, value2]);
+
+      swapIndex(array2, 0, -1);
+      expect(array2).toEqual([value1, value2]);
+
+      swapIndex(array2, -1, 0);
+      expect(array2).toEqual([value1, value2]);
     });
   });
 });

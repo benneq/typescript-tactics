@@ -17,7 +17,7 @@ export const nth = <T extends unknown[], I extends number = 0>(
   return array.at(index);
 };
 
-// mutating
+// mutations
 
 export const insertAtIndex = <T>(
   array: T[],
@@ -32,5 +32,24 @@ export const moveIndex = <T>(
   sourceIndex: number,
   targetIndex: number
 ): void => {
-  array.splice(targetIndex, 0, array.splice(sourceIndex, 1)[0]!);
+  if (sourceIndex < array.length) {
+    array.splice(targetIndex, 0, array.splice(sourceIndex, 1)[0] as T);
+  }
+};
+
+export const swapIndex = <T>(
+  array: T[],
+  indexA: number,
+  indexB: number
+): void => {
+  if (
+    indexA >= 0 &&
+    indexA < array.length &&
+    indexB >= 0 &&
+    indexB < array.length
+  ) {
+    const temp = array[indexA] as T;
+    array[indexA] = array[indexB] as T;
+    array[indexB] = temp;
+  }
 };
