@@ -22,8 +22,11 @@ describe('object', () => {
 
   it('defaultIfUndefined', () => {
     const value = Symbol();
-    expect(defaultIfUndefined(undefined, value)).toEqual(value);
-    expect(defaultIfUndefined<symbol>(value, Symbol())).toEqual(value);
+    expect(defaultIfUndefined(value)(undefined)).toEqual(value);
+    expect(defaultIfUndefined(Symbol())(value)).toEqual(value);
+
+    expect(defaultIfUndefined(() => value)(undefined)).toEqual(value);
+    expect(defaultIfUndefined(() => Symbol())(value)).toEqual(value);
   });
 
   it('isNotNull', () => {
@@ -42,8 +45,11 @@ describe('object', () => {
 
   it('defaultIfNull', () => {
     const value = Symbol();
-    expect(defaultIfNull(null, value)).toEqual(value);
-    expect(defaultIfNull<symbol>(value, Symbol())).toEqual(value);
+    expect(defaultIfNull(value)(null)).toEqual(value);
+    expect(defaultIfNull(Symbol())(value)).toEqual(value);
+
+    expect(defaultIfNull(() => value)(null)).toEqual(value);
+    expect(defaultIfNull(() => Symbol())(value)).toEqual(value);
   });
 });
 
