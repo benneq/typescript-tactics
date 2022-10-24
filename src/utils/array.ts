@@ -26,3 +26,11 @@ export const insertAtIndex = <T>(
 ): void => {
   array.splice(index, 0, ...values);
 };
+
+export const moveIndex = <T>(
+  array: T[],
+  sourceIndex: number,
+  targetIndex: number
+): void => {
+  array.splice(targetIndex, 0, array.splice(sourceIndex, 1)[0]!);
+};
