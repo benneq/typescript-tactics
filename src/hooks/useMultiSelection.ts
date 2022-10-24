@@ -22,7 +22,7 @@ export const useMultiSelection = <T>(
   const [value, setValue] = useState(initialValue);
 
   const transform = useCallback((transform: TransformFn<T>) => {
-    setValue((prevValue) => transform(prevValue));
+    setValue(transform);
   }, []);
 
   return [value, transform];
@@ -56,9 +56,7 @@ export const deselect =
     return difference(prevValue, value);
   };
 
-export const isEmpty = <T>(multiSelectionValue: Value<T>): boolean => {
-  return isEmptySet(multiSelectionValue);
-};
+export const isEmpty = isEmptySet;
 
 export const isSelected = <T>(
   multiSelectionValue: Value<T>,

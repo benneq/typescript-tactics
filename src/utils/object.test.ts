@@ -1,4 +1,5 @@
 import {
+  defaultIf,
   defaultIfNull,
   defaultIfUndefined,
   isNotNull,
@@ -6,6 +7,17 @@ import {
 } from './object';
 
 describe('object', () => {
+  it('defaultIf', () => {
+    const defaultValue = Symbol();
+    const value = Symbol();
+    expect(
+      defaultIf((value): value is unknown => true)(defaultValue)(value)
+    ).toEqual(defaultValue);
+    expect(
+      defaultIf((value): value is unknown => false)(defaultValue)(value)
+    ).toEqual(value);
+  });
+
   it('isNotUndefined', () => {
     expect(isNotUndefined(undefined)).toEqual(false);
     expect(isNotUndefined(null)).toEqual(true);
