@@ -1,7 +1,7 @@
 import { Predicate } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export function* done(): Generator<never, void, unknown> {}
+export const done = (function* done(): Generator<never, void, unknown> {})();
 
 export const filter = <T>(predicate: Predicate<T>) =>
   function* (generator: Generator<T>): Generator<T, void, unknown> {

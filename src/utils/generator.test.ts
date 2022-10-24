@@ -2,7 +2,9 @@ import { done, filter, map, takeUntil } from './generator';
 
 describe('generator', () => {
   it('done', () => {
-    const generator = done();
+    const generator = done;
+    expect(generator.next().done).toEqual(true);
+    expect(generator.next().done).toEqual(true);
     expect(generator.next().done).toEqual(true);
   });
 
