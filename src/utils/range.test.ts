@@ -1,6 +1,6 @@
 import {
   direction,
-  flip,
+  flipDirection,
   inRange,
   isEmpty,
   isRange,
@@ -106,13 +106,13 @@ describe('range', () => {
     expect(inRange([1, -1])(0)).toEqual(true);
   });
 
-  it('flip', () => {
-    expect(flip([0, 0])).toEqual([0, 0]);
-    expect(flip([1, 1])).toEqual([1, 1]);
-    expect(flip([-1, 1])).toEqual([0, -2]);
+  it('flipDirection', () => {
+    expect(flipDirection([0, 0])).toEqual([0, 0]);
+    expect(flipDirection([1, 1])).toEqual([1, 1]);
+    expect(flipDirection([-1, 1])).toEqual([0, -2]);
 
     // negative range
-    expect(flip([1, -1])).toEqual([0, 2]);
+    expect(flipDirection([1, -1])).toEqual([0, 2]);
   });
 });
 

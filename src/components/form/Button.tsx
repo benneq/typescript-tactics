@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { callIfDefined } from 'utils/function';
 import { Callback } from 'utils/types';
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 
 export default function Button({ type, onClick, children }: Props) {
   const handleClick = () => {
-    onClick && onClick();
+    callIfDefined(onClick);
   };
 
   return (

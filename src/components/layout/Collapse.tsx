@@ -1,5 +1,6 @@
 import Chevron from 'components/icon/Chevron';
 import { ChangeEvent, ReactNode } from 'react';
+import { callIfDefined } from 'utils/function';
 import { Callback } from 'utils/types';
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 
 const Collapse = ({ title, open, onToggle, children }: Props) => {
   const handleToggle = (e: ChangeEvent<HTMLDetailsElement>) => {
-    onToggle && onToggle(e.target.open);
+    callIfDefined(onToggle, e.target.open);
   };
 
   return (

@@ -35,14 +35,14 @@ export const toArray = (range: Range): number[] => {
   return [...values(range)];
 };
 
-export const inRange = (range: Range) => {
+export const inRange = (range: Range): ((value: number) => boolean) => {
   const multiplier = direction(range);
-  return (value: number): boolean =>
+  return (value) =>
     multiplier * value >= range[0] * multiplier &&
     multiplier * value < range[1] * multiplier;
 };
 
-export const flip = (range: Range): Range => {
+export const flipDirection = (range: Range): Range => {
   const shift = direction(range);
   return [range[1] - shift, range[0] - shift];
 };
