@@ -1,3 +1,4 @@
+import { dir } from 'console';
 import { isArray } from './array';
 import { takeUntil } from './generator';
 import { isFloat, step } from './number';
@@ -35,9 +36,8 @@ export const length = (range: Range): number => {
 
 export const values = (range: Range): Generator<number, void, unknown> => {
   const inc = direction(range);
-
-  return takeUntil(step(range[0], inc), (value) =>
-    inc === 1 ? value >= range[1] : value <= range[1]
+  return takeUntil((value: number) => Math.abs(value - range[1]) <= 0)(
+    step(range[0], inc)
   );
 };
 
@@ -48,11 +48,11 @@ export const toArray = (range: Range): number[] => {
 export const inRange =
   (range: Range) =>
   (value: number): boolean => {
-    if (direction(range) > 0) {
-      return value >= range[0] && value < range[1];
-    } else {
-      return value <= range[0] && value > range[1];
-    }
+    const multiplier = direction(range);
+    return (
+      (value - range[0]) * multiplier >= 0 &&
+      (value - range[1]) * multiplier < 0
+    );
   };
 
 export const flip = (range: Range): Range => {
