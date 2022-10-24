@@ -51,3 +51,11 @@ export const shift = (range: Range, diff: number): Range => {
   const multiplier = direction(range);
   return range.map((value) => value + multiplier * diff) as Range;
 };
+
+export const overlap = (rangeA: Range, rangeB: Range): boolean => {
+  if (rangeB[0] < rangeA[0] || isEmpty(rangeB)) {
+    return rangeB[1] > rangeA[1];
+  } else {
+    return rangeB[0] < rangeA[1];
+  }
+};

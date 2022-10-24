@@ -5,6 +5,7 @@ import {
   isEmpty,
   isRange,
   length,
+  overlap,
   shift,
   toArray,
   toRange,
@@ -124,6 +125,20 @@ describe('range', () => {
     expect(shift([-1, 2], -1)).toEqual([-2, 1]);
     expect(shift([-1, -2], 1)).toEqual([-2, -3]);
     expect(shift([-1, -2], -1)).toEqual([0, -1]);
+  });
+
+  it('overlap', () => {
+    expect(overlap([0, 0], [0, 0])).toEqual(false);
+    expect(overlap([0, 1], [0, 0])).toEqual(false);
+    expect(overlap([0, 0], [0, 1])).toEqual(false);
+    expect(overlap([0, 1], [1, 1])).toEqual(false);
+    expect(overlap([1, 1], [0, 1])).toEqual(false);
+    expect(overlap([0, 1], [-1, -1])).toEqual(false);
+    expect(overlap([-1, -1], [0, 1])).toEqual(false);
+    expect(overlap([1, 2], [2, 1])).toEqual(false);
+    expect(overlap([1, 2], [1, 0])).toEqual(true);
+    expect(overlap([-1, 2], [-1, -3])).toEqual(true);
+    expect(overlap([-1, -3], [-2, -1])).toEqual(true);
   });
 });
 
