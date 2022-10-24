@@ -1,4 +1,4 @@
-import { isInteger } from './number';
+import { inRange, isInteger } from './number';
 
 describe('number', () => {
   it('isInteger', () => {
@@ -17,6 +17,20 @@ describe('number', () => {
     expect(isInteger(0.1)).toEqual(false);
     expect(isInteger(Infinity)).toEqual(false);
     expect(isInteger(-Infinity)).toEqual(false);
+  });
+
+  it('inRange', () => {
+    expect(inRange(0, 0)(0)).toEqual(false);
+    expect(inRange(0, 0)(1)).toEqual(false);
+    expect(inRange(0, 0)(-1)).toEqual(false);
+    expect(inRange(-1, 1)(-2)).toEqual(false);
+    expect(inRange(-1, 1)(-1)).toEqual(true);
+    expect(inRange(-1, 1)(0)).toEqual(true);
+    expect(inRange(-1, 1)(1)).toEqual(false);
+    expect(inRange(-1, 1)(2)).toEqual(false);
+
+    // negative range
+    expect(inRange(1, -1)(0)).toEqual(false);
   });
 });
 

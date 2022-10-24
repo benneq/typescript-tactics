@@ -1,3 +1,4 @@
+import { inRange } from './number';
 import { isSet } from './set';
 
 export type ArrayCompatible<T> = T[] | Set<T>;
@@ -41,13 +42,13 @@ export const move = <T>(
   }
 };
 
+export const inArray = <T>(array: T[]): ((value: number) => boolean) => {
+  return inRange(0, array.length);
+};
+
 export const swap = <T>(array: T[], indexA: number, indexB: number): void => {
-  if (
-    indexA >= 0 &&
-    indexA < array.length &&
-    indexB >= 0 &&
-    indexB < array.length
-  ) {
+  const isInArray = inArray(array);
+  if (isInArray(indexA) && isInArray(indexB)) {
     const temp = array[indexA] as T;
     array[indexA] = array[indexB] as T;
     array[indexB] = temp;

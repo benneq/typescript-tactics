@@ -1,4 +1,13 @@
-import { insertAt, isArray, move, nth, removeAt, swap, toArray } from './array';
+import {
+  inArray,
+  insertAt,
+  isArray,
+  move,
+  nth,
+  removeAt,
+  swap,
+  toArray,
+} from './array';
 
 describe('array', () => {
   it('isArray', () => {
@@ -36,6 +45,17 @@ describe('array', () => {
     expect(nth([], 1)).toEqual(undefined);
     expect(nth([0], 1)).toEqual(undefined);
     expect(nth([0, 1], 1)).toEqual(1);
+  });
+
+  it('inArray', () => {
+    expect(inArray([])(0)).toEqual(false);
+    expect(inArray([])(1)).toEqual(false);
+
+    expect(inArray([1, 2, 3])(-1)).toEqual(false);
+    expect(inArray([1, 2, 3])(0)).toEqual(true);
+    expect(inArray([1, 2, 3])(1)).toEqual(true);
+    expect(inArray([1, 2, 3])(2)).toEqual(true);
+    expect(inArray([1, 2, 3])(3)).toEqual(false);
   });
 
   describe('mutations', () => {
