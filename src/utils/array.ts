@@ -21,7 +21,7 @@ export const nth = <T extends unknown[], I extends number = 0>(
 export const inArray =
   <T>(array: T[]) =>
   (value: number): boolean => {
-    return inRange(0, array.length)(value);
+    return inRange([0, array.length])(value);
   };
 
 // mutations

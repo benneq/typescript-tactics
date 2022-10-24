@@ -47,9 +47,13 @@ export const toArray = (range: Range): number[] => {
 };
 
 export const inRange =
-  (from: number, to: number) =>
+  (range: Range) =>
   (value: number): boolean => {
-    return value >= from && value < to;
+    if (direction(range) > 0) {
+      return value >= range[0] && value < range[1];
+    } else {
+      return value <= range[0] && value > range[1];
+    }
   };
 
 export const flip = (range: Range): Range => {

@@ -93,17 +93,17 @@ describe('range', () => {
   });
 
   it('inRange', () => {
-    expect(inRange(0, 0)(0)).toEqual(false);
-    expect(inRange(0, 0)(1)).toEqual(false);
-    expect(inRange(0, 0)(-1)).toEqual(false);
-    expect(inRange(-1, 1)(-2)).toEqual(false);
-    expect(inRange(-1, 1)(-1)).toEqual(true);
-    expect(inRange(-1, 1)(0)).toEqual(true);
-    expect(inRange(-1, 1)(1)).toEqual(false);
-    expect(inRange(-1, 1)(2)).toEqual(false);
+    expect(inRange([0, 0])(0)).toEqual(false);
+    expect(inRange([0, 0])(1)).toEqual(false);
+    expect(inRange([0, 0])(-1)).toEqual(false);
+    expect(inRange([-1, 1])(-2)).toEqual(false);
+    expect(inRange([-1, 1])(-1)).toEqual(true);
+    expect(inRange([-1, 1])(0)).toEqual(true);
+    expect(inRange([-1, 1])(1)).toEqual(false);
+    expect(inRange([-1, 1])(2)).toEqual(false);
 
     // negative range
-    expect(inRange(1, -1)(0)).toEqual(false);
+    expect(inRange([1, -1])(0)).toEqual(true);
   });
 
   it('flip', () => {
