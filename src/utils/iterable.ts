@@ -1,4 +1,5 @@
-import { Callback, Predicate } from './types';
+import { Predicate } from './predicate';
+import { Callback } from './types';
 
 export type IterableCompabile<T> = Iterable<T>;
 
