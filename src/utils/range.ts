@@ -1,5 +1,6 @@
 import { isArray } from './array';
-import { isFloat } from './number';
+import { takeUntil } from './generator';
+import { isFloat, step } from './number';
 
 /**
  * TODO: discuss
@@ -32,15 +33,13 @@ export const length = (range: Range): number => {
   return Math.abs(range[1] - range[0]);
 };
 
-export function* values(range: Range): Generator<number, void, unknown> {
+export const values = (range: Range): Generator<number, void, unknown> => {
   const inc = direction(range);
-  let start = range[0];
 
-  for (let i = 0; i < length(range); i++) {
-    yield start;
-    start += inc;
-  }
-}
+  return takeUntil(step(range[0], inc), (value) =>
+    inc === 1 ? value >= range[1] : value <= range[1]
+  );
+};
 
 export const toArray = (range: Range): number[] => {
   return [...values(range)];

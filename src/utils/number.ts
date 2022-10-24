@@ -21,3 +21,13 @@ export const clamp =
   (value: number): number => {
     return value < min ? min : value > max ? max : value;
   };
+
+export function* step(
+  value: number,
+  stepSize: number
+): Generator<number, void, unknown> {
+  while (true) {
+    yield value;
+    value += stepSize;
+  }
+}
