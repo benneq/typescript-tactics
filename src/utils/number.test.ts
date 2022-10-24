@@ -1,4 +1,4 @@
-import { inRange, isInteger } from './number';
+import { clamp, inRange, isInteger } from './number';
 
 describe('number', () => {
   it('isInteger', () => {
@@ -31,6 +31,20 @@ describe('number', () => {
 
     // negative range
     expect(inRange(1, -1)(0)).toEqual(false);
+  });
+
+  it('clamp', () => {
+    expect(clamp(0, 0)(0)).toEqual(0);
+    expect(clamp(0, 0)(1)).toEqual(0);
+    expect(clamp(0, 0)(-1)).toEqual(0);
+    expect(clamp(-1, 1)(-2)).toEqual(-1);
+    expect(clamp(-1, 1)(-1)).toEqual(-1);
+    expect(clamp(-1, 1)(0)).toEqual(0);
+    expect(clamp(-1, 1)(1)).toEqual(1);
+    expect(clamp(-1, 1)(2)).toEqual(1);
+
+    // negative range
+    expect(clamp(1, -1)(0)).toEqual(1);
   });
 });
 

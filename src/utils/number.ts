@@ -7,3 +7,9 @@ export const inRange =
   (value: number): boolean => {
     return value >= from && value < to;
   };
+
+export const clamp =
+  (min: number, max: number) =>
+  (value: number): number => {
+    return value < min ? min : value > max ? max : value;
+  };

@@ -4,6 +4,8 @@ import {
   defaultIfUndefined,
   isNotNull,
   isNotUndefined,
+  isNull,
+  isUndefined,
 } from './object';
 
 describe('object', () => {
@@ -16,6 +18,20 @@ describe('object', () => {
     expect(
       defaultIf((value): value is unknown => false)(defaultValue)(value)
     ).toEqual(value);
+  });
+
+  it('isUndefined', () => {
+    expect(isUndefined(undefined)).toEqual(true);
+    expect(isUndefined(null)).toEqual(false);
+    expect(isUndefined(NaN)).toEqual(false);
+    expect(isUndefined(0)).toEqual(false);
+    expect(isUndefined(true)).toEqual(false);
+    expect(isUndefined({})).toEqual(false);
+    expect(isUndefined('')).toEqual(false);
+    expect(isUndefined([])).toEqual(false);
+    expect(isUndefined(new Set())).toEqual(false);
+    expect(isUndefined(new Map())).toEqual(false);
+    expect(isUndefined(jest.fn())).toEqual(false);
   });
 
   it('isNotUndefined', () => {
@@ -39,6 +55,20 @@ describe('object', () => {
 
     expect(defaultIfUndefined(() => value)(undefined)).toEqual(value);
     expect(defaultIfUndefined(() => Symbol())(value)).toEqual(value);
+  });
+
+  it('isNull', () => {
+    expect(isNull(undefined)).toEqual(false);
+    expect(isNull(null)).toEqual(true);
+    expect(isNull(NaN)).toEqual(false);
+    expect(isNull(0)).toEqual(false);
+    expect(isNull(true)).toEqual(false);
+    expect(isNull({})).toEqual(false);
+    expect(isNull('')).toEqual(false);
+    expect(isNull([])).toEqual(false);
+    expect(isNull(new Set())).toEqual(false);
+    expect(isNull(new Map())).toEqual(false);
+    expect(isNull(jest.fn())).toEqual(false);
   });
 
   it('isNotNull', () => {
