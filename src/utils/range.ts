@@ -1,6 +1,5 @@
 import { isArray } from './array';
-import { isFloat, NumberCompatible, toNumber } from './number';
-import { Callback } from './types';
+import { isFloat } from './number';
 
 /**
  * TODO: discuss
@@ -11,7 +10,7 @@ import { Callback } from './types';
  * end excusive => yes, because it allows for empty ranges
  */
 
-export type Range<T extends NumberCompatible = NumberCompatible> = [T, T];
+export type Range = [number, number];
 
 export const isRange = (value: unknown): value is Range => {
   return isArray(value) && isFloat(value[0]) && isFloat(value[1]);
@@ -25,26 +24,35 @@ export const isEmpty = (range: Range): boolean => {
   return range[0] === range[1];
 };
 
-export const length = (range: Range): number => {
-  return toNumber(range[1]) - toNumber(range[0]) + 1;
+export const direction = (range: Range): 1 | 0 | -1 => {
+  return Math.sign(range[1] - range[0]) as 1 | 0 | -1;
 };
+
+export const length = (range: Range): number => {
+  return Math.abs(range[1] - range[0]);
+};
+
+export function* values(range: Range): Generator<number, void, unknown> {
+  const inc = direction(range);
+  let start = range[0];
+
+  for (let i = 0; i < length(range); i++) {
+    yield start;
+    start += inc;
+  }
+}
 
 export const toArray = (range: Range): number[] => {
-  return Array.from(
-    { length: length(range) },
-    (_, k) => k + toNumber(range[0])
-  );
+  return [...values(range)];
 };
-
-export const forEach =
-  (range: Range) => (callback: Callback<[NumberCompatible]>) => {
-    for (let i = range[0]; i <= range[1]; i++) {
-      callback(i);
-    }
-  };
 
 export const inRange =
   (from: number, to: number) =>
   (value: number): boolean => {
     return value >= from && value < to;
   };
+
+export const flip = (range: Range): Range => {
+  const shift = direction(range);
+  return [range[1] - shift, range[0] - shift];
+};

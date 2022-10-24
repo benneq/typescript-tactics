@@ -1,4 +1,14 @@
-import { inRange, isEmpty, isRange, length, toArray, toRange } from './range';
+import {
+  direction,
+  flip,
+  inRange,
+  isEmpty,
+  isRange,
+  length,
+  toArray,
+  toRange,
+  values,
+} from './range';
 
 describe('range', () => {
   it('isRange', () => {
@@ -38,23 +48,48 @@ describe('range', () => {
     expect(isEmpty([1, -1])).toEqual(false);
   });
 
-  it('length', () => {
-    expect(length([0, 0])).toEqual(1);
-    expect(length([1, 1])).toEqual(1);
+  it('direction', () => {
+    expect(direction([0, 0])).toEqual(0);
+    expect(direction([1, 1])).toEqual(0);
 
-    expect(length([-1, 1])).toEqual(3);
+    expect(direction([-1, 1])).toEqual(1);
 
     // negative range
-    // expect(length([1, -1])).toEqual(3);
+    expect(direction([1, -1])).toEqual(-1);
+  });
+
+  it('length', () => {
+    expect(length([0, 0])).toEqual(0);
+    expect(length([1, 1])).toEqual(0);
+
+    expect(length([-1, 1])).toEqual(2);
+
+    // negative range
+    expect(length([1, -1])).toEqual(2);
+  });
+
+  it('values', () => {
+    const generator1 = values([0, 0]);
+    expect(generator1.next().done).toEqual(true);
+
+    const generator2 = values([-1, 1]);
+    expect(generator2.next().value).toEqual(-1);
+    expect(generator2.next().value).toEqual(0);
+    expect(generator2.next().done).toEqual(true);
+
+    const generator3 = values([1, -1]);
+    expect(generator3.next().value).toEqual(1);
+    expect(generator3.next().value).toEqual(0);
+    expect(generator3.next().done).toEqual(true);
   });
 
   it('toArray', () => {
-    expect(toArray([0, 0])).toEqual([0]);
-    expect(toArray([1, 1])).toEqual([1]);
-    expect(toArray([-1, 1])).toEqual([-1, 0, 1]);
+    expect(toArray([0, 0])).toEqual([]);
+    expect(toArray([1, 1])).toEqual([]);
+    expect(toArray([-1, 1])).toEqual([-1, 0]);
 
     // negative range
-    // expect(toArray([1, -1])).toEqual([-1, 0, 1]);
+    expect(toArray([1, -1])).toEqual([1, 0]);
   });
 
   it('inRange', () => {
@@ -69,6 +104,15 @@ describe('range', () => {
 
     // negative range
     expect(inRange(1, -1)(0)).toEqual(false);
+  });
+
+  it('flip', () => {
+    expect(flip([0, 0])).toEqual([0, 0]);
+    expect(flip([1, 1])).toEqual([1, 1]);
+    expect(flip([-1, 1])).toEqual([0, -2]);
+
+    // negative range
+    expect(flip([1, -1])).toEqual([0, 2]);
   });
 });
 

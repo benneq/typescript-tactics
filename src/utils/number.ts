@@ -5,10 +5,6 @@ export const isNumber = (value: unknown): value is number => {
 };
 
 export const toNumber = (value: NumberCompatible): number => {
-  if (isNumber(value)) {
-    return value;
-  }
-
   return Number(value);
 };
 
