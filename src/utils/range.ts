@@ -46,3 +46,8 @@ export const flipDirection = (range: Range): Range => {
   const shift = direction(range);
   return [range[1] - shift, range[0] - shift];
 };
+
+export const shift = (range: Range, diff: number): Range => {
+  const multiplier = direction(range);
+  return range.map((value) => value + multiplier * diff) as Range;
+};

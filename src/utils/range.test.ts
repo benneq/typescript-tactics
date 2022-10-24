@@ -5,6 +5,7 @@ import {
   isEmpty,
   isRange,
   length,
+  shift,
   toArray,
   toRange,
   values,
@@ -113,6 +114,16 @@ describe('range', () => {
 
     // negative range
     expect(flipDirection([1, -1])).toEqual([0, 2]);
+  });
+
+  it('shift', () => {
+    expect(shift([0, 0], 0)).toEqual([0, 0]);
+    expect(shift([1, 2], 1)).toEqual([2, 3]);
+    expect(shift([3, 2], -1)).toEqual([4, 3]);
+    expect(shift([-1, 2], 1)).toEqual([0, 3]);
+    expect(shift([-1, 2], -1)).toEqual([-2, 1]);
+    expect(shift([-1, -2], 1)).toEqual([-2, -3]);
+    expect(shift([-1, -2], -1)).toEqual([0, -1]);
   });
 });
 
