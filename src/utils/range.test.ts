@@ -1,5 +1,6 @@
 import {
   direction,
+  equal,
   flipDirection,
   inRange,
   isEmpty,
@@ -40,6 +41,13 @@ describe('range', () => {
 
   it('toRange', () => {
     expect(toRange(1, 2)).toEqual([1, 2]);
+  });
+
+  it('equal', () => {
+    expect(equal([0, 0])([0, 0])).toEqual(true);
+    expect(equal([0, 1])([1, 0])).toEqual(false);
+    expect(equal([-1, 1])([1, -1])).toEqual(false);
+    expect(equal([-1, -2])([-1, -2])).toEqual(true);
   });
 
   it('isEmpty', () => {

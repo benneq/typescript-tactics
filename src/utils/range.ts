@@ -1,4 +1,4 @@
-import { isArray } from './array';
+import { isArray, equal as arrayEqual } from './array';
 import { takeUntil } from './generator';
 import { isFloat, step } from './number';
 
@@ -11,6 +11,12 @@ export const isRange = (value: unknown): value is Range => {
 export const toRange = (from: number, to: number): Range => {
   return [from, to];
 };
+
+export const equal =
+  (rangeA: Range) =>
+  (rangeB: Range): boolean => {
+    return arrayEqual(rangeA)(rangeB);
+  };
 
 export const isEmpty = (range: Range): boolean => {
   return range[0] === range[1];

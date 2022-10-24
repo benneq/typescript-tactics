@@ -1,4 +1,5 @@
 import {
+  equal,
   inArray,
   insertAt,
   isArray,
@@ -35,6 +36,14 @@ describe('array', () => {
     expect(toArray([])).toEqual([]);
     expect(toArray(new Set())).toEqual([]);
     expect(toArray(new Map())).toEqual([new Map()]);
+  });
+
+  it('equal', () => {
+    expect(equal([])([])).toEqual(true);
+    expect(equal<number>([])([0])).toEqual(false);
+    expect(equal([0])([])).toEqual(false);
+    expect(equal([1, 2])([1, 2])).toEqual(true);
+    expect(equal([1, 2])([2, 1])).toEqual(false);
   });
 
   it('nth', () => {

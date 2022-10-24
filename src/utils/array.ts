@@ -11,6 +11,15 @@ export const toArray = <T>(value: T | ArrayCompatible<T>): T[] => {
   return isArray(value) ? value : isSet(value) ? Array.from(value) : [value];
 };
 
+export const equal =
+  <T>(arrayA: T[]) =>
+  (arrayB: T[]): boolean => {
+    return (
+      arrayA.length === arrayB.length &&
+      arrayA.every((value, index) => value === arrayB[index])
+    );
+  };
+
 export const nth = <T extends unknown[], I extends number = 0>(
   array: T,
   index: I = 0 as I
