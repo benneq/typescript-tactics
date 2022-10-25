@@ -16,6 +16,10 @@ export const isEmpty: Predicate<unknown[]> = (array) => {
   return array.length === 0;
 };
 
+export const copy = <T>(array: T[]): T[] => {
+  return array.slice();
+};
+
 export const equal =
   <T>(arrayA: T[]) =>
   (arrayB: T[]): boolean => {

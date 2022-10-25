@@ -1,4 +1,5 @@
 import {
+  copy,
   equal,
   inArray,
   insertAt,
@@ -42,6 +43,13 @@ describe('array', () => {
   it('isEmpty', () => {
     expect(isEmpty([])).toEqual(true);
     expect(isEmpty([0])).toEqual(false);
+  });
+
+  it('copy', () => {
+    const value = Symbol();
+    const array = [value];
+    expect(copy(array)).not.toBe(array);
+    expect(copy(array)).toEqual([value]);
   });
 
   it('equal', () => {
