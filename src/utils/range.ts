@@ -33,30 +33,25 @@ export const values = (
   range: Range,
   stepSize = 1
 ): Generator<number, void, unknown> => {
-  const inc = direction(range);
-
-  return takeWhile(beforeEnd(range, inc))(step(range[0], inc * stepSize));
+  const multiplier = direction(range);
+  return takeWhile(inRange(range))(step(range[0], multiplier * stepSize));
 };
 
 export const toArray = (range: Range): number[] => {
   return [...values(range)];
 };
 
-const afterStart =
-  (range: Range, direction: 1 | 0 | -1) =>
-  (value: number): boolean => {
-    return (value - range[0]) * direction >= 0;
-  };
+export const isAscending = (range: Range): boolean => {
+  return direction(range) === 1;
+};
 
-const beforeEnd =
-  (range: Range, direction: 1 | 0 | -1) =>
-  (value: number): boolean => {
-    return (value - range[1]) * direction < 0;
-  };
+export const toAscending = (range: Range): Range => {
+  return isAscending(range) ? range : flipDirection(range);
+};
 
 export const inRange = (range: Range): Predicate<number> => {
-  const multiplier = direction(range);
-  return and(afterStart(range, multiplier), beforeEnd(range, multiplier));
+  const [rangeStart, rangeEnd] = toAscending(range);
+  return (value) => value >= rangeStart && value < rangeEnd;
 };
 
 export const flipDirection = (range: Range): Range => {

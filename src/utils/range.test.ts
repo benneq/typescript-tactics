@@ -3,12 +3,14 @@ import {
   equal,
   flipDirection,
   inRange,
+  isAscending,
   isEmpty,
   isRange,
   length,
   overlap,
   shift,
   toArray,
+  toAscending,
   toRange,
   values,
 } from './range';
@@ -105,6 +107,18 @@ describe('range', () => {
 
     // negative range
     expect(toArray([1, -1])).toEqual([1, 0]);
+  });
+
+  it('isAscending', () => {
+    expect(isAscending([0, 0])).toEqual(false);
+    expect(isAscending([-1, 1])).toEqual(true);
+    expect(isAscending([1, -1])).toEqual(false);
+  });
+
+  it('toAscending', () => {
+    expect(toAscending([0, 0])).toEqual([0, 0]);
+    expect(toAscending([-1, 1])).toEqual([-1, 1]);
+    expect(toAscending([1, -1])).toEqual([0, 2]);
   });
 
   it('inRange', () => {
