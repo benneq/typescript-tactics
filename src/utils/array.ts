@@ -1,3 +1,4 @@
+import { Predicate } from './predicate';
 import { inRange } from './range';
 import { isSet } from './set';
 
@@ -9,6 +10,10 @@ export const isArray = <T>(value: unknown): value is Array<T> => {
 
 export const toArray = <T>(value: T | ArrayCompatible<T>): T[] => {
   return isArray(value) ? value : isSet(value) ? Array.from(value) : [value];
+};
+
+export const isEmpty: Predicate<unknown[]> = (array) => {
+  return array.length === 0;
 };
 
 export const equal =

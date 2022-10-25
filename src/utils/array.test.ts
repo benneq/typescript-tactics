@@ -3,6 +3,7 @@ import {
   inArray,
   insertAt,
   isArray,
+  isEmpty,
   move,
   nth,
   removeAt,
@@ -36,6 +37,11 @@ describe('array', () => {
     expect(toArray([])).toEqual([]);
     expect(toArray(new Set())).toEqual([]);
     expect(toArray(new Map())).toEqual([new Map()]);
+  });
+
+  it('isEmpty', () => {
+    expect(isEmpty([])).toEqual(true);
+    expect(isEmpty([0])).toEqual(false);
   });
 
   it('equal', () => {

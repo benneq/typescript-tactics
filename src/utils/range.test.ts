@@ -12,6 +12,7 @@ import {
   shift,
   toArray,
   toAscending,
+  toDescending,
   toRange,
   values,
 } from './range';
@@ -138,6 +139,12 @@ describe('range', () => {
     expect(toAscending([0, 0])).toEqual([0, 0]);
     expect(toAscending([-1, 1])).toEqual([-1, 1]);
     expect(toAscending([1, -1])).toEqual([0, 2]);
+  });
+
+  it('toDescending', () => {
+    expect(toDescending([0, 0])).toEqual([0, 0]);
+    expect(toDescending([-1, 1])).toEqual([0, -2]);
+    expect(toDescending([1, -1])).toEqual([1, -1]);
   });
 
   it('inRange', () => {

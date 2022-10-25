@@ -60,17 +60,21 @@ export const values = (
   return takeWhile(inRange(range))(step(range[0], stepSign * stepSize));
 };
 
-export const toArray = (range: Range, stepSize = 1): number[] => {
+export const toArray = (range: Range, stepSize?: number): number[] => {
   return [...values(range, stepSize)];
+};
+
+export const flipDirection = (range: Range): Range => {
+  const diff = direction(range);
+  return [range[1] - diff, range[0] - diff];
 };
 
 export const toAscending = (range: Range): Range => {
   return isAscending(range) ? range : flipDirection(range);
 };
 
-export const flipDirection = (range: Range): Range => {
-  const shift = direction(range);
-  return [range[1] - shift, range[0] - shift];
+export const toDescending = (range: Range): Range => {
+  return isDescending(range) ? range : flipDirection(range);
 };
 
 export const shift = (range: Range, stepSize: number): Range => {
