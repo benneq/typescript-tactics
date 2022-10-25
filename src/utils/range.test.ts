@@ -91,6 +91,11 @@ describe('range', () => {
     expect(generator3.next().value).toEqual(1);
     expect(generator3.next().value).toEqual(0);
     expect(generator3.next().done).toEqual(true);
+
+    const generator4 = values([-1, -6], 4);
+    expect(generator4.next().value).toEqual(-1);
+    expect(generator4.next().value).toEqual(-5);
+    expect(generator4.next().done).toEqual(true);
   });
 
   it('toArray', () => {

@@ -12,10 +12,10 @@ export const filter = <T>(predicate: Predicate<T>) =>
     }
   };
 
-export const takeUntil = <T>(predicate: Predicate<T>) =>
+export const takeWhile = <T>(predicate: Predicate<T>) =>
   function* (generator: Generator<T>): Generator<T, void, unknown> {
     for (const value of generator) {
-      if (predicate(value)) {
+      if (!predicate(value)) {
         return;
       }
       yield value;

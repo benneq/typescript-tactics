@@ -1,6 +1,7 @@
 import { isArray, equal as arrayEqual } from './array';
-import { takeUntil } from './generator';
+import { takeWhile } from './generator';
 import { isFloat, step } from './number';
+import { and, Predicate } from './predicate';
 
 export type Range = [number, number];
 
@@ -12,11 +13,9 @@ export const toRange = (from: number, to: number): Range => {
   return [from, to];
 };
 
-export const equal =
-  (rangeA: Range) =>
-  (rangeB: Range): boolean => {
-    return arrayEqual(rangeA)(rangeB);
-  };
+export const equal = (rangeA: Range): ((rangeB: Range) => boolean) => {
+  return arrayEqual(rangeA);
+};
 
 export const isEmpty = (range: Range): boolean => {
   return range[0] === range[1];
@@ -30,22 +29,34 @@ export const length = (range: Range): number => {
   return Math.abs(range[1] - range[0]);
 };
 
-export const values = (range: Range): Generator<number, void, unknown> => {
+export const values = (
+  range: Range,
+  stepSize = 1
+): Generator<number, void, unknown> => {
   const inc = direction(range);
-  return takeUntil((value: number) => Math.abs(value - range[1]) <= 0)(
-    step(range[0], inc)
-  );
+
+  return takeWhile(beforeEnd(range, inc))(step(range[0], inc * stepSize));
 };
 
 export const toArray = (range: Range): number[] => {
   return [...values(range)];
 };
 
-export const inRange = (range: Range): ((value: number) => boolean) => {
+const afterStart =
+  (range: Range, direction: 1 | 0 | -1) =>
+  (value: number): boolean => {
+    return (value - range[0]) * direction >= 0;
+  };
+
+const beforeEnd =
+  (range: Range, direction: 1 | 0 | -1) =>
+  (value: number): boolean => {
+    return (value - range[1]) * direction < 0;
+  };
+
+export const inRange = (range: Range): Predicate<number> => {
   const multiplier = direction(range);
-  return (value) =>
-    multiplier * value >= range[0] * multiplier &&
-    multiplier * value < range[1] * multiplier;
+  return and(afterStart(range, multiplier), beforeEnd(range, multiplier));
 };
 
 export const flipDirection = (range: Range): Range => {
@@ -53,9 +64,9 @@ export const flipDirection = (range: Range): Range => {
   return [range[1] - shift, range[0] - shift];
 };
 
-export const shift = (range: Range, diff: number): Range => {
-  const multiplier = direction(range);
-  return range.map((value) => value + multiplier * diff) as Range;
+export const shift = (range: Range, stepSize: number): Range => {
+  const diff = direction(range) * stepSize;
+  return [range[0] + diff, range[1] + diff];
 };
 
 export const overlap = (rangeA: Range, rangeB: Range): boolean => {

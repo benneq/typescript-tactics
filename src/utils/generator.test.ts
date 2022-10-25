@@ -1,4 +1,4 @@
-import { done, filter, map, takeUntil } from './generator';
+import { done, filter, map, takeWhile } from './generator';
 
 describe('generator', () => {
   it('done', () => {
@@ -22,14 +22,14 @@ describe('generator', () => {
     expect(generator.next().done).toEqual(false);
   });
 
-  it('takeUntil', () => {
+  it('takeWhile', () => {
     function* gen() {
       let i = 0;
       while (true) {
         yield i++;
       }
     }
-    const generator = takeUntil((value) => value === 3)(gen());
+    const generator = takeWhile((value: number) => value < 3)(gen());
     expect(generator.next().value).toEqual(0);
     expect(generator.next().value).toEqual(1);
     expect(generator.next().value).toEqual(2);
