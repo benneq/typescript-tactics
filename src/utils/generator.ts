@@ -28,3 +28,7 @@ export const map = <T, R>(mapper: (value: T) => R) =>
       yield mapper(value);
     }
   };
+
+export const toArray = <T>(generator: Generator<T>): T[] => {
+  return Array.from(generator);
+};

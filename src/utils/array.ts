@@ -17,7 +17,7 @@ export const isEmpty: Predicate<unknown[]> = (array) => {
 };
 
 export const copy = <T>(array: T[]): T[] => {
-  return array.slice();
+  return Array.from(array);
 };
 
 export const equal =

@@ -1,4 +1,4 @@
-import { done, filter, map, takeWhile } from './generator';
+import { done, filter, map, takeWhile, toArray } from './generator';
 
 describe('generator', () => {
   it('done', () => {
@@ -48,6 +48,16 @@ describe('generator', () => {
     expect(generator.next().value).toEqual('1');
     expect(generator.next().value).toEqual('2');
     expect(generator.next().done).toEqual(false);
+  });
+
+  it('toArray', () => {
+    function* gen() {
+      let i = 0;
+      while (i < 3) {
+        yield i++;
+      }
+    }
+    expect(toArray(gen())).toEqual([0, 1, 2]);
   });
 });
 
