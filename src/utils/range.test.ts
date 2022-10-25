@@ -4,6 +4,7 @@ import {
   flipDirection,
   inRange,
   isAscending,
+  isDescending,
   isEmpty,
   isRange,
   length,
@@ -55,9 +56,22 @@ describe('range', () => {
   it('isEmpty', () => {
     expect(isEmpty([0, 0])).toEqual(true);
     expect(isEmpty([1, 1])).toEqual(true);
-
     expect(isEmpty([-1, 1])).toEqual(false);
     expect(isEmpty([1, -1])).toEqual(false);
+  });
+
+  it('isAscending', () => {
+    expect(isAscending([0, 0])).toEqual(false);
+    expect(isAscending([1, 1])).toEqual(false);
+    expect(isAscending([-1, 1])).toEqual(true);
+    expect(isAscending([1, -1])).toEqual(false);
+  });
+
+  it('isDescending', () => {
+    expect(isDescending([0, 0])).toEqual(false);
+    expect(isDescending([1, 1])).toEqual(false);
+    expect(isDescending([-1, 1])).toEqual(false);
+    expect(isDescending([1, -1])).toEqual(true);
   });
 
   it('direction', () => {
@@ -98,6 +112,13 @@ describe('range', () => {
     expect(generator4.next().value).toEqual(-1);
     expect(generator4.next().value).toEqual(-5);
     expect(generator4.next().done).toEqual(true);
+
+    // negative stepSize
+    const generator5 = values([-1, -6], 0);
+    expect(generator5.next().done).toEqual(true);
+
+    const generator6 = values([-1, -6], -1);
+    expect(generator6.next().done).toEqual(true);
   });
 
   it('toArray', () => {
@@ -107,12 +128,10 @@ describe('range', () => {
 
     // negative range
     expect(toArray([1, -1])).toEqual([1, 0]);
-  });
 
-  it('isAscending', () => {
-    expect(isAscending([0, 0])).toEqual(false);
-    expect(isAscending([-1, 1])).toEqual(true);
-    expect(isAscending([1, -1])).toEqual(false);
+    // negative stepSize
+    expect(toArray([-1, 1], 0)).toEqual([]);
+    expect(toArray([1, -1], -1)).toEqual([]);
   });
 
   it('toAscending', () => {
@@ -163,6 +182,7 @@ describe('range', () => {
     expect(overlap([0, 1], [-1, -1])).toEqual(false);
     expect(overlap([-1, -1], [0, 1])).toEqual(false);
     expect(overlap([1, 2], [2, 1])).toEqual(false);
+    expect(overlap([2, 1], [1, 2])).toEqual(false);
     expect(overlap([1, 2], [1, 0])).toEqual(true);
     expect(overlap([-1, 2], [-1, -3])).toEqual(true);
     expect(overlap([-1, -3], [-2, -1])).toEqual(true);

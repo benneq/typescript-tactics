@@ -1,7 +1,7 @@
 import { isArray, equal as arrayEqual } from './array';
-import { takeWhile } from './generator';
+import { done, takeWhile } from './generator';
 import { isFloat, step } from './number';
-import { and, Predicate } from './predicate';
+import { Predicate } from './predicate';
 
 export type Range = [number, number];
 
@@ -9,16 +9,35 @@ export const isRange = (value: unknown): value is Range => {
   return isArray(value) && isFloat(value[0]) && isFloat(value[1]);
 };
 
-export const toRange = (from: number, to: number): Range => {
-  return [from, to];
+export const toRange = (start: number, end: number): Range => {
+  return [start, end];
 };
 
-export const equal = (rangeA: Range): ((rangeB: Range) => boolean) => {
+export const equal = (rangeA: Range): Predicate<Range> => {
   return arrayEqual(rangeA);
 };
 
-export const isEmpty = (range: Range): boolean => {
+export const isEmpty: Predicate<Range> = (range) => {
   return range[0] === range[1];
+};
+
+export const isAscending: Predicate<Range> = (range) => {
+  return direction(range) === 1;
+};
+
+export const isDescending: Predicate<Range> = (range) => {
+  return direction(range) === -1;
+};
+
+export const inRange = (range: Range): Predicate<number> => {
+  const [rangeStart, rangeEnd] = toAscending(range);
+  return (value) => value >= rangeStart && value < rangeEnd;
+};
+
+export const overlap = (rangeA: Range, rangeB: Range): boolean => {
+  const [startA, endA] = toAscending(rangeA);
+  const [startB, endB] = toAscending(rangeB);
+  return startA < endB && endA > startB;
 };
 
 export const direction = (range: Range): 1 | 0 | -1 => {
@@ -33,25 +52,20 @@ export const values = (
   range: Range,
   stepSize = 1
 ): Generator<number, void, unknown> => {
-  const multiplier = direction(range);
-  return takeWhile(inRange(range))(step(range[0], multiplier * stepSize));
+  if (stepSize <= 0) {
+    return done;
+  }
+
+  const stepSign = direction(range);
+  return takeWhile(inRange(range))(step(range[0], stepSign * stepSize));
 };
 
-export const toArray = (range: Range): number[] => {
-  return [...values(range)];
-};
-
-export const isAscending = (range: Range): boolean => {
-  return direction(range) === 1;
+export const toArray = (range: Range, stepSize = 1): number[] => {
+  return [...values(range, stepSize)];
 };
 
 export const toAscending = (range: Range): Range => {
   return isAscending(range) ? range : flipDirection(range);
-};
-
-export const inRange = (range: Range): Predicate<number> => {
-  const [rangeStart, rangeEnd] = toAscending(range);
-  return (value) => value >= rangeStart && value < rangeEnd;
 };
 
 export const flipDirection = (range: Range): Range => {
@@ -62,12 +76,4 @@ export const flipDirection = (range: Range): Range => {
 export const shift = (range: Range, stepSize: number): Range => {
   const diff = direction(range) * stepSize;
   return [range[0] + diff, range[1] + diff];
-};
-
-export const overlap = (rangeA: Range, rangeB: Range): boolean => {
-  if (rangeB[0] < rangeA[0] || isEmpty(rangeB)) {
-    return rangeB[1] > rangeA[1];
-  } else {
-    return rangeB[0] < rangeA[1];
-  }
 };
