@@ -4,6 +4,10 @@ export const alwaysTrue = () => true;
 
 export const alwaysFalse = () => false;
 
+export const isTruthy: Predicate<unknown> = (value) => !!value;
+
+export const isFalsy: Predicate<unknown> = (value) => !value;
+
 export const not = <T>(predicate: Predicate<T>): Predicate<T> => {
   return (value: T) => !predicate(value);
 };

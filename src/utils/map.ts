@@ -28,19 +28,23 @@ export const filter =
     return res;
   };
 
-export const filterKeys = <K>(predicate: Predicate<K>) => {
-  return filter(([k]: [K, unknown]) => predicate(k));
+export const filterKeys = <K, V>(
+  predicate: Predicate<K>
+): ((map: Map<K, V>) => Map<K, V>) => {
+  return filter(([k]: [K, V]) => predicate(k));
 };
 
-export const filterValues = <V>(predicate: Predicate<V>) => {
-  return filter(([k, v]: [unknown, V]) => predicate(v));
+export const filterValues = <K, V>(
+  predicate: Predicate<V>
+): ((map: Map<K, V>) => Map<K, V>) => {
+  return filter(([_, v]: [K, V]) => predicate(v));
 };
 
 export const isEmpty = <K, V>(map: Map<K, V>): boolean => {
   return !map.size;
 };
 
-export const keySet = <K, V>(map: Map<K, V>) => {
+export const keySet = <K, V>(map: Map<K, V>): Set<K> => {
   return new Set(map.keys());
 };
 
@@ -54,7 +58,7 @@ export const mapValues =
 
 export const fromIterable =
   <T, K, V>(mapper: Mapper<T, [K, V]>) =>
-  (iterable: Iterable<T>) => {
+  (iterable: Iterable<T>): Map<K, V> => {
     const res = new Map<K, V>();
     forEach(iterable)((e) => res.set(...mapper(e)));
     return res;

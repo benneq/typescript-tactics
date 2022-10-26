@@ -4,8 +4,10 @@ export const isFunction = <T, TArgs extends unknown[] = []>(
   return typeof value === 'function';
 };
 
-export const identity = <T>(arg: T): T => {
-  return arg;
+export type Identity = <T>(value: T) => T;
+
+export const identity: Identity = (value) => {
+  return value;
 };
 
 export const callIfDefined = <TArgs extends unknown[], T>(

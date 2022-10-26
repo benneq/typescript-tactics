@@ -12,6 +12,8 @@ export type ValueOrProvider<T, TArgs extends unknown[] = []> =
   | T
   | Provider<T, TArgs>;
 
+export type Brand<K, T> = K & { __brand: T };
+
 export const valueOrProviderResult = <T, TArgs extends unknown[] = []>(
   value: ValueOrProvider<T, TArgs>,
   ...args: TArgs

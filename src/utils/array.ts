@@ -1,5 +1,5 @@
 import { Predicate } from './predicate';
-import { inRange } from './range';
+import { contains } from './range';
 import { isSet } from './set';
 
 export type ArrayCompatible<T> = T[] | Set<T>;
@@ -39,7 +39,7 @@ export const nth = <T extends unknown[], I extends number = 0>(
 export const inArray =
   <T>(array: T[]) =>
   (index: number): boolean => {
-    return inRange([0, array.length])(index);
+    return contains([0, array.length])(index);
   };
 
 // mutations

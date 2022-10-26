@@ -1,4 +1,12 @@
-import { alwaysFalse, alwaysTrue, and, not, or } from './predicate';
+import {
+  alwaysFalse,
+  alwaysTrue,
+  and,
+  isFalsy,
+  isTruthy,
+  not,
+  or,
+} from './predicate';
 
 describe('predicate', () => {
   it('alwaysTrue', () => {
@@ -7,6 +15,38 @@ describe('predicate', () => {
 
   it('alwaysFalse', () => {
     expect(alwaysFalse()).toEqual(false);
+  });
+
+  it('isTruthy', () => {
+    expect(isTruthy(true)).toEqual(true);
+    expect(isTruthy(' ')).toEqual(true);
+    expect(isTruthy(1)).toEqual(true);
+    expect(isTruthy(-1)).toEqual(true);
+    expect(isTruthy({})).toEqual(true);
+    expect(isTruthy([])).toEqual(true);
+
+    expect(isTruthy(false)).toEqual(false);
+    expect(isTruthy('')).toEqual(false);
+    expect(isTruthy(0)).toEqual(false);
+    expect(isTruthy(NaN)).toEqual(false);
+    expect(isTruthy(undefined)).toEqual(false);
+    expect(isTruthy(null)).toEqual(false);
+  });
+
+  it('isFalsy', () => {
+    expect(isFalsy(true)).toEqual(false);
+    expect(isFalsy(' ')).toEqual(false);
+    expect(isFalsy(1)).toEqual(false);
+    expect(isFalsy(-1)).toEqual(false);
+    expect(isFalsy({})).toEqual(false);
+    expect(isFalsy([])).toEqual(false);
+
+    expect(isFalsy(false)).toEqual(true);
+    expect(isFalsy('')).toEqual(true);
+    expect(isFalsy(0)).toEqual(true);
+    expect(isFalsy(NaN)).toEqual(true);
+    expect(isFalsy(undefined)).toEqual(true);
+    expect(isFalsy(null)).toEqual(true);
   });
 
   it('not', () => {

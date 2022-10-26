@@ -29,9 +29,15 @@ export const isDescending: Predicate<Range> = (range) => {
   return direction(range) === -1;
 };
 
-export const inRange = (range: Range): Predicate<number> => {
+export const contains = (range: Range): Predicate<number> => {
   const [rangeStart, rangeEnd] = toAscending(range);
   return (value) => value >= rangeStart && value < rangeEnd;
+};
+
+export const encloses = (outerRange: Range, innerRange: Range): boolean => {
+  const [outerStart, outerEnd] = toAscending(outerRange);
+  const [innerStart, innerEnd] = toAscending(innerRange);
+  return outerStart <= innerStart && outerEnd >= innerEnd;
 };
 
 export const overlap = (rangeA: Range, rangeB: Range): boolean => {
@@ -57,7 +63,7 @@ export const values = (
   }
 
   const stepSign = direction(range);
-  return takeWhile(inRange(range))(step(range[0], stepSign * stepSize));
+  return takeWhile(contains(range))(step(range[0], stepSign * stepSize));
 };
 
 export const toArray = (range: Range, stepSize?: number): number[] => {

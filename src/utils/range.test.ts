@@ -2,7 +2,7 @@ import {
   direction,
   equal,
   flipDirection,
-  inRange,
+  contains,
   isAscending,
   isDescending,
   isEmpty,
@@ -15,6 +15,7 @@ import {
   toDescending,
   toRange,
   values,
+  encloses,
 } from './range';
 
 describe('range', () => {
@@ -147,18 +148,18 @@ describe('range', () => {
     expect(toDescending([1, -1])).toEqual([1, -1]);
   });
 
-  it('inRange', () => {
-    expect(inRange([0, 0])(0)).toEqual(false);
-    expect(inRange([0, 0])(1)).toEqual(false);
-    expect(inRange([0, 0])(-1)).toEqual(false);
-    expect(inRange([-1, 1])(-2)).toEqual(false);
-    expect(inRange([-1, 1])(-1)).toEqual(true);
-    expect(inRange([-1, 1])(0)).toEqual(true);
-    expect(inRange([-1, 1])(1)).toEqual(false);
-    expect(inRange([-1, 1])(2)).toEqual(false);
+  it('contains', () => {
+    expect(contains([0, 0])(0)).toEqual(false);
+    expect(contains([0, 0])(1)).toEqual(false);
+    expect(contains([0, 0])(-1)).toEqual(false);
+    expect(contains([-1, 1])(-2)).toEqual(false);
+    expect(contains([-1, 1])(-1)).toEqual(true);
+    expect(contains([-1, 1])(0)).toEqual(true);
+    expect(contains([-1, 1])(1)).toEqual(false);
+    expect(contains([-1, 1])(2)).toEqual(false);
 
     // negative range
-    expect(inRange([1, -1])(0)).toEqual(true);
+    expect(contains([1, -1])(0)).toEqual(true);
   });
 
   it('flipDirection', () => {
@@ -178,6 +179,21 @@ describe('range', () => {
     expect(shift([-1, 2], -1)).toEqual([-2, 1]);
     expect(shift([-1, -2], 1)).toEqual([-2, -3]);
     expect(shift([-1, -2], -1)).toEqual([0, -1]);
+  });
+
+  it('encloses', () => {
+    expect(encloses([0, 0], [0, 0])).toEqual(true);
+    expect(encloses([0, 1], [0, 0])).toEqual(true);
+    expect(encloses([0, 0], [0, 1])).toEqual(false);
+    expect(encloses([0, 1], [1, 1])).toEqual(true);
+    expect(encloses([1, 1], [0, 1])).toEqual(false);
+    expect(encloses([0, 1], [-1, -1])).toEqual(false);
+    expect(encloses([-1, -1], [0, 1])).toEqual(false);
+    expect(encloses([1, 2], [2, 1])).toEqual(false);
+    expect(encloses([2, 1], [1, 2])).toEqual(false);
+    expect(encloses([1, 2], [1, 0])).toEqual(true);
+    expect(encloses([-1, 2], [-1, -3])).toEqual(false);
+    expect(encloses([-1, -3], [-2, -1])).toEqual(true);
   });
 
   it('overlap', () => {
