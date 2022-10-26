@@ -4,6 +4,7 @@ import {
   isEmpty,
   isIterable,
   some,
+  toArray,
   toIterable,
 } from './iterable';
 
@@ -81,6 +82,22 @@ describe('iterable', () => {
     expect(isEmpty([Symbol()])).toEqual(false);
     expect(isEmpty(new Set([Symbol()]))).toEqual(false);
     expect(isEmpty(new Map([[Symbol(), Symbol()]]))).toEqual(false);
+  });
+
+  it('toArray', () => {
+    const iterable = {
+      i: 0,
+      [Symbol.iterator]: () => ({
+        next: () => {
+          iterable.i++;
+          return {
+            value: iterable.i,
+            done: iterable.i >= 3,
+          };
+        },
+      }),
+    };
+    expect(toArray(iterable)).toEqual([1, 2]);
   });
 });
 

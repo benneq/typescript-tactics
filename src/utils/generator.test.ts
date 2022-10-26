@@ -1,4 +1,4 @@
-import { done, filter, map, takeWhile, toArray } from './generator';
+import { done, filter, flatMap, map, takeWhile, toArray } from './generator';
 
 describe('generator', () => {
   it('done', () => {
@@ -9,8 +9,7 @@ describe('generator', () => {
   });
 
   it('filter', () => {
-    function* gen() {
-      let i = 0;
+    function* gen(i = 0) {
       while (true) {
         yield i++;
       }
@@ -23,8 +22,7 @@ describe('generator', () => {
   });
 
   it('takeWhile', () => {
-    function* gen() {
-      let i = 0;
+    function* gen(i = 0) {
       while (true) {
         yield i++;
       }
@@ -37,8 +35,7 @@ describe('generator', () => {
   });
 
   it('map', () => {
-    function* gen() {
-      let i = 0;
+    function* gen(i = 0) {
       while (true) {
         yield i++;
       }
@@ -50,9 +47,29 @@ describe('generator', () => {
     expect(generator.next().done).toEqual(false);
   });
 
+  it('flatMap', () => {
+    function* outerGen(i = 0) {
+      while (i < 3) {
+        yield i++;
+      }
+    }
+
+    function* innerGen(value: number) {
+      yield value;
+      yield value * 2;
+    }
+
+    const generator = flatMap((value: number) => innerGen(value))(outerGen());
+    expect(generator.next().value).toEqual(0);
+    expect(generator.next().value).toEqual(0);
+    expect(generator.next().value).toEqual(1);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().value).toEqual(4);
+  });
+
   it('toArray', () => {
-    function* gen() {
-      let i = 0;
+    function* gen(i = 0) {
       while (i < 3) {
         yield i++;
       }

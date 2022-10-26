@@ -35,11 +35,10 @@ export const keySet = <K, V>(map: Map<K, V>) => {
   return new Set(map.keys());
 };
 
-export const fromIterable = <T, K, V>(
-  iterable: Iterable<T>,
-  mapper: (value: T) => [K, V]
-): Map<K, V> => {
-  const res = new Map<K, V>();
-  forEach(iterable)((e) => res.set(...mapper(e)));
-  return res;
-};
+export const fromIterable =
+  <T, K, V>(mapper: (value: T) => [K, V]) =>
+  (iterable: Iterable<T>) => {
+    const res = new Map<K, V>();
+    forEach(iterable)((e) => res.set(...mapper(e)));
+    return res;
+  };

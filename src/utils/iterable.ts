@@ -47,3 +47,7 @@ export const isEmpty = <T>(iterable: Iterable<T>): boolean => {
   }
   return true;
 };
+
+export const toArray = <T>(iterable: Iterable<T>): T[] => {
+  return Array.from(iterable);
+};

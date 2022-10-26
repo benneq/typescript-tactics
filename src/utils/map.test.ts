@@ -89,12 +89,12 @@ describe('map', () => {
   it('fromIterable', () => {
     const key = Symbol();
     const value = Symbol();
-    expect(fromIterable([], () => [key, value])).toEqual(new Map());
-    expect(fromIterable(new Set(), () => [key, value])).toEqual(new Map());
-    expect(fromIterable(new Map(), () => [key, value])).toEqual(new Map());
+    expect(fromIterable(() => [key, value])([])).toEqual(new Map());
+    expect(fromIterable(() => [key, value])(new Set())).toEqual(new Map());
+    expect(fromIterable(() => [key, value])(new Map())).toEqual(new Map());
 
-    expect(fromIterable([0], (e) => [key, e])).toEqual(new Map([[key, 0]]));
-    expect(fromIterable([0, 1], (e) => [e, value])).toEqual(
+    expect(fromIterable((e) => [key, e])([0])).toEqual(new Map([[key, 0]]));
+    expect(fromIterable((e) => [e, value])([0, 1])).toEqual(
       new Map([
         [0, value],
         [1, value],

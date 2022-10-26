@@ -13,7 +13,7 @@ export const toArray = <T>(value: T | ArrayCompatible<T>): T[] => {
 };
 
 export const isEmpty: Predicate<unknown[]> = (array) => {
-  return array.length === 0;
+  return !array.length;
 };
 
 export const copy = <T>(array: T[]): T[] => {
