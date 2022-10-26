@@ -1,3 +1,5 @@
+import { Callback } from './types';
+
 export const isFunction = <T, TArgs extends unknown[] = []>(
   value: unknown
 ): value is (...args: TArgs) => T => {
@@ -16,3 +18,6 @@ export const callIfDefined = <TArgs extends unknown[], T>(
 ): T | undefined => {
   return fn && fn(...args);
 };
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const empty: Callback = () => {};
