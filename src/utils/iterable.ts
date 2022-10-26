@@ -1,5 +1,5 @@
 import { Predicate } from './predicate';
-import { Callback } from './types';
+import { Callback, Mapper } from './types';
 
 export type IterableCompabile<T> = Iterable<T>;
 
@@ -16,6 +16,41 @@ export const forEach =
   (callback: Callback<[T]>) => {
     for (const e of iterable) {
       callback(e);
+    }
+  };
+
+export const filter = <T>(predicate: Predicate<T>) =>
+  function* (iterable: Iterable<T>): Generator<T, void, unknown> {
+    for (const value of iterable) {
+      if (predicate(value)) {
+        yield value;
+      }
+    }
+  };
+
+export const takeWhile = <T>(predicate: Predicate<T>) =>
+  function* (iterable: Iterable<T>): Generator<T, void, unknown> {
+    for (const value of iterable) {
+      if (!predicate(value)) {
+        return;
+      }
+      yield value;
+    }
+  };
+
+export const map = <T, R>(mapper: Mapper<T, R>) =>
+  function* (iterable: Iterable<T>): Generator<R, void, unknown> {
+    for (const value of iterable) {
+      yield mapper(value);
+    }
+  };
+
+export const flatMap = <T, R>(mapper: Mapper<T, Iterable<R>>) =>
+  function* (iterable: Iterable<T>): Generator<R, void, unknown> {
+    for (const value of iterable) {
+      for (const inner of mapper(value)) {
+        yield inner;
+      }
     }
   };
 

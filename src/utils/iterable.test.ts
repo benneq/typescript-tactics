@@ -1,9 +1,13 @@
 import {
   every,
+  filter,
+  flatMap,
   forEach,
   isEmpty,
   isIterable,
+  map,
   some,
+  takeWhile,
   toArray,
   toIterable,
 } from './iterable';
@@ -48,6 +52,46 @@ describe('iterable', () => {
     forEach([value])(callback);
     expect(callback).toHaveBeenNthCalledWith(1, value);
     expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  it('filter', () => {
+    const generator = filter((value: number) => value > 3)([2, 3, 4, 5]);
+    expect(generator.next().value).toEqual(4);
+    expect(generator.next().value).toEqual(5);
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('takeWhile', () => {
+    const generator = takeWhile((value: number) => value < 3)([0, 1, 2]);
+    expect(generator.next().value).toEqual(0);
+    expect(generator.next().value).toEqual(1);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('map', () => {
+    const generator = map((value) => String(value))([0, 1, 2]);
+    expect(generator.next().value).toEqual('0');
+    expect(generator.next().value).toEqual('1');
+    expect(generator.next().value).toEqual('2');
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('flatMap', () => {
+    function* innerIterable(value: number) {
+      yield value;
+      yield value * 2;
+    }
+
+    const generator = flatMap((value: number) => innerIterable(value))([
+      0, 1, 2,
+    ]);
+    expect(generator.next().value).toEqual(0);
+    expect(generator.next().value).toEqual(0);
+    expect(generator.next().value).toEqual(1);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().value).toEqual(4);
   });
 
   it('every', () => {

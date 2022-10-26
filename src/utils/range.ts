@@ -1,5 +1,6 @@
 import { isArray, equal as arrayEqual } from './array';
-import { done, takeWhile, toArray as generatorToArray } from './generator';
+import { done } from './generator';
+import { takeWhile, toArray as iterableToArray } from './iterable';
 import { isFloat, step } from './number';
 import { Predicate } from './predicate';
 
@@ -67,7 +68,7 @@ export const values = (
 };
 
 export const toArray = (range: Range, stepSize?: number): number[] => {
-  return generatorToArray(values(range, stepSize));
+  return iterableToArray(values(range, stepSize));
 };
 
 export const flipDirection = (range: Range): Range => {
