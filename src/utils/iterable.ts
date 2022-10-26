@@ -1,3 +1,4 @@
+import { Comparator } from './comparator';
 import { identity } from './function';
 import { Predicate } from './predicate';
 import { Callback, Mapper } from './types';
@@ -118,6 +119,30 @@ export const some =
       }
     }
     return false;
+  };
+
+export const min =
+  <T>(comparator: Comparator<T>) =>
+  (iterable: Iterable<T>): T | undefined => {
+    let minValue = undefined;
+    for (const value of iterable) {
+      if (minValue === undefined || comparator(minValue, value) > 0) {
+        minValue = value;
+      }
+    }
+    return minValue;
+  };
+
+export const max =
+  <T>(comparator: Comparator<T>) =>
+  (iterable: Iterable<T>): T | undefined => {
+    let maxValue = undefined;
+    for (const value of iterable) {
+      if (maxValue === undefined || comparator(maxValue, value) < 0) {
+        maxValue = value;
+      }
+    }
+    return maxValue;
   };
 
 export const isEmpty = <T>(iterable: Iterable<T>): boolean => {

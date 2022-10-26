@@ -1,3 +1,4 @@
+import { numberNaturalOrder } from './comparator';
 import {
   concat,
   dropWhile,
@@ -10,6 +11,8 @@ import {
   isIterable,
   limit,
   map,
+  max,
+  min,
   skip,
   some,
   takeWhile,
@@ -167,6 +170,22 @@ describe('iterable', () => {
     expect(some([value])(predicate)).toEqual(true);
     expect(some([Symbol()])(predicate)).toEqual(false);
     expect(some([value, Symbol()])(predicate)).toEqual(true);
+  });
+
+  it('min', () => {
+    expect(min(numberNaturalOrder)([])).toEqual(undefined);
+    expect(min(numberNaturalOrder)([1])).toEqual(1);
+    expect(min(numberNaturalOrder)([2, 3, 1, 4])).toEqual(
+      [2, 3, 1, 4].sort((a, b) => a - b)[0]
+    );
+  });
+
+  it('max', () => {
+    expect(max(numberNaturalOrder)([])).toEqual(undefined);
+    expect(max(numberNaturalOrder)([1])).toEqual(1);
+    expect(max(numberNaturalOrder)([2, 3, 1, 4])).toEqual(
+      [2, 3, 1, 4].sort((a, b) => a - b)[3]
+    );
   });
 
   it('isEmpty', () => {
