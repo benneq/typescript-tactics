@@ -1,3 +1,4 @@
+import { identity } from './function';
 import { Predicate } from './predicate';
 import { Callback, Mapper } from './types';
 
@@ -9,6 +10,16 @@ export const isIterable = <T>(value: unknown): value is Iterable<T> => {
 
 export const toIterable = <T>(value: T | IterableCompabile<T>): Iterable<T> => {
   return isIterable(value) ? value : [value];
+};
+
+export const first: {
+  <T>(iterable: Iterable<T>): T | undefined;
+  <T>(iterable: Iterable<T>, defaultValue: T): T;
+} = <T>(iterable: Iterable<T>, defaultValue?: T): T | undefined => {
+  for (const value of iterable) {
+    return value;
+  }
+  return defaultValue;
 };
 
 export const forEach =
@@ -28,6 +39,15 @@ export const filter = <T>(predicate: Predicate<T>) =>
     }
   };
 
+export const dropWhile = <T>(predicate: Predicate<T>) =>
+  function* (iterable: Iterable<T>): Generator<T, void, unknown> {
+    for (const value of iterable) {
+      if (!predicate(value)) {
+        yield value;
+      }
+    }
+  };
+
 export const takeWhile = <T>(predicate: Predicate<T>) =>
   function* (iterable: Iterable<T>): Generator<T, void, unknown> {
     for (const value of iterable) {
@@ -37,6 +57,24 @@ export const takeWhile = <T>(predicate: Predicate<T>) =>
       yield value;
     }
   };
+
+export const limit = <T>(
+  maxSize: number
+): ((iterable: Iterable<T>) => Generator<T, void, unknown>) => {
+  let i = 0;
+  return takeWhile(() => {
+    return maxSize > i++;
+  });
+};
+
+export const skip = <T>(
+  toSkip: number
+): ((iterable: Iterable<T>) => Generator<T, void, unknown>) => {
+  let i = 0;
+  return dropWhile(() => {
+    return toSkip > i++;
+  });
+};
 
 export const map = <T, R>(mapper: Mapper<T, R>) =>
   function* (iterable: Iterable<T>): Generator<R, void, unknown> {
@@ -53,6 +91,12 @@ export const flatMap = <T, R>(mapper: Mapper<T, Iterable<R>>) =>
       }
     }
   };
+
+type Concat = <T>(
+  iterable: Iterable<Iterable<T>>
+) => Generator<T, void, unknown>;
+
+export const concat: Concat = flatMap(identity);
 
 export const every =
   <T>(iterable: Iterable<T>) =>

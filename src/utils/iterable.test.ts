@@ -1,11 +1,16 @@
 import {
+  concat,
+  dropWhile,
   every,
   filter,
+  first,
   flatMap,
   forEach,
   isEmpty,
   isIterable,
+  limit,
   map,
+  skip,
   some,
   takeWhile,
   toArray,
@@ -45,17 +50,37 @@ describe('iterable', () => {
     );
   });
 
+  it('first', () => {
+    expect(first([])).toEqual(undefined);
+
+    const defaultValue = Symbol();
+    expect(first([], defaultValue)).toEqual(defaultValue);
+
+    const value = Symbol();
+    expect(first([value, Symbol()])).toEqual(value);
+    expect(first([value, Symbol()], defaultValue)).toEqual(value);
+  });
+
   it('forEach', () => {
     const value = Symbol();
     const callback = jest.fn();
 
-    forEach([value])(callback);
+    forEach([value, value])(callback);
     expect(callback).toHaveBeenNthCalledWith(1, value);
-    expect(callback).toHaveBeenCalledTimes(1);
+    expect(callback).toHaveBeenNthCalledWith(2, value);
+    expect(callback).toHaveBeenCalledTimes(2);
   });
 
   it('filter', () => {
     const generator = filter((value: number) => value > 3)([2, 3, 4, 5]);
+    expect(generator.next().value).toEqual(4);
+    expect(generator.next().value).toEqual(5);
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('dropWhile', () => {
+    const generator = dropWhile((value: number) => value < 3)([2, 3, 4, 5]);
+    expect(generator.next().value).toEqual(3);
     expect(generator.next().value).toEqual(4);
     expect(generator.next().value).toEqual(5);
     expect(generator.next().done).toEqual(true);
@@ -66,6 +91,21 @@ describe('iterable', () => {
     expect(generator.next().value).toEqual(0);
     expect(generator.next().value).toEqual(1);
     expect(generator.next().value).toEqual(2);
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('limit', () => {
+    const generator = limit(3)([0, 1, 2, 3]);
+    expect(generator.next().value).toEqual(0);
+    expect(generator.next().value).toEqual(1);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('skip', () => {
+    const generator = skip(3)([0, 1, 2, 3, 4]);
+    expect(generator.next().value).toEqual(3);
+    expect(generator.next().value).toEqual(4);
     expect(generator.next().done).toEqual(true);
   });
 
@@ -92,6 +132,19 @@ describe('iterable', () => {
     expect(generator.next().value).toEqual(2);
     expect(generator.next().value).toEqual(2);
     expect(generator.next().value).toEqual(4);
+    expect(generator.next().done).toEqual(true);
+  });
+
+  it('concat', () => {
+    const generator = concat([
+      [2, 1],
+      [3, 4],
+    ]);
+    expect(generator.next().value).toEqual(2);
+    expect(generator.next().value).toEqual(1);
+    expect(generator.next().value).toEqual(3);
+    expect(generator.next().value).toEqual(4);
+    expect(generator.next().done).toEqual(true);
   });
 
   it('every', () => {
