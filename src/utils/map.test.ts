@@ -5,6 +5,7 @@ import {
   isEmpty,
   isMap,
   keySet,
+  mapValues,
   toMap,
 } from './map';
 
@@ -84,6 +85,17 @@ describe('map', () => {
     const key = Symbol();
     expect(keySet(new Map())).toEqual(new Set());
     expect(keySet(new Map([[key, Symbol()]]))).toEqual(new Set([key]));
+  });
+
+  it('mapValues', () => {
+    expect(mapValues(() => true)(new Map())).toEqual(new Map());
+    expect(mapValues(() => false)(new Map())).toEqual(new Map());
+
+    const key = Symbol();
+    const value = Symbol();
+    const map = new Map([[key, value]]);
+    expect(mapValues(() => 42)(map)).not.toBe(map);
+    expect(mapValues(() => 42)(map)).toEqual(new Map([[key, 42]]));
   });
 
   it('fromIterable', () => {
