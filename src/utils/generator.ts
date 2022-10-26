@@ -1,5 +1,6 @@
 import { Predicate } from './predicate';
 import { toArray as iterableToArray } from './iterable';
+import { Mapper } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const done = (function* done(): Generator<never, void, unknown> {})();
@@ -23,14 +24,14 @@ export const takeWhile = <T>(predicate: Predicate<T>) =>
     }
   };
 
-export const map = <T, R>(mapper: (value: T) => R) =>
+export const map = <T, R>(mapper: Mapper<T, R>) =>
   function* (generator: Generator<T>): Generator<R, void, unknown> {
     for (const value of generator) {
       yield mapper(value);
     }
   };
 
-export const flatMap = <T, R>(mapper: (value: T) => Generator<R>) =>
+export const flatMap = <T, R>(mapper: Mapper<T, Generator<R>>) =>
   function* (generator: Generator<T>): Generator<R, void, unknown> {
     for (const value of generator) {
       for (const inner of mapper(value)) {
