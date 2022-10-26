@@ -1,6 +1,8 @@
 import {
   copy,
   filter,
+  filterKeys,
+  filterValues,
   fromIterable,
   isEmpty,
   isMap,
@@ -51,29 +53,70 @@ describe('map', () => {
   });
 
   it('filter', () => {
-    expect(filter(new Map())(() => true)).toEqual(new Map());
-    expect(filter(new Map())(() => false)).toEqual(new Map());
+    const map1 = new Map();
+    expect(filter(() => true)(map1)).not.toBe(map1);
+    expect(filter(() => true)(map1)).toEqual(new Map());
+    expect(filter(() => false)(map1)).not.toBe(map1);
+    expect(filter(() => false)(map1)).toEqual(new Map());
 
     const key1 = Symbol();
     const key2 = Symbol();
     const value1 = Symbol();
     const value2 = Symbol();
-    expect(
-      filter(
-        new Map([
-          [key1, value1],
-          [key2, value2],
-        ])
-      )(([k, v]) => k === key1)
-    ).toEqual(new Map([[key1, value1]]));
-    expect(
-      filter(
-        new Map([
-          [key1, value1],
-          [key2, value2],
-        ])
-      )(([k, v]) => v === value2)
-    ).toEqual(new Map([[key2, value2]]));
+    const map2 = new Map([
+      [key1, value1],
+      [key2, value2],
+    ]);
+    expect(filter(([k, _]) => k === key1)(map2)).not.toBe(map2);
+    expect(filter(([k, _]) => k === key1)(map2)).toEqual(
+      new Map([[key1, value1]])
+    );
+    expect(filter(([_, v]) => v === value2)(map2)).not.toBe(map2);
+    expect(filter(([_, v]) => v === value2)(map2)).toEqual(
+      new Map([[key2, value2]])
+    );
+  });
+
+  it('filterKeys', () => {
+    const map1 = new Map();
+    expect(filterKeys(() => true)(map1)).not.toBe(map1);
+    expect(filterKeys(() => true)(map1)).toEqual(new Map());
+    expect(filterKeys(() => false)(map1)).not.toBe(map1);
+    expect(filterKeys(() => false)(map1)).toEqual(new Map());
+
+    const key1 = Symbol();
+    const key2 = Symbol();
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const map2 = new Map([
+      [key1, value1],
+      [key2, value2],
+    ]);
+    expect(filterKeys((key) => key === key1)(map2)).not.toBe(map2);
+    expect(filterKeys((key) => key === key1)(map2)).toEqual(
+      new Map([[key1, value1]])
+    );
+  });
+
+  it('filterValues', () => {
+    const map1 = new Map();
+    expect(filterValues(() => true)(map1)).not.toBe(map1);
+    expect(filterValues(() => true)(map1)).toEqual(new Map());
+    expect(filterValues(() => false)(map1)).not.toBe(map1);
+    expect(filterValues(() => false)(map1)).toEqual(new Map());
+
+    const key1 = Symbol();
+    const key2 = Symbol();
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const map2 = new Map([
+      [key1, value1],
+      [key2, value2],
+    ]);
+    expect(filterValues((value) => value === value2)(map2)).not.toBe(map2);
+    expect(filterValues((value) => value === value2)(map2)).toEqual(
+      new Map([[key2, value2]])
+    );
   });
 
   it('isEmpty', () => {

@@ -21,12 +21,20 @@ export const copy = <K, V>(map: Map<K, V>): Map<K, V> => {
 };
 
 export const filter =
-  <K, V>(map: Map<K, V>) =>
-  (predicate: Predicate<[K, V]>): Map<K, V> => {
+  <K, V>(predicate: Predicate<[K, V]>) =>
+  (map: Map<K, V>): Map<K, V> => {
     const res = new Map<K, V>();
     map.forEach((v, k) => predicate([k, v]) && res.set(k, v));
     return res;
   };
+
+export const filterKeys = <K>(predicate: Predicate<K>) => {
+  return filter(([k]: [K, unknown]) => predicate(k));
+};
+
+export const filterValues = <V>(predicate: Predicate<V>) => {
+  return filter(([k, v]: [unknown, V]) => predicate(v));
+};
 
 export const isEmpty = <K, V>(map: Map<K, V>): boolean => {
   return !map.size;
