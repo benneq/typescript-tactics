@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { ValueOrProvider } from '../utils/types';
+import { ValueOrProvider } from 'utils/object/valueOrProvider';
 import {
   isEmpty as isEmptySet,
   containsAny,

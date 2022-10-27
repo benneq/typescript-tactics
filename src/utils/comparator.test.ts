@@ -14,7 +14,7 @@ import {
   undefinedFirst,
   undefinedLast,
 } from './comparator';
-import { isNull } from './object';
+import { isNull } from './object/isNull';
 
 describe('comparator', () => {
   it('numberNaturalOrder', () => {
