@@ -1,7 +1,7 @@
 import { numberNaturalOrder } from '../comparator';
 import { max } from './max';
 
-describe('iterable.clamp', () => {
+describe('iterable.max', () => {
   it('max', () => {
     expect(max(numberNaturalOrder)([])).toEqual(undefined);
     expect(max(numberNaturalOrder)([1])).toEqual(1);

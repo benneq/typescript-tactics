@@ -1,6 +1,6 @@
 import { toArray } from './toArray';
 
-describe('iterable.clamp', () => {
+describe('iterable.toArray', () => {
   it('toArray', () => {
     const iterable = {
       i: 0,

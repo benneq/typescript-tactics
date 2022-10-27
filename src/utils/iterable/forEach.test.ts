@@ -1,6 +1,6 @@
 import { forEach } from './forEach';
 
-describe('iterable.clamp', () => {
+describe('iterable.forEach', () => {
   it('forEach', () => {
     const value = Symbol();
     const callback = jest.fn();

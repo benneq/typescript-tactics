@@ -1,6 +1,6 @@
 import { toIterable } from './toIterable';
 
-describe('iterable.clamp', () => {
+describe('iterable.toIterable', () => {
   it('toIterable', () => {
     const value = Symbol();
     expect(toIterable(null)).toEqual([null]);

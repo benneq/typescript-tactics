@@ -1,6 +1,6 @@
 import { skip } from './skip';
 
-describe('iterable.clamp', () => {
+describe('iterable.skip', () => {
   it('skip', () => {
     const generator = skip(3)([0, 1, 2, 3, 4]);
     expect(generator.next().value).toEqual(3);

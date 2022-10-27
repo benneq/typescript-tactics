@@ -1,6 +1,6 @@
 import { every } from './every';
 
-describe('iterable.clamp', () => {
+describe('iterable.every', () => {
   it('every', () => {
     expect(every([])(() => true)).toEqual(true);
     expect(every([])(() => false)).toEqual(true);

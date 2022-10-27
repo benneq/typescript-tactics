@@ -1,6 +1,6 @@
 import { isIterable } from './isIterable';
 
-describe('iterable.clamp', () => {
+describe('iterable.isIterable', () => {
   it('isIterable', () => {
     expect(isIterable(undefined)).toEqual(false);
     expect(isIterable(null)).toEqual(false);

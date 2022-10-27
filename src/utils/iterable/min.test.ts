@@ -1,7 +1,7 @@
 import { numberNaturalOrder } from '../comparator';
 import { min } from './min';
 
-describe('iterable.clamp', () => {
+describe('iterable.min', () => {
   it('min', () => {
     expect(min(numberNaturalOrder)([])).toEqual(undefined);
     expect(min(numberNaturalOrder)([1])).toEqual(1);

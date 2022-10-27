@@ -1,6 +1,6 @@
 import { flatMap } from './flatMap';
 
-describe('iterable.clamp', () => {
+describe('iterable.flatMap', () => {
   it('flatMap', () => {
     function* innerIterable(value: number) {
       yield value;

@@ -1,6 +1,6 @@
 import { dropWhile } from './dropWhile';
 
-describe('iterable.clamp', () => {
+describe('iterable.dropWhile', () => {
   it('dropWhile', () => {
     const generator = dropWhile((value: number) => value < 3)([2, 3, 4, 5]);
     expect(generator.next().value).toEqual(3);

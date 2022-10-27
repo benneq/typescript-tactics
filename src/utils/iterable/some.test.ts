@@ -1,6 +1,6 @@
 import { some } from './some';
 
-describe('iterable.clamp', () => {
+describe('iterable.some', () => {
   it('some', () => {
     expect(some([])(() => true)).toEqual(false);
     expect(some([])(() => false)).toEqual(false);

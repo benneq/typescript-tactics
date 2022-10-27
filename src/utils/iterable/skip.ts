@@ -5,6 +5,7 @@ import { dropWhile } from './dropWhile';
  *
  * @example
  * skip(2)([1,2,3,4]) => [3,4]
+ * skip(5)([1,2,3,4]) => []
  *
  * @param maxSize
  * @returns a Generator that does not emit the first toSkip elements

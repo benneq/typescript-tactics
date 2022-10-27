@@ -1,6 +1,6 @@
 import { filter } from './filter';
 
-describe('iterable.clamp', () => {
+describe('iterable.filter', () => {
   it('filter', () => {
     const generator = filter((value: number) => value > 3)([2, 3, 4, 5]);
     expect(generator.next().value).toEqual(4);

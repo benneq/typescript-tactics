@@ -1,6 +1,6 @@
 import { isEmpty } from './isEmpty';
 
-describe('iterable.clamp', () => {
+describe('iterable.isEmpty', () => {
   it('isEmpty', () => {
     expect(isEmpty('')).toEqual(true);
     expect(isEmpty([])).toEqual(true);
