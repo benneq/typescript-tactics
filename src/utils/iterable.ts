@@ -14,14 +14,16 @@ export const toIterable = <T>(value: T | IterableCompabile<T>): Iterable<T> => {
 };
 
 export const first: {
-  <T>(iterable: Iterable<T>): T | undefined;
-  <T>(iterable: Iterable<T>, defaultValue: T): T;
-} = <T>(iterable: Iterable<T>, defaultValue?: T): T | undefined => {
-  for (const value of iterable) {
-    return value;
-  }
-  return defaultValue;
-};
+  <T>(): (iterable: Iterable<T>) => T | undefined;
+  <T>(defaultValue: T): (iterable: Iterable<T>) => T;
+} =
+  <T>(defaultValue?: T) =>
+  (iterable: Iterable<T>): T | undefined => {
+    for (const value of iterable) {
+      return value;
+    }
+    return defaultValue;
+  };
 
 export const forEach =
   <T>(iterable: Iterable<T>) =>

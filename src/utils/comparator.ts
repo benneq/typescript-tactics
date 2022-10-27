@@ -1,3 +1,5 @@
+import { pipe } from './function';
+import { dropWhile, first, map } from './iterable';
 import { isNull, isUndefined } from './object';
 import { Falsy, isFalsy } from './predicate';
 import { Mapper } from './types';
@@ -35,13 +37,11 @@ export const comparatorFor: {
 
 export const chain = <T>(...comparators: Comparator<T>[]): Comparator<T> => {
   return (a, b) => {
-    for (const comparator of comparators) {
-      const result = comparator(a, b);
-      if (result != 0) {
-        return result;
-      }
-    }
-    return 0;
+    return pipe(
+      map((comparator: Comparator<T>) => comparator(a, b)),
+      dropWhile((value: number) => value === 0),
+      first(0)
+    )(comparators);
   };
 };
 

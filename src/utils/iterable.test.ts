@@ -54,14 +54,14 @@ describe('iterable', () => {
   });
 
   it('first', () => {
-    expect(first([])).toEqual(undefined);
+    expect(first()([])).toEqual(undefined);
 
     const defaultValue = Symbol();
-    expect(first([], defaultValue)).toEqual(defaultValue);
+    expect(first(defaultValue)([])).toEqual(defaultValue);
 
     const value = Symbol();
-    expect(first([value, Symbol()])).toEqual(value);
-    expect(first([value, Symbol()], defaultValue)).toEqual(value);
+    expect(first<symbol>()([value, Symbol()])).toEqual(value);
+    expect(first<symbol>(defaultValue)([value, Symbol()])).toEqual(value);
   });
 
   it('forEach', () => {
