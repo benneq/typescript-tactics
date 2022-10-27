@@ -1,6 +1,6 @@
-import { isString } from './string';
+import { isString } from './isString';
 
-describe('string', () => {
+describe('string.isString', () => {
   it('isString', () => {
     expect(isString(undefined)).toEqual(false);
     expect(isString(null)).toEqual(false);
