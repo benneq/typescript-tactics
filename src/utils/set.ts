@@ -1,5 +1,6 @@
 import { from } from './array/from';
-import { every, some } from './iterable';
+import { every } from './iterable/every';
+import { some } from './iterable/some';
 import { Predicate } from './predicate/_types';
 
 export type SetCompatible<T> = T[] | Set<T>;

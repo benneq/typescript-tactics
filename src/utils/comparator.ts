@@ -1,5 +1,7 @@
 import { pipe } from './function';
-import { dropWhile, first, map } from './iterable';
+import { dropWhile } from './iterable/dropWhile';
+import { first } from './iterable/first';
+import { map } from './iterable/map';
 import { isNull, isUndefined } from './object';
 import { Falsy, isFalsy } from './predicate/isFalsy';
 import { Mapper } from './types';

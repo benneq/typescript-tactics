@@ -1,10 +1,11 @@
 import { isArray } from './array/isArray';
 import { equal as arrayEqual } from './array/equal';
-import { takeWhile, toArray as iterableToArray } from './iterable';
+import { toArray as iterableToArray } from './iterable/toArray';
 import { Predicate } from './predicate/_types';
 import { isFloat } from './number/isFloat';
 import { step } from './number/step';
 import { done } from './generator/done';
+import { takeWhile } from './iterable/takeWhile';
 
 export type Range = [number, number];
 

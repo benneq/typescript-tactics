@@ -1,4 +1,5 @@
-import { forEach, IterableCompabile } from './iterable';
+import { forEach } from './iterable/forEach';
+import { IterableCompabile } from './iterable/toIterable';
 import { Predicate } from './predicate/_types';
 import { Mapper } from './types';
 
