@@ -1,4 +1,4 @@
-import { isSet } from '../set';
+import { isSet } from '../set/isSet';
 import { isArray } from './isArray';
 
 /**

@@ -1,14 +1,12 @@
 import { useCallback, useState } from 'react';
-import { ValueOrProvider } from 'utils/object/valueOrProvider';
-import {
-  isEmpty as isEmptySet,
-  containsAny,
-  SetCompatible,
-  contains,
-  difference,
-  union,
-  symmetricDifference,
-} from '../utils/set';
+import { ValueOrProvider } from '../utils/object/valueOrProvider';
+import { difference } from '../utils/set/difference';
+import { symmetricDifference } from '../utils/set/symmetricDifference';
+import { union } from '../utils/set/union';
+import { SetCompatible } from '../utils/set/_types';
+import { isEmpty as isEmptySet } from '../utils/set/isEmpty';
+import { contains } from '../utils/set/contains';
+import { containsAny } from '../utils/set/containsAny';
 
 type Value<T> = Set<T>;
 
