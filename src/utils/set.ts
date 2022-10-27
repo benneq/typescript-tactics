@@ -22,7 +22,7 @@ export const copy = <T>(set: Set<T>): Set<T> => {
 
 export const filter =
   <T>(set: Set<T>) =>
-  (predicate: Predicate<T>): Set<T> => {
+  (predicate: Predicate<[T]>): Set<T> => {
     const res = new Set<T>();
     set.forEach((e) => predicate(e) && res.add(e));
     return res;

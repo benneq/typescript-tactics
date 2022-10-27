@@ -15,23 +15,23 @@ export const toRange = (start: number, end: number): Range => {
   return [start, end];
 };
 
-export const equal = (rangeA: Range): Predicate<Range> => {
+export const equal = (rangeA: Range): Predicate<[Range]> => {
   return arrayEqual(rangeA);
 };
 
-export const isEmpty: Predicate<Range> = (range) => {
+export const isEmpty: Predicate<[Range]> = (range) => {
   return range[0] === range[1];
 };
 
-export const isAscending: Predicate<Range> = (range) => {
+export const isAscending: Predicate<[Range]> = (range) => {
   return direction(range) === 1;
 };
 
-export const isDescending: Predicate<Range> = (range) => {
+export const isDescending: Predicate<[Range]> = (range) => {
   return direction(range) === -1;
 };
 
-export const contains = (range: Range): Predicate<number> => {
+export const contains = (range: Range): Predicate<[number]> => {
   const [rangeStart, rangeEnd] = toAscending(range);
   return (value) => value >= rangeStart && value < rangeEnd;
 };

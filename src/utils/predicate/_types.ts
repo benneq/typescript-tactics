@@ -1,1 +1,3 @@
-export type Predicate<T> = (value: T) => boolean;
+export type Predicate<TArgs extends unknown[] = []> = (
+  ...args: TArgs
+) => boolean;

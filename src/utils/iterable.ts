@@ -33,7 +33,7 @@ export const forEach =
     }
   };
 
-export const filter = <T>(predicate: Predicate<T>) =>
+export const filter = <T>(predicate: Predicate<[T]>) =>
   function* (iterable: Iterable<T>): Generator<T, void, unknown> {
     for (const value of iterable) {
       if (predicate(value)) {
@@ -42,7 +42,7 @@ export const filter = <T>(predicate: Predicate<T>) =>
     }
   };
 
-export const dropWhile = <T>(predicate: Predicate<T>) =>
+export const dropWhile = <T>(predicate: Predicate<[T]>) =>
   function* (iterable: Iterable<T>): Generator<T, void, unknown> {
     for (const value of iterable) {
       if (!predicate(value)) {
@@ -51,7 +51,7 @@ export const dropWhile = <T>(predicate: Predicate<T>) =>
     }
   };
 
-export const takeWhile = <T>(predicate: Predicate<T>) =>
+export const takeWhile = <T>(predicate: Predicate<[T]>) =>
   function* (iterable: Iterable<T>): Generator<T, void, unknown> {
     for (const value of iterable) {
       if (!predicate(value)) {
@@ -103,7 +103,7 @@ export const concat: Concat = flatMap(identity);
 
 export const every =
   <T>(iterable: Iterable<T>) =>
-  (predicate: Predicate<T>): boolean => {
+  (predicate: Predicate<[T]>): boolean => {
     for (const e of iterable) {
       if (!predicate(e)) {
         return false;
@@ -114,7 +114,7 @@ export const every =
 
 export const some =
   <T>(iterable: Iterable<T>) =>
-  (predicate: Predicate<T>): boolean => {
+  (predicate: Predicate<[T]>): boolean => {
     for (const e of iterable) {
       if (predicate(e)) {
         return true;

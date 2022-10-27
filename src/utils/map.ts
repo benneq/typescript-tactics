@@ -21,7 +21,7 @@ export const copy = <K, V>(map: Map<K, V>): Map<K, V> => {
 };
 
 export const filter =
-  <K, V>(predicate: Predicate<[K, V]>) =>
+  <K, V>(predicate: Predicate<[[K, V]]>) =>
   (map: Map<K, V>): Map<K, V> => {
     const res = new Map<K, V>();
     map.forEach((v, k) => predicate([k, v]) && res.set(k, v));
@@ -29,13 +29,13 @@ export const filter =
   };
 
 export const filterKeys = <K, V>(
-  predicate: Predicate<K>
+  predicate: Predicate<[K]>
 ): ((map: Map<K, V>) => Map<K, V>) => {
   return filter(([k]: [K, V]) => predicate(k));
 };
 
 export const filterValues = <K, V>(
-  predicate: Predicate<V>
+  predicate: Predicate<[V]>
 ): ((map: Map<K, V>) => Map<K, V>) => {
   return filter(([_, v]: [K, V]) => predicate(v));
 };
