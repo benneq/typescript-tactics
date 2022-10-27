@@ -1,16 +1,6 @@
-import { anySerial, never } from './promise';
+import { anySerial } from './anySerial';
 
-describe('predicate', () => {
-  it('never', () => {
-    never
-      .then(() => {
-        throw new Error();
-      })
-      .catch(() => {
-        throw new Error();
-      });
-  });
-
+describe('promise.anySerial', () => {
   /**
    * A function to wrap the Promise constructor such that no rejections are considered unhandled
    * by either Node or Jest. Whatever handlers can still be attached and rejections turned into

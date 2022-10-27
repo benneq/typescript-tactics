@@ -1,8 +1,11 @@
-import { isEmpty } from './array/isEmpty';
-import { empty } from './function';
+import { isEmpty } from '../array/isEmpty';
 
-export const never: Promise<unknown> = new Promise(empty);
-
+/**
+ * Executes all provided Promises in serial and returns either the first result or the last error
+ *
+ * @param promises
+ * @returns a Promise that executes the provided Promises in serial
+ */
 export const anySerial: {
   (promises: []): Promise<undefined>;
   <T>(promises: Promise<T>[]): Promise<T>;
