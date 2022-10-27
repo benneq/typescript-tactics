@@ -1,7 +1,7 @@
 import { pipe } from './function';
 import { dropWhile, first, map } from './iterable';
 import { isNull, isUndefined } from './object';
-import { Falsy, isFalsy } from './predicate';
+import { Falsy, isFalsy } from './predicate/isFalsy';
 import { Mapper } from './types';
 
 export type Comparator<T> = (valueA: T, valueB: T) => number;

@@ -3,7 +3,7 @@ import { equal as arrayEqual } from './array/equal';
 import { done } from './generator';
 import { takeWhile, toArray as iterableToArray } from './iterable';
 import { isFloat, step } from './number';
-import { Predicate } from './predicate';
+import { Predicate } from './predicate/_types';
 
 export type Range = [number, number];
 

@@ -1,5 +1,5 @@
 import { forEach, IterableCompabile } from './iterable';
-import { Predicate } from './predicate';
+import { Predicate } from './predicate/_types';
 import { Mapper } from './types';
 
 export type MapCompatible<K, V> = IterableCompabile<[K, V]> | Map<K, V>;

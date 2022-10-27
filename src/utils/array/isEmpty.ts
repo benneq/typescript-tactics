@@ -1,4 +1,4 @@
-import { Predicate } from 'utils/predicate';
+import { Predicate } from '../predicate/_types';
 
 /**
  * Checks if the provided Array is empty

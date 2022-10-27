@@ -1,6 +1,6 @@
 import { Comparator } from './comparator';
 import { identity } from './function';
-import { Predicate } from './predicate';
+import { Predicate } from './predicate/_types';
 import { Callback, Mapper } from './types';
 
 export type IterableCompabile<T> = Iterable<T>;
