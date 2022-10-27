@@ -1,4 +1,5 @@
-import { isArray, equal as arrayEqual } from './array';
+import { isArray } from './array/isArray';
+import { equal as arrayEqual } from './array/equal';
 import { done } from './generator';
 import { takeWhile, toArray as iterableToArray } from './iterable';
 import { isFloat, step } from './number';

@@ -1,4 +1,4 @@
-import { toArray } from './array';
+import { from } from './array/from';
 import { every, some } from './iterable';
 import { Predicate } from './predicate';
 
@@ -13,7 +13,7 @@ export const toSet = <T>(value: T | SetCompatible<T>): Set<T> => {
     return value;
   }
 
-  return new Set(toArray(value));
+  return new Set(from(value));
 };
 
 export const copy = <T>(set: Set<T>): Set<T> => {

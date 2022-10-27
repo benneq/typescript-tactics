@@ -1,4 +1,4 @@
-import { isEmpty } from './array';
+import { isEmpty } from './array/isEmpty';
 import { empty } from './function';
 
 export const never: Promise<unknown> = new Promise(empty);
