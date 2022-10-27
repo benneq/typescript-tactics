@@ -1,6 +1,6 @@
 import { first } from './first';
 
-describe('iterable.clamp', () => {
+describe('iterable.first', () => {
   it('first', () => {
     expect(first()([])).toEqual(undefined);
 
