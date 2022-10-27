@@ -1,6 +1,9 @@
 import { isSet } from '../set';
 import { isArray } from './isArray';
 
+/**
+ * Union of types that can be converted to Array
+ */
 export type ArrayCompatible<T> = T[] | Set<T>;
 
 /**
