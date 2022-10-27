@@ -1,6 +1,11 @@
 /**
  * Get the first element of the provided Iterable, or the given default value if the Iterable is empty
  *
+ * @example
+ * first()([]) => undefined
+ * first()([1,2,3]) => 1
+ * first(2)([]) => 2
+ *
  * @param defaultValue
  * @returns the first element of the provided Iterable, or the given defaultValue
  */

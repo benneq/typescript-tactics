@@ -7,5 +7,8 @@ type Concat = <T>(
 
 /**
  * Concatenates the provided Iterables
+ *
+ * @example
+ * concat([[1,2],[3,4]]) => [1,2,3,4]
  */
 export const concat: Concat = flatMap(identity);

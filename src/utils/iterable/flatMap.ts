@@ -3,6 +3,9 @@ import { Mapper } from '../function/_types';
 /**
  * Maps an iterable to a flat representation of the mapped Iterables
  *
+ * @example
+ * flatMap(x => [1,x])([1,2,3]) => [1,1,1,2,1,3]
+ *
  * @param mapper
  * @returns a Generator that emits all elements of all mapped Iterables
  */

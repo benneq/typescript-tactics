@@ -3,6 +3,9 @@ import { Mapper } from 'utils/function/_types';
 /**
  * Maps every element of the provided Iterable using the given Mapper
  *
+ * @example
+ * map(x => x + 1)([1,2,3]) => [2,3,4]
+ *
  * @param mapper
  * @returns a Generator that emits all mapped elements from the provided Iterable
  */

@@ -3,6 +3,10 @@ import { Comparator } from 'utils/comparator';
 /**
  * Get the minimum element from the provided Iterable using the given Comparator
  *
+ * @example
+ * min((a,b) => a-b)([]) => undefined
+ * min((a,b) => a-b)([3,1,2]) => 1
+ *
  * @param comparator
  * @returns the minimum element from the provided Iterable
  */
