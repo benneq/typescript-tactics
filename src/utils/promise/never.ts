@@ -1,4 +1,4 @@
-import { empty } from '../function';
+import { empty } from '../function/empty';
 
 /**
  * A Promise that never fulfills

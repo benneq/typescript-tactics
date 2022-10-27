@@ -1,6 +1,6 @@
-import { callIfDefined, identity, isFunction } from './function';
+import { isFunction } from './isFunction';
 
-describe('function', () => {
+describe('function.isFunction', () => {
   it('isFunction', () => {
     expect(isFunction(undefined)).toEqual(false);
     expect(isFunction(null)).toEqual(false);
@@ -13,21 +13,6 @@ describe('function', () => {
     expect(isFunction(new Set())).toEqual(false);
     expect(isFunction(new Map())).toEqual(false);
     expect(isFunction(jest.fn())).toEqual(true);
-  });
-
-  it('identity', () => {
-    expect(identity).toEqual(expect.any(Function));
-
-    const value = Symbol();
-    expect(identity(value)).toEqual(value);
-  });
-
-  it('callIfDefined', () => {
-    const value = Symbol();
-    const fn = jest.fn((value) => value);
-
-    expect(callIfDefined(undefined)).toEqual(undefined);
-    expect(callIfDefined(fn, value)).toEqual(value);
   });
 });
 

@@ -1,4 +1,4 @@
-import { Mapper } from 'utils/types';
+import { Mapper } from 'utils/function/_types';
 
 /**
  * Maps every element of the provided Iterable using the given Mapper

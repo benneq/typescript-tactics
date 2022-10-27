@@ -1,4 +1,4 @@
-import { Callback } from 'utils/types';
+import { Callback } from 'utils/function/_types';
 import { useEffectOnce } from './useEffectOnce';
 import { useUpdatingRef } from './useUpdatingRef';
 

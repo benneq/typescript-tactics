@@ -1,6 +1,6 @@
 import { concat } from './concat';
 
-describe('iterable.clamp', () => {
+describe('iterable.concat', () => {
   it('concat', () => {
     const generator = concat([
       [2, 1],

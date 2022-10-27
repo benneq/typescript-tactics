@@ -1,4 +1,4 @@
-import { identity } from '../function';
+import { identity } from '../function/identity';
 import { flatMap } from './flatMap';
 
 type Concat = <T>(

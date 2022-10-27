@@ -5,7 +5,7 @@ import { map } from './iterable/map';
 import { isNull } from './object/isNull';
 import { isUndefined } from './object/isUndefined';
 import { Falsy, isFalsy } from './predicate/isFalsy';
-import { Mapper } from './types';
+import { Mapper } from './function/_types';
 
 export type Comparator<T> = (valueA: T, valueB: T) => number;
 

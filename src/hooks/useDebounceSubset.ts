@@ -1,5 +1,5 @@
 import { DependencyList } from 'react';
-import { Callback } from 'utils/types';
+import { Callback } from 'utils/function/_types';
 import {
   delay,
   now,
