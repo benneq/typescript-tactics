@@ -1,5 +1,6 @@
 import {
   booleanNaturalOrder,
+  chain,
   comparatorFor,
   falsyFirst,
   falsyLast,
@@ -8,6 +9,7 @@ import {
   numberNaturalOrder,
   predicateComparator,
   reverse,
+  stringComparator,
   stringNaturalOrder,
   undefinedFirst,
   undefinedLast,
@@ -18,6 +20,16 @@ describe('comparator', () => {
   it('numberNaturalOrder', () => {
     const value = [4, 2, 1, 3];
     expect(value.sort(numberNaturalOrder)).toEqual([1, 2, 3, 4]);
+  });
+
+  it('stringComparator', () => {
+    const value = ['ab', 'aa', 'ba', 'bb'];
+    expect(value.sort(stringComparator('de'))).toEqual([
+      'aa',
+      'ab',
+      'ba',
+      'bb',
+    ]);
   });
 
   it('stringNaturalOrder', () => {
@@ -49,6 +61,26 @@ describe('comparator', () => {
       { i: '1' },
       { i: '2' },
       { i: '3' },
+    ]);
+  });
+
+  it('chain', () => {
+    const value1 = [
+      { b: true, i: 3 },
+      { b: true, i: 1 },
+      { b: false, i: 2 },
+    ];
+    expect(value1.sort(chain())).toEqual(value1);
+
+    const comparator = chain<typeof value1[number]>(
+      comparatorFor((value) => value.b, booleanNaturalOrder),
+      comparatorFor((value) => value.i)
+    );
+
+    expect(value1.sort(comparator)).toEqual([
+      { b: false, i: 2 },
+      { b: true, i: 1 },
+      { b: true, i: 3 },
     ]);
   });
 

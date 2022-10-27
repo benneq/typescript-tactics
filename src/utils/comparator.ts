@@ -22,6 +22,7 @@ export const booleanNaturalOrder: Comparator<boolean> = (a, b) => {
 export const reverse = <T>(comparator: Comparator<T>): Comparator<T> => {
   return (a: T, b: T) => comparator(a, b) * -1;
 };
+
 export const comparatorFor: {
   <T>(mapper: Mapper<T, number>): Comparator<T>;
   <T, R>(mapper: Mapper<T, R>, comparator: Comparator<R>): Comparator<T>;
@@ -30,6 +31,18 @@ export const comparatorFor: {
   comparator = numberNaturalOrder
 ): Comparator<T> => {
   return (a, b) => comparator(mapper(a), mapper(b));
+};
+
+export const chain = <T>(...comparators: Comparator<T>[]): Comparator<T> => {
+  return (a, b) => {
+    for (const comparator of comparators) {
+      const result = comparator(a, b);
+      if (result != 0) {
+        return result;
+      }
+    }
+    return 0;
+  };
 };
 
 export const predicateComparator = <T, U>(
