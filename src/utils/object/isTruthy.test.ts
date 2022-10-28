@@ -1,6 +1,6 @@
 import { isTruthy } from './isTruthy';
 
-describe('predicate.isTruthy', () => {
+describe('object.isTruthy', () => {
   it('isTruthy', () => {
     expect(isTruthy(true)).toEqual(true);
     expect(isTruthy(' ')).toEqual(true);

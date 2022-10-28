@@ -14,4 +14,4 @@ export type Truthy<T> = Exclude<T, Falsy>;
  *
  * @returns `true` if the provided value is Truthy
  */
-export const isTruthy = <T>(value: T | Falsy): value is Truthy<T> => !!value;
+export const isTruthy = <T>(value: T): value is Truthy<T> => !!value;

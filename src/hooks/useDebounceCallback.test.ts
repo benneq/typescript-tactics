@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { Callback } from 'utils/types';
+import { Callback } from 'utils/object/_types';
 import {
   cancel,
   delay,

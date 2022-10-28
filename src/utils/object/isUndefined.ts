@@ -8,6 +8,6 @@
  * @param value
  * @returns `true`if the provided value is `undefined`
  */
-export const isUndefined = <T>(value: T | undefined): value is undefined => {
+export const isUndefined = (value: unknown): value is undefined => {
   return value === undefined;
 };

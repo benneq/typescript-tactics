@@ -1,4 +1,4 @@
-import { Falsy, isFalsy } from '../predicate/isFalsy';
+import { Falsy, isFalsy } from '../object/isFalsy';
 import { predicateComparator } from './predicateComparator';
 import { Comparator } from './_types';
 
