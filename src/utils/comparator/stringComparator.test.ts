@@ -1,17 +1,17 @@
 import { stringComparator } from './stringComparator';
 
 describe('comparator.stringComparator', () => {
-  it('stringComparator', () => {
-    const value = ['ab', 'aa', 'ba', 'bb'];
+  it('should return a number greater than 0 if valueA > valueB', () => {
+    expect(stringComparator()('A', 'a')).toBeGreaterThan(0);
+  });
 
-    expect(value.sort(stringComparator())).toEqual(['aa', 'ab', 'ba', 'bb']);
+  it('should return a number less than 0 if valueA < valueB', () => {
+    expect(stringComparator()('a', 'b')).toBeLessThan(0);
+  });
 
-    expect(value.sort(stringComparator('de'))).toEqual([
-      'aa',
-      'ab',
-      'ba',
-      'bb',
-    ]);
+  it('should return 0 if both values are equal', () => {
+    expect(stringComparator()('', '')).toBe(0);
+    expect(stringComparator()('a', 'a')).toBe(0);
   });
 });
 

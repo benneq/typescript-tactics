@@ -2,9 +2,10 @@ import { numberComparator } from './numberComparator';
 import { reverse } from './reverse';
 
 describe('comparator.reverse', () => {
-  it('reverse', () => {
-    const value = [4, 2, 1, 3];
-    expect(value.sort(reverse(numberComparator))).toEqual([4, 3, 2, 1]);
+  it('should reverse the result of the given Comparator', () => {
+    expect(reverse(numberComparator)(0, 0)).toBe(-0);
+    expect(reverse(numberComparator)(1, 2)).toBeGreaterThan(0);
+    expect(reverse(numberComparator)(1, -1)).toBeLessThan(0);
   });
 });
 
