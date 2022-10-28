@@ -4,7 +4,7 @@ import { or } from './or';
 
 describe('predicate.or', () => {
   it('should return false if no Predicates were provided', () => {
-    expect(or()(Symbol())).toBe(true);
+    expect(or()(Symbol())).toBe(false);
   });
 
   it('should return true if any Predicate returns true', () => {
