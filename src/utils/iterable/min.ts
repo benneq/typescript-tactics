@@ -1,4 +1,4 @@
-import { Comparator } from 'utils/comparator';
+import { Comparator } from '../comparator/_types';
 
 /**
  * Get the minimum element from the provided Iterable using the given Comparator

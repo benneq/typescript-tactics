@@ -1,4 +1,4 @@
-import { numberNaturalOrder } from '../comparator';
+import { numberNaturalOrder } from '../comparator/numberNaturalOrder';
 import { min } from './min';
 
 describe('iterable.min', () => {

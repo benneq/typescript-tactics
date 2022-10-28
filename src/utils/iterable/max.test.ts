@@ -1,4 +1,4 @@
-import { numberNaturalOrder } from '../comparator';
+import { numberNaturalOrder } from '../comparator/numberNaturalOrder';
 import { max } from './max';
 
 describe('iterable.max', () => {
