@@ -1,15 +1,21 @@
 import { add } from './add';
 
 describe('set.add', () => {
-  it('add', () => {
-    const set = new Set();
+  it('should add the given value to the Set', () => {
     const value1 = Symbol();
-    add(set)(value1);
-    expect(set).toEqual(new Set([value1]));
-
     const value2 = Symbol();
+    const set = new Set([value1]);
+
     add(set)(value2);
-    expect(set).toEqual(new Set([value2, value1]));
+    expect(set).toEqual(new Set([value1, value2]));
+  });
+
+  it('should not modify the Set if the value is already present', () => {
+    const value = Symbol();
+    const set = new Set([value]);
+
+    add(set)(value);
+    expect(set).toEqual(new Set([value]));
   });
 });
 
