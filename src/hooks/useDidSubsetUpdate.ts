@@ -1,6 +1,6 @@
 import { DependencyList, EffectCallback, useRef } from 'react';
+import { shallowEqual } from '../utils/object/shallowEqual';
 import { warn } from '../utils/log';
-import { shallowEquals } from '../utils/react';
 import { useDidUpdate } from './useDidUpdate';
 
 export const useDidSubsetUpdate = (
@@ -12,7 +12,7 @@ export const useDidSubsetUpdate = (
 
   // no useCallback, because useDidUpdate does not need it
   const handleUpdate = () => {
-    const subsetChanged = !shallowEquals(depsSubset, cachedSubset.current);
+    const subsetChanged = !shallowEqual(depsSubset, cachedSubset.current);
     cachedSubset.current = depsSubset;
     callback(subsetChanged);
   };
@@ -24,7 +24,7 @@ export const useDidSubsetUpdate = (
     const cachedDeps = useRef(deps);
 
     const handleUpdate = () => {
-      const depsUnchanged = shallowEquals(deps, cachedDeps.current);
+      const depsUnchanged = shallowEqual(deps, cachedDeps.current);
       warn('depsSubset must be subset of deps', depsUnchanged);
     };
 

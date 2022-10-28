@@ -1,5 +1,5 @@
 import { DependencyList, useEffect, useRef } from 'react';
-import { shallowEquals } from '../utils/react';
+import { shallowEqual } from '../utils/object/shallowEqual';
 import { Callback } from '../utils/func/_types';
 import { warn } from '../utils/log';
 
@@ -10,7 +10,7 @@ export const useDidUpdate = (
   const cachedDeps = useRef<DependencyList | undefined>(deps);
 
   useEffect(() => {
-    if (shallowEquals(cachedDeps.current, deps)) {
+    if (shallowEqual(cachedDeps.current, deps)) {
       return;
     }
 
