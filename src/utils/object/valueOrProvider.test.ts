@@ -1,11 +1,14 @@
 import { valueOrProviderResult } from './valueOrProvider';
 
 describe('object.valueOrProvider', () => {
-  it('valueOrProviderResult', () => {
-    expect(valueOrProviderResult(undefined)).toEqual(undefined);
-    expect(valueOrProviderResult(1)).toEqual(1);
-    expect(valueOrProviderResult(() => null)).toEqual(null);
-    expect(valueOrProviderResult(() => '')).toEqual('');
+  it('should return the provided value if it is not a function', () => {
+    expect(valueOrProviderResult(undefined)).toBe(undefined);
+    expect(valueOrProviderResult(1)).toBe(1);
+  });
+
+  it('should return the result of the function if the provided value is a function', () => {
+    expect(valueOrProviderResult(() => null)).toBe(null);
+    expect(valueOrProviderResult(() => '')).toBe('');
   });
 });
 

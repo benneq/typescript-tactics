@@ -1,20 +1,22 @@
 import { isTruthy } from './isTruthy';
 
 describe('object.isTruthy', () => {
-  it('isTruthy', () => {
-    expect(isTruthy(true)).toEqual(true);
-    expect(isTruthy(' ')).toEqual(true);
-    expect(isTruthy(1)).toEqual(true);
-    expect(isTruthy(-1)).toEqual(true);
-    expect(isTruthy({})).toEqual(true);
-    expect(isTruthy([])).toEqual(true);
+  it('should return false if the provided value is not truthy', () => {
+    expect(isTruthy(false)).toBe(false);
+    expect(isTruthy('')).toBe(false);
+    expect(isTruthy(0)).toBe(false);
+    expect(isTruthy(NaN)).toBe(false);
+    expect(isTruthy(undefined)).toBe(false);
+    expect(isTruthy(null)).toBe(false);
+  });
 
-    expect(isTruthy(false)).toEqual(false);
-    expect(isTruthy('')).toEqual(false);
-    expect(isTruthy(0)).toEqual(false);
-    expect(isTruthy(NaN)).toEqual(false);
-    expect(isTruthy(undefined)).toEqual(false);
-    expect(isTruthy(null)).toEqual(false);
+  it('should return true if the provided value is truthy', () => {
+    expect(isTruthy(true)).toBe(true);
+    expect(isTruthy(' ')).toBe(true);
+    expect(isTruthy(1)).toBe(true);
+    expect(isTruthy(-1)).toBe(true);
+    expect(isTruthy({})).toBe(true);
+    expect(isTruthy([])).toBe(true);
   });
 });
 

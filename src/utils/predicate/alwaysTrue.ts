@@ -1,5 +1,3 @@
-import { Predicate } from './_types';
-
 /**
  * A Predicate that returns always `true`
  *
@@ -9,4 +7,5 @@ import { Predicate } from './_types';
  *
  * @returns `true`
  */
-export const alwaysTrue: Predicate<unknown[]> = () => true;
+export const alwaysTrue = (arg?: unknown, ..._: unknown[]): arg is unknown =>
+  true;

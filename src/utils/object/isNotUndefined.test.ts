@@ -1,18 +1,21 @@
 import { isNotUndefined } from './isNotUndefined';
 
 describe('object.isNotUndefined', () => {
-  it('isNotUndefined', () => {
-    expect(isNotUndefined(undefined)).toEqual(false);
-    expect(isNotUndefined(null)).toEqual(true);
-    expect(isNotUndefined(NaN)).toEqual(true);
-    expect(isNotUndefined(0)).toEqual(true);
-    expect(isNotUndefined(true)).toEqual(true);
-    expect(isNotUndefined({})).toEqual(true);
-    expect(isNotUndefined('')).toEqual(true);
-    expect(isNotUndefined([])).toEqual(true);
-    expect(isNotUndefined(new Set())).toEqual(true);
-    expect(isNotUndefined(new Map())).toEqual(true);
-    expect(isNotUndefined(jest.fn())).toEqual(true);
+  it('should return true if the provided value is not undefined', () => {
+    expect(isNotUndefined(null)).toBe(true);
+    expect(isNotUndefined(NaN)).toBe(true);
+    expect(isNotUndefined(0)).toBe(true);
+    expect(isNotUndefined(true)).toBe(true);
+    expect(isNotUndefined({})).toBe(true);
+    expect(isNotUndefined('')).toBe(true);
+    expect(isNotUndefined([])).toBe(true);
+    expect(isNotUndefined(new Set())).toBe(true);
+    expect(isNotUndefined(new Map())).toBe(true);
+    expect(isNotUndefined(jest.fn())).toBe(true);
+  });
+
+  it('should return false if the provided value is undefined', () => {
+    expect(isNotUndefined(undefined)).toBe(false);
   });
 });
 
