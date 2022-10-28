@@ -1,9 +1,9 @@
 import { nullLast } from './nullLast';
-import { numberNaturalOrder } from './numberNaturalOrder';
+import { numberComparator } from './numberComparator';
 
 describe('comparator.nullLast', () => {
   it('nullLast', () => {
-    expect([null, 3, null, 1, 2].sort(nullLast(numberNaturalOrder))).toEqual([
+    expect([null, 3, null, 1, 2].sort(nullLast(numberComparator))).toEqual([
       1,
       2,
       3,

@@ -1,4 +1,4 @@
-import { booleanNaturalOrder } from './booleanNaturalOrder';
+import { booleanComparator } from './booleanComparator';
 import { chain } from './chain';
 import { comparatorFor } from './comparatorFor';
 
@@ -12,7 +12,7 @@ describe('comparator.chain', () => {
     expect(value1.sort(chain())).toEqual(value1);
 
     const comparator = chain<typeof value1[number]>(
-      comparatorFor((value) => value.b, booleanNaturalOrder),
+      comparatorFor((value) => value.b, booleanComparator),
       comparatorFor((value) => value.i)
     );
 

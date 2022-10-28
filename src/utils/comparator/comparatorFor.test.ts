@@ -1,5 +1,5 @@
 import { comparatorFor } from './comparatorFor';
-import { stringNaturalOrder } from './stringNaturalOrder';
+import { stringComparator } from './stringComparator';
 
 describe('comparator.comparatorFor', () => {
   it('comparatorFor', () => {
@@ -10,7 +10,7 @@ describe('comparator.comparatorFor', () => {
     const value2 = [{ i: '3' }, { i: '1' }, { i: '2' }];
     const comparator2 = comparatorFor<typeof value2[number], string>(
       (value) => value.i,
-      stringNaturalOrder
+      stringComparator()
     );
     expect(value2.sort(comparator2)).toEqual([
       { i: '1' },
