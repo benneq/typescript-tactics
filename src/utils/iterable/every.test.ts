@@ -1,15 +1,21 @@
 import { every } from './every';
 
 describe('iterable.every', () => {
-  it('every', () => {
-    expect(every([])(() => true)).toEqual(true);
-    expect(every([])(() => false)).toEqual(true);
+  it('should return true if the given Iterable is empty', () => {
+    expect(every([])(() => true)).toBe(true);
+    expect(every([])(() => false)).toBe(true);
+  });
 
+  it('should return true if every element of the given Iterable matches the Predicate', () => {
     const value = Symbol();
-    const predicate = jest.fn((val) => val === value);
-    expect(every([value])(predicate)).toEqual(true);
-    expect(every([Symbol()])(predicate)).toEqual(false);
-    expect(every([value, Symbol()])(predicate)).toEqual(false);
+    const predicate = (val: symbol) => val === value;
+    expect(every([value, value])(predicate)).toBe(true);
+  });
+
+  it('should return false if any element of the given Iterable does not match the Predicate', () => {
+    const value = Symbol();
+    const predicate = (val: symbol) => val === value;
+    expect(every([Symbol()])(predicate)).toBe(false);
   });
 });
 

@@ -1,15 +1,21 @@
 import { some } from './some';
 
 describe('iterable.some', () => {
-  it('some', () => {
-    expect(some([])(() => true)).toEqual(false);
-    expect(some([])(() => false)).toEqual(false);
+  it('should return false if the given Iterable is empty', () => {
+    expect(some([])(() => true)).toBe(false);
+    expect(some([])(() => false)).toBe(false);
+  });
 
+  it('should return true if any element of the given Iterable matches the Predicate', () => {
     const value = Symbol();
-    const predicate = jest.fn((val) => val === value);
-    expect(some([value])(predicate)).toEqual(true);
-    expect(some([Symbol()])(predicate)).toEqual(false);
-    expect(some([value, Symbol()])(predicate)).toEqual(true);
+    const predicate = (val: symbol) => val === value;
+    expect(some([Symbol(), value])(predicate)).toBe(true);
+  });
+
+  it('should return false if no element of the given Iterable matches the Predicate', () => {
+    const value = Symbol();
+    const predicate = (val: symbol) => val === value;
+    expect(some([Symbol()])(predicate)).toBe(false);
   });
 });
 

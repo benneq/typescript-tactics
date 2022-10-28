@@ -6,11 +6,11 @@ describe('iterable.concat', () => {
       [2, 1],
       [3, 4],
     ]);
-    expect(generator.next().value).toEqual(2);
-    expect(generator.next().value).toEqual(1);
-    expect(generator.next().value).toEqual(3);
-    expect(generator.next().value).toEqual(4);
-    expect(generator.next().done).toEqual(true);
+    expect(generator.next().value).toBe(2);
+    expect(generator.next().value).toBe(1);
+    expect(generator.next().value).toBe(3);
+    expect(generator.next().value).toBe(4);
+    expect(generator.next().done).toBe(true);
   });
 });
 
