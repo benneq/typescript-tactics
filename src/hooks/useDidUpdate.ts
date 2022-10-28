@@ -1,6 +1,6 @@
 import { DependencyList, useEffect, useRef } from 'react';
 import { shallowEquals } from '../utils/react';
-import { Callback } from '../utils/function/_types';
+import { Callback } from '../utils/func/_types';
 import { warn } from '../utils/log';
 
 export const useDidUpdate = (

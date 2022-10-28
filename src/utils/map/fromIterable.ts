@@ -1,4 +1,4 @@
-import { Mapper } from '../function/_types';
+import { Mapper } from '../func';
 import { forEach } from '../iterable/forEach';
 
 export const fromIterable =

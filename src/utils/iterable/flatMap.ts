@@ -1,4 +1,4 @@
-import { Mapper } from '../function/_types';
+import { Mapper } from '../func';
 
 /**
  * Maps an iterable to a flat representation of the mapped Iterables

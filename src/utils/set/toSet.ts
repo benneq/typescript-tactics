@@ -1,4 +1,4 @@
-import { from } from '../array/from';
+import { from } from '../array';
 import { isSet } from './isSet';
 import { SetCompatible } from './_types';
 

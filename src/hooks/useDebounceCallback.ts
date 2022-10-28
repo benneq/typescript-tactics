@@ -1,8 +1,8 @@
 import { env } from 'process';
 import { useRef, useCallback } from 'react';
-import { identity } from '../utils/function/identity';
+import { identity } from '../utils/func/identity';
 import { warn } from '../utils/log';
-import { Callback } from '../utils/function/_types';
+import { Callback } from '../utils/func/_types';
 import { useUnmountCallback } from './useUnmountCallback';
 import { useUpdatingRef } from './useUpdatingRef';
 

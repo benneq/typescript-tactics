@@ -1,5 +1,5 @@
-import { isArray } from './array/isArray';
-import { equal as arrayEqual } from './array/equal';
+import { isArray } from './array';
+import { equal as arrayEqual } from './array';
 import { toArray as iterableToArray } from './iterable/toArray';
 import { Predicate } from './predicate/_types';
 import { isFloat } from './number/isFloat';

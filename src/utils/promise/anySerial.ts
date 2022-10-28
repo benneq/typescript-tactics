@@ -1,4 +1,4 @@
-import { isEmpty } from '../array/isEmpty';
+import { isEmpty } from '../array';
 
 /**
  * Executes all provided Promises in serial and returns either the first result or the last error

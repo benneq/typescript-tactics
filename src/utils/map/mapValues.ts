@@ -1,5 +1,5 @@
 import { forEach } from '../iterable/forEach';
-import { Mapper } from '../function/_types';
+import { Mapper } from '../func';
 
 export const mapValues =
   <V, R>(mapper: Mapper<V, R>) =>

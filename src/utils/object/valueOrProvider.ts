@@ -1,5 +1,4 @@
-import { isFunction } from '../function/isFunction';
-import { Provider } from '../function/_types';
+import { isFunction, Provider } from '../func';
 
 export type ValueOrProvider<T, TArgs extends unknown[] = []> =
   | T

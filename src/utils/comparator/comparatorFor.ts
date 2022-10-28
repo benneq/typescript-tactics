@@ -1,4 +1,4 @@
-import { Mapper } from 'utils/function/_types';
+import { Mapper } from 'utils/func/_types';
 import { numberComparator } from './numberComparator';
 import { Comparator } from './_types';
 

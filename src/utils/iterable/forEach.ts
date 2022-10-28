@@ -1,4 +1,4 @@
-import { Callback } from '../function/_types';
+import { Callback } from '../func';
 
 /**
  * Calls the given Callback for each element of the provided Iterable

@@ -1,7 +1,7 @@
 import Chevron from 'components/icon/Chevron';
 import { ChangeEvent, ReactNode } from 'react';
-import { callIfDefined } from 'utils/function/callIfDefined';
-import { Callback } from 'utils/function/_types';
+import { callIfDefined } from 'utils/func/callIfDefined';
+import { Callback } from 'utils/func/_types';
 
 type Props = {
   title: ReactNode;
