@@ -6,7 +6,7 @@
  * resolveAfterTimeout(100, "val") => ... 100ms later ... Promise.resolve("val")
  *
  * @param ms
- * @param error
+ * @param value
  * @returns a Promise that resolves after the given ms
  */
 export const resolveAfterTimeout: {

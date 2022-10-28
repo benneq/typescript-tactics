@@ -1,21 +1,30 @@
 import { move } from './move';
 
 describe('array.move', () => {
+  it('should an element from indexA to indexB', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const value3 = Symbol();
+    const array = [value1, value2, value3];
+
+    move(array, 1, 2);
+    expect(array).toEqual([value1, value3, value2]);
+  });
+
+  it('should not modify the Array if both indexes are equal', () => {
+    const value1 = 1;
+    const value2 = 2;
+    const value3 = Symbol();
+    const array = [value1, value2, value3];
+
+    move(array, 1, 1);
+    expect(array).toEqual([value1, value2, value3]);
+  });
+
   it('move', () => {
-    const array1: unknown[] = [];
-
-    move(array1, 0, 0);
-    expect(array1).toEqual([]);
-
-    move(array1, 1, 1);
-    expect(array1).toEqual([]);
-
     const value1 = Symbol();
     const value2 = Symbol();
     const array2 = [value1, value2];
-
-    move(array2, 0, 0);
-    expect(array2).toEqual([value1, value2]);
 
     move(array2, 0, 1);
     expect(array2).toEqual([value2, value1]);

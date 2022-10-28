@@ -1,12 +1,35 @@
 import { equal } from './equal';
 
 describe('array.equal', () => {
-  it('equal', () => {
-    expect(equal([])([])).toEqual(true);
-    expect(equal<number>([])([0])).toEqual(false);
-    expect(equal([0])([])).toEqual(false);
-    expect(equal([1, 2])([1, 2])).toEqual(true);
-    expect(equal([1, 2])([2, 1])).toEqual(false);
+  it('should return true if both arrays have the same elements in the same order', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const arrayA = [value1, value2];
+    const arrayB = [value1, value2];
+
+    const result = equal(arrayA)(arrayB);
+
+    expect(result).toBe(true);
+  });
+
+  it('should return false if array length does not match', () => {
+    const arrayA = new Array(0);
+    const arrayB = new Array(1);
+
+    const result = equal(arrayA)(arrayB);
+
+    expect(result).toBe(false);
+  });
+
+  it('should return false if element order does not match', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const arrayA = [value1, value2];
+    const arrayB = [value2, value1];
+
+    const result = equal(arrayA)(arrayB);
+
+    expect(result).toBe(false);
   });
 });
 

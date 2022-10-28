@@ -1,18 +1,24 @@
 import { insertAt } from './insertAt';
 
 describe('array.insertAt', () => {
-  it('insertAt', () => {
-    const array1: unknown[] = [];
-    insertAt(array1, 0);
-    expect(array1).toEqual([]);
-
-    insertAt(array1, 1);
-    expect(array1).toEqual([]);
-
+  it('should insert the provided values at the given index', () => {
     const value1 = Symbol();
     const value2 = Symbol();
-    insertAt(array1, 0, value1, value2);
-    expect(array1).toEqual([value1, value2]);
+    const array: unknown[] = [];
+
+    insertAt(array, 0, value1, value2);
+
+    expect(array).toEqual([value1, value2]);
+  });
+
+  it('should not change the Array if no value is provided', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const array = [value1, value2];
+
+    insertAt(array, 0);
+
+    expect(array).toEqual([value1, value2]);
   });
 });
 
