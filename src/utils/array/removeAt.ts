@@ -3,6 +3,10 @@
  *
  * @mutation
  *
+ * @example
+ * removeAt([], 1) => []
+ * removeAt([1,2,3], 1) => [1,3]
+ *
  * @param array
  * @param index
  */

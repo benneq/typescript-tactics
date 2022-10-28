@@ -3,6 +3,11 @@
  *
  * @mutation
  *
+ * @example
+ * move([], 1, 2) => []
+ * move([1,2,3,4], 0, 2) => [2,3,1,4]
+ * move([1,2,3,4], 3, 1) => [1,4,2,3]
+ *
  * @param array
  * @param sourceIndex
  * @param targetIndex

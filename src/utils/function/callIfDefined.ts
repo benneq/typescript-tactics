@@ -1,6 +1,10 @@
 /**
  * Calls the provided Function with the given arguments if the function is defined
  *
+ * @example
+ * callIfDefined(undefined) => undefined
+ * callIfDefined(y => x + 1, 2) => 3
+ *
  * @param fn
  * @param args
  * @returns the result of the provided Function or undefined

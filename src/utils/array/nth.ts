@@ -1,6 +1,10 @@
 /**
  * Gets the nth element of the provided Array
  *
+ * @example
+ * nth([], 0) => undefined
+ * nth([1,2,3], 1) => 2
+ *
  * @param array
  * @param index
  * @returns the element at the given index of the provided Array

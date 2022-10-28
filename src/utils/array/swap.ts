@@ -5,6 +5,10 @@ import { isIndex } from './isIndex';
  *
  * @mutation
  *
+ * @example
+ * swap([1], 0, 1) => [1]
+ * swap([1,2,3], 1, 2) => [1,3,2]
+ *
  * @param array
  * @param indexA
  * @param indexB

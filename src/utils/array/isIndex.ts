@@ -3,6 +3,12 @@ import { contains } from '../range';
 /**
  * Checks if the given index is in bounds of the provided Array
  *
+ * @example
+ * isIndex([])(0) => false
+ * isIndex([1,2,3])(1) => true
+ * isIndex([1])(-1) => false
+ * isIndex([1])(1) => false
+ *
  * @param array
  * @returns `true` if the given index is between 0 and Array.length
  */
