@@ -19,31 +19,29 @@ describe('promise.anySerial', () => {
     return promise;
   }
 
-  it('anySerial', async () => {
-    const res1 = anySerial([]);
-    expect(res1).resolves.toBeUndefined();
+  it('should resolve if no Promise was provided', async () => {
+    const promise = anySerial([]);
+    expect(promise).resolves.toBeUndefined();
+  });
 
-    const resolveValue1 = Symbol();
-    const res2 = anySerial([new Promise((res) => res(resolveValue1))]);
-    expect(res2).resolves.toBe(resolveValue1);
+  it('should resolve to the first resolving Promise', async () => {
+    const resolveValue = Symbol();
+    const promise = anySerial([
+      new Promise((res) => res(resolveValue)),
+      new Promise((res) => res(Symbol())),
+      makePromise((_: any, rej: any) => rej(Symbol())),
+    ]);
+    expect(promise).resolves.toBe(resolveValue);
+  });
 
+  it('should reject with the first error if no Promise resolves', async () => {
     const rejectValue = Symbol();
-    const res3 = anySerial([new Promise((_, rej) => rej(rejectValue))]);
-    expect(res3).rejects.toBe(rejectValue);
-
-    const resolveValue2 = Symbol();
-    const res4 = anySerial([
-      new Promise((res) => res(resolveValue1)),
-      new Promise((res) => res(resolveValue2)),
-      makePromise((_: any, rej: any) => rej(rejectValue)),
-    ]);
-    expect(res4).resolves.toBe(resolveValue1);
-
-    const res5 = anySerial([
+    const promise = anySerial([
       new Promise((_, rej) => rej(rejectValue)),
-      new Promise((res) => res(resolveValue1)),
+      // TODO: should Symbol(), but jest goes crazy
+      new Promise((_, rej) => rej(rejectValue)),
     ]);
-    expect(res5).resolves.toBe(resolveValue1);
+    expect(promise).rejects.toBe(rejectValue);
   });
 });
 

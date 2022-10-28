@@ -12,7 +12,7 @@ describe('object.shallowEqual', () => {
     expect(shallowEqual({ a: 1 }, { b: 1 })).toBe(false);
     expect(shallowEqual([1, 2, 3], [1, 2, 3])).toBe(true);
     expect(shallowEqual([3, 2, 1], [1, 2, 3])).toBe(false);
-    expect(shallowEqual([1, 2], [2, 3])).toBe(false);
+    expect(shallowEqual([1, 2], [2])).toBe(false);
   });
 });
 
