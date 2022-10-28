@@ -1,19 +1,22 @@
 import { isIterable } from './isIterable';
 
 describe('iterable.isIterable', () => {
-  it('isIterable', () => {
-    expect(isIterable(undefined)).toEqual(false);
-    expect(isIterable(null)).toEqual(false);
-    expect(isIterable(NaN)).toEqual(false);
-    expect(isIterable(0)).toEqual(false);
-    expect(isIterable(true)).toEqual(false);
-    expect(isIterable(Symbol())).toEqual(false);
-    expect(isIterable({})).toEqual(false);
-    expect(isIterable('')).toEqual(true);
-    expect(isIterable([])).toEqual(true);
-    expect(isIterable(new Set())).toEqual(true);
-    expect(isIterable(new Map())).toEqual(true);
-    expect(isIterable(jest.fn())).toEqual(false);
+  it('should return true if the provided value is an Iterable', () => {
+    expect(isIterable('')).toBe(true);
+    expect(isIterable([])).toBe(true);
+    expect(isIterable(new Set())).toBe(true);
+    expect(isIterable(new Map())).toBe(true);
+  });
+
+  it('should return false if the provided value is not an Iterable', () => {
+    expect(isIterable(undefined)).toBe(false);
+    expect(isIterable(null)).toBe(false);
+    expect(isIterable(NaN)).toBe(false);
+    expect(isIterable(0)).toBe(false);
+    expect(isIterable(true)).toBe(false);
+    expect(isIterable(Symbol())).toBe(false);
+    expect(isIterable({})).toBe(false);
+    expect(isIterable(jest.fn())).toBe(false);
   });
 });
 

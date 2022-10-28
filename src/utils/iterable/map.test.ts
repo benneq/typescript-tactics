@@ -1,12 +1,12 @@
 import { map } from './map';
 
 describe('iterable.map', () => {
-  it('map', () => {
+  it('it should yield the mapped value for each element of the Iterable', () => {
     const generator = map((value) => String(value))([0, 1, 2]);
-    expect(generator.next().value).toEqual('0');
-    expect(generator.next().value).toEqual('1');
-    expect(generator.next().value).toEqual('2');
-    expect(generator.next().done).toEqual(true);
+    expect(generator.next().value).toBe('0');
+    expect(generator.next().value).toBe('1');
+    expect(generator.next().value).toBe('2');
+    expect(generator.next().done).toBe(true);
   });
 });
 

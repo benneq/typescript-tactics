@@ -1,7 +1,7 @@
 import { toArray } from './toArray';
 
 describe('iterable.toArray', () => {
-  it('toArray', () => {
+  it('should return an Array with the same elements as the Iterable in the same order', () => {
     const iterable = {
       i: 0,
       [Symbol.iterator]: () => ({

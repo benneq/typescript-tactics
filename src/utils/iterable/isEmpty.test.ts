@@ -1,16 +1,18 @@
 import { isEmpty } from './isEmpty';
 
 describe('iterable.isEmpty', () => {
-  it('isEmpty', () => {
-    expect(isEmpty('')).toEqual(true);
-    expect(isEmpty([])).toEqual(true);
-    expect(isEmpty(new Set())).toEqual(true);
-    expect(isEmpty(new Map())).toEqual(true);
+  it('should return true if the Iterable has no elements', () => {
+    expect(isEmpty('')).toBe(true);
+    expect(isEmpty([])).toBe(true);
+    expect(isEmpty(new Set())).toBe(true);
+    expect(isEmpty(new Map())).toBe(true);
+  });
 
-    expect(isEmpty('a')).toEqual(false);
-    expect(isEmpty([Symbol()])).toEqual(false);
-    expect(isEmpty(new Set([Symbol()]))).toEqual(false);
-    expect(isEmpty(new Map([[Symbol(), Symbol()]]))).toEqual(false);
+  it('should return false if the Iterable has elements', () => {
+    expect(isEmpty('a')).toBe(false);
+    expect(isEmpty([Symbol()])).toBe(false);
+    expect(isEmpty(new Set([Symbol()]))).toBe(false);
+    expect(isEmpty(new Map([[Symbol(), Symbol()]]))).toBe(false);
   });
 });
 
