@@ -3,17 +3,20 @@ import { alwaysTrue } from './alwaysTrue';
 import { and } from './and';
 
 describe('predicate.and', () => {
-  it('and', () => {
-    expect(and()(Symbol())).toEqual(true);
-    expect(and(alwaysTrue)(Symbol())).toEqual(true);
-    expect(and(alwaysFalse)(Symbol())).toEqual(false);
-    expect(and(alwaysTrue, alwaysTrue)(Symbol())).toEqual(true);
-    expect(and(alwaysTrue, alwaysFalse)(Symbol())).toEqual(false);
-    expect(and(alwaysFalse, alwaysTrue)(Symbol())).toEqual(false);
-    expect(and(alwaysFalse, alwaysFalse)(Symbol())).toEqual(false);
+  it('should return true if no Predicates were provided', () => {
+    expect(and()(Symbol())).toBe(true);
+  });
 
-    expect(and((value) => !value)(Symbol())).toEqual(false);
-    expect(and((value) => !!value)(Symbol())).toEqual(true);
+  it('should return true if all given Predicates return true', () => {
+    expect(and(alwaysTrue)(Symbol())).toBe(true);
+    expect(and(alwaysTrue, alwaysTrue)(Symbol())).toBe(true);
+  });
+
+  it('should return false if any Predicate returns false', () => {
+    expect(and(alwaysFalse)(Symbol())).toBe(false);
+    expect(and(alwaysTrue, alwaysFalse)(Symbol())).toBe(false);
+    expect(and(alwaysFalse, alwaysTrue)(Symbol())).toBe(false);
+    expect(and(alwaysFalse, alwaysFalse)(Symbol())).toBe(false);
   });
 });
 

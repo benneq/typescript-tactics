@@ -3,17 +3,20 @@ import { alwaysTrue } from './alwaysTrue';
 import { or } from './or';
 
 describe('predicate.or', () => {
-  it('or', () => {
-    expect(or()(Symbol())).toEqual(false);
-    expect(or(alwaysTrue)(Symbol())).toEqual(true);
-    expect(or(alwaysFalse)(Symbol())).toEqual(false);
-    expect(or(alwaysTrue, alwaysTrue)(Symbol())).toEqual(true);
-    expect(or(alwaysTrue, alwaysFalse)(Symbol())).toEqual(true);
-    expect(or(alwaysFalse, alwaysTrue)(Symbol())).toEqual(true);
-    expect(or(alwaysFalse, alwaysFalse)(Symbol())).toEqual(false);
+  it('should return false if no Predicates were provided', () => {
+    expect(or()(Symbol())).toBe(true);
+  });
 
-    expect(or((value) => !value)(Symbol())).toEqual(false);
-    expect(or((value) => !!value)(Symbol())).toEqual(true);
+  it('should return true if any Predicate returns true', () => {
+    expect(or(alwaysTrue)(Symbol())).toBe(true);
+    expect(or(alwaysTrue, alwaysTrue)(Symbol())).toBe(true);
+    expect(or(alwaysTrue, alwaysFalse)(Symbol())).toBe(true);
+    expect(or(alwaysFalse, alwaysTrue)(Symbol())).toBe(true);
+  });
+
+  it('should return false when all Predicates return false', () => {
+    expect(or(alwaysFalse)(Symbol())).toEqual(false);
+    expect(or(alwaysFalse, alwaysFalse)(Symbol())).toBe(false);
   });
 });
 

@@ -1,8 +1,8 @@
 import { alwaysFalse } from './alwaysFalse';
 
 describe('predicate.alwaysFalse', () => {
-  it('alwaysFalse', () => {
-    expect(alwaysFalse()).toEqual(false);
+  it('should return always false', () => {
+    expect(alwaysFalse()).toBe(false);
   });
 });
 

@@ -1,8 +1,8 @@
 import { alwaysTrue } from './alwaysTrue';
 
 describe('predicate.alwaysTrue', () => {
-  it('alwaysTrue', () => {
-    expect(alwaysTrue()).toEqual(true);
+  it('should return always true', () => {
+    expect(alwaysTrue()).toBe(true);
   });
 });
 
