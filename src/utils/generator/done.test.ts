@@ -1,11 +1,11 @@
 import { done } from './done';
 
 describe('generator.done', () => {
-  it('done', () => {
+  it('should be done immediatly and have no value', () => {
     const generator = done;
-    expect(generator.next().done).toEqual(true);
-    expect(generator.next().done).toEqual(true);
-    expect(generator.next().done).toEqual(true);
+    const next = generator.next();
+    expect(next.value).toBeUndefined();
+    expect(next.done).toBe(true);
   });
 });
 

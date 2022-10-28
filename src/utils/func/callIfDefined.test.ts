@@ -1,12 +1,15 @@
 import { callIfDefined } from './callIfDefined';
 
 describe('function.callIfDefined', () => {
-  it('callIfDefined', () => {
+  it('should return the Function result if the provided value is a Function', () => {
     const value = Symbol();
     const fn = jest.fn((value) => value);
 
-    expect(callIfDefined(undefined)).toEqual(undefined);
-    expect(callIfDefined(fn, value)).toEqual(value);
+    expect(callIfDefined(fn, value)).toBe(value);
+  });
+
+  it('should return undefined if the provided value is not a Function', () => {
+    expect(callIfDefined(undefined)).toBeUndefined();
   });
 });
 

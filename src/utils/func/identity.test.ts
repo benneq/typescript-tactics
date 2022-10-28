@@ -1,11 +1,9 @@
 import { identity } from './identity';
 
 describe('function.identity', () => {
-  it('identity', () => {
-    expect(identity).toEqual(expect.any(Function));
-
+  it('should return the argument it was given', () => {
     const value = Symbol();
-    expect(identity(value)).toEqual(value);
+    expect(identity(value)).toBe(value);
   });
 });
 

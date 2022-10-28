@@ -1,8 +1,8 @@
 import { empty } from './empty';
 
 describe('function.empty', () => {
-  it('empty', () => {
-    expect(empty).toEqual(expect.any(Function));
+  it('should should return nothing', () => {
+    expect(empty()).toBeUndefined();
   });
 });
 

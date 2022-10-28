@@ -12,7 +12,7 @@ describe('array.from', () => {
     expect(result).toEqual([value1, value2]);
   });
 
-  it('should copy all Set elements', () => {
+  it('should copy all Set elements into a new Array', () => {
     const value1 = Symbol();
     const value2 = Symbol();
     const set = new Set([value1, value2]);
