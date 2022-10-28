@@ -1,7 +1,11 @@
 import { isMap } from './isMap';
 
 describe('map.isMap', () => {
-  it('isMap', () => {
+  it('should return true if the provided value is a Map', () => {
+    expect(isMap(new Map())).toEqual(true);
+  });
+
+  it('should return false if the provided value is not a Map', () => {
     expect(isMap(undefined)).toEqual(false);
     expect(isMap(null)).toEqual(false);
     expect(isMap(NaN)).toEqual(false);
@@ -11,7 +15,6 @@ describe('map.isMap', () => {
     expect(isMap('')).toEqual(false);
     expect(isMap([])).toEqual(false);
     expect(isMap(new Set())).toEqual(false);
-    expect(isMap(new Map())).toEqual(true);
     expect(isMap(jest.fn())).toEqual(false);
   });
 });
