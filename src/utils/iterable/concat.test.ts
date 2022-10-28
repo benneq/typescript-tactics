@@ -1,7 +1,7 @@
 import { concat } from './concat';
 
 describe('iterable.concat', () => {
-  it('concat', () => {
+  it('should yield the elements of the ITerables in the given order', () => {
     const generator = concat([
       [2, 1],
       [3, 4],
