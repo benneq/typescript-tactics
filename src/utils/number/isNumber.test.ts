@@ -1,22 +1,24 @@
 import { isNumber } from './isNumber';
 
 describe('number.isNumber', () => {
-  it('isNumber', () => {
-    expect(isNumber(undefined)).toEqual(false);
-    expect(isNumber(null)).toEqual(false);
-    expect(isNumber(NaN)).toEqual(true);
-    expect(isNumber(0)).toEqual(true);
-    expect(isNumber(true)).toEqual(false);
-    expect(isNumber({})).toEqual(false);
-    expect(isNumber('')).toEqual(false);
-    expect(isNumber([])).toEqual(false);
-    expect(isNumber(new Set())).toEqual(false);
-    expect(isNumber(new Map())).toEqual(false);
-    expect(isNumber(jest.fn())).toEqual(false);
+  it('should return true if the given value is a Number', () => {
+    expect(isNumber(0)).toBe(true);
+    expect(isNumber(0.1)).toBe(true);
+    expect(isNumber(Infinity)).toBe(true);
+    expect(isNumber(-Infinity)).toBe(true);
+    expect(isNumber(NaN)).toBe(true);
+  });
 
-    expect(isNumber(0.1)).toEqual(true);
-    expect(isNumber(Infinity)).toEqual(true);
-    expect(isNumber(-Infinity)).toEqual(true);
+  it('should return true if the given value is not a Number', () => {
+    expect(isNumber(undefined)).toBe(false);
+    expect(isNumber(null)).toBe(false);
+    expect(isNumber(true)).toBe(false);
+    expect(isNumber({})).toBe(false);
+    expect(isNumber('')).toBe(false);
+    expect(isNumber([])).toBe(false);
+    expect(isNumber(new Set())).toBe(false);
+    expect(isNumber(new Map())).toBe(false);
+    expect(isNumber(jest.fn())).toBe(false);
   });
 });
 

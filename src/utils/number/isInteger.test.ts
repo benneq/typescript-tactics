@@ -1,22 +1,24 @@
 import { isInteger } from './isInteger';
 
 describe('number.isInteger', () => {
-  it('isInteger', () => {
-    expect(isInteger(undefined)).toEqual(false);
-    expect(isInteger(null)).toEqual(false);
-    expect(isInteger(NaN)).toEqual(false);
-    expect(isInteger(0)).toEqual(true);
-    expect(isInteger(true)).toEqual(false);
-    expect(isInteger({})).toEqual(false);
-    expect(isInteger('')).toEqual(false);
-    expect(isInteger([])).toEqual(false);
-    expect(isInteger(new Set())).toEqual(false);
-    expect(isInteger(new Map())).toEqual(false);
-    expect(isInteger(jest.fn())).toEqual(false);
+  it('should return true if the given value is an integer', () => {
+    expect(isInteger(0)).toBe(true);
+  });
 
-    expect(isInteger(0.1)).toEqual(false);
-    expect(isInteger(Infinity)).toEqual(false);
-    expect(isInteger(-Infinity)).toEqual(false);
+  it('should return true if the given value is not an integer', () => {
+    expect(isInteger(undefined)).toBe(false);
+    expect(isInteger(null)).toBe(false);
+    expect(isInteger(NaN)).toBe(false);
+    expect(isInteger(true)).toBe(false);
+    expect(isInteger({})).toBe(false);
+    expect(isInteger('')).toBe(false);
+    expect(isInteger([])).toBe(false);
+    expect(isInteger(new Set())).toBe(false);
+    expect(isInteger(new Map())).toBe(false);
+    expect(isInteger(jest.fn())).toBe(false);
+    expect(isInteger(0.1)).toBe(false);
+    expect(isInteger(Infinity)).toBe(false);
+    expect(isInteger(-Infinity)).toBe(false);
   });
 });
 
