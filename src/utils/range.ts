@@ -1,8 +1,5 @@
-import { isArray } from './array';
-import { equal as arrayEqual } from './array';
 import { toArray as iterableToArray } from './iterable/toArray';
 import { Predicate } from './predicate/_types';
-import { isFloat } from './number/isFloat';
 import { numberSequenceGenerator } from './number/numberSequenceGenerator';
 import { done } from './generator/done';
 import { takeWhile } from './iterable/takeWhile';
