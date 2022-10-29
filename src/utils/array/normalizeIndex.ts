@@ -10,6 +10,9 @@ import { mod } from '../number/mod';
  * @param index
  * @returns
  */
-export const normalizeIndex = (array: unknown[], index: number): number => {
+export const normalizeIndex = (
+  array: ArrayLike<unknown>,
+  index: number
+): number => {
   return mod(index, array.length);
 };
