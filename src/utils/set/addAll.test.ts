@@ -8,6 +8,7 @@ describe('set.addAll', () => {
     const set = new Set([value1]);
 
     addAll(set)([value2, value3]);
+
     expect(set).toEqual(new Set([value1, value2, value3]));
   });
 
@@ -18,6 +19,7 @@ describe('set.addAll', () => {
     const set = new Set([value1, value2, value3]);
 
     addAll(set)([value2, value3]);
+
     expect(set).toEqual(new Set([value1, value2, value3]));
   });
 });

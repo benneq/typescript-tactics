@@ -7,9 +7,9 @@ describe('set.toSet', () => {
     expect(toSet(set1)).toEqual(new Set());
 
     const value = Symbol();
-    const map2 = new Set([value]);
-    expect(toSet(map2)).toBe(map2);
-    expect(toSet(map2)).toEqual(new Set([value]));
+    const set2 = new Set([value]);
+    expect(toSet(set2)).toBe(set2);
+    expect(toSet(set2)).toEqual(new Set([value]));
   });
 
   it('should copy all key-value pairs into a new Array', () => {

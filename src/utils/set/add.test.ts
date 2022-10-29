@@ -7,6 +7,7 @@ describe('set.add', () => {
     const set = new Set([value1]);
 
     add(set)(value2);
+
     expect(set).toEqual(new Set([value1, value2]));
   });
 
@@ -15,6 +16,7 @@ describe('set.add', () => {
     const set = new Set([value]);
 
     add(set)(value);
+
     expect(set).toEqual(new Set([value]));
   });
 });
