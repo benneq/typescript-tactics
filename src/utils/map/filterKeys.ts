@@ -4,5 +4,5 @@ import { filter } from './filter';
 export const filterKeys = <K, V>(
   predicate: Predicate<[K]>
 ): ((map: Map<K, V>) => Map<K, V>) => {
-  return filter(([k]: [K, V]) => predicate(k));
+  return filter<K, V>(([k]) => predicate(k));
 };

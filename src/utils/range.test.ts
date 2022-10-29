@@ -1,79 +1,21 @@
 import {
   direction,
-  equal,
   flipDirection,
   contains,
   isAscending,
-  isDescending,
-  isEmpty,
-  isRange,
-  length,
   overlap,
-  shift,
   toArray,
   toAscending,
-  toDescending,
-  toRange,
   values,
   encloses,
 } from './range';
 
 describe('range', () => {
-  it('isRange', () => {
-    expect(isRange(undefined)).toEqual(false);
-    expect(isRange(null)).toEqual(false);
-    expect(isRange(NaN)).toEqual(false);
-    expect(isRange(0)).toEqual(false);
-    expect(isRange(true)).toEqual(false);
-    expect(isRange({})).toEqual(false);
-    expect(isRange('')).toEqual(false);
-    expect(isRange([])).toEqual(false);
-    expect(isRange(new Set())).toEqual(false);
-    expect(isRange(new Map())).toEqual(false);
-    expect(isRange(jest.fn())).toEqual(false);
-
-    expect(isRange([0, 0])).toEqual(true);
-    expect(isRange([Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER])).toEqual(
-      true
-    );
-    expect(isRange([Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER])).toEqual(
-      true
-    );
-
-    expect(isRange([0, '0'])).toEqual(false);
-    expect(isRange(['0', 0])).toEqual(false);
-  });
-
-  it('toRange', () => {
-    expect(toRange(1, 2)).toEqual([1, 2]);
-  });
-
-  it('equal', () => {
-    expect(equal([0, 0])([0, 0])).toEqual(true);
-    expect(equal([0, 1])([1, 0])).toEqual(false);
-    expect(equal([-1, 1])([1, -1])).toEqual(false);
-    expect(equal([-1, -2])([-1, -2])).toEqual(true);
-  });
-
-  it('isEmpty', () => {
-    expect(isEmpty([0, 0])).toEqual(true);
-    expect(isEmpty([1, 1])).toEqual(true);
-    expect(isEmpty([-1, 1])).toEqual(false);
-    expect(isEmpty([1, -1])).toEqual(false);
-  });
-
   it('isAscending', () => {
     expect(isAscending([0, 0])).toEqual(false);
     expect(isAscending([1, 1])).toEqual(false);
     expect(isAscending([-1, 1])).toEqual(true);
     expect(isAscending([1, -1])).toEqual(false);
-  });
-
-  it('isDescending', () => {
-    expect(isDescending([0, 0])).toEqual(false);
-    expect(isDescending([1, 1])).toEqual(false);
-    expect(isDescending([-1, 1])).toEqual(false);
-    expect(isDescending([1, -1])).toEqual(true);
   });
 
   it('direction', () => {
@@ -84,16 +26,6 @@ describe('range', () => {
 
     // negative range
     expect(direction([1, -1])).toEqual(-1);
-  });
-
-  it('length', () => {
-    expect(length([0, 0])).toEqual(0);
-    expect(length([1, 1])).toEqual(0);
-
-    expect(length([-1, 1])).toEqual(2);
-
-    // negative range
-    expect(length([1, -1])).toEqual(2);
   });
 
   it('values', () => {
@@ -142,12 +74,6 @@ describe('range', () => {
     expect(toAscending([1, -1])).toEqual([0, 2]);
   });
 
-  it('toDescending', () => {
-    expect(toDescending([0, 0])).toEqual([0, 0]);
-    expect(toDescending([-1, 1])).toEqual([0, -2]);
-    expect(toDescending([1, -1])).toEqual([1, -1]);
-  });
-
   it('contains', () => {
     expect(contains([0, 0])(0)).toEqual(false);
     expect(contains([0, 0])(1)).toEqual(false);
@@ -169,16 +95,6 @@ describe('range', () => {
 
     // negative range
     expect(flipDirection([1, -1])).toEqual([0, 2]);
-  });
-
-  it('shift', () => {
-    expect(shift([0, 0], 0)).toEqual([0, 0]);
-    expect(shift([1, 2], 1)).toEqual([2, 3]);
-    expect(shift([3, 2], -1)).toEqual([4, 3]);
-    expect(shift([-1, 2], 1)).toEqual([0, 3]);
-    expect(shift([-1, 2], -1)).toEqual([-2, 1]);
-    expect(shift([-1, -2], 1)).toEqual([-2, -3]);
-    expect(shift([-1, -2], -1)).toEqual([0, -1]);
   });
 
   it('encloses', () => {
