@@ -7,6 +7,8 @@ import { numberSequenceGenerator } from '../number/numberSequenceGenerator';
 /**
  * A Generator function that will iterate over a range of characters
  *
+ * Only the first character of the provided string will be used.
+ *
  * @example
  * characterSequenceGenerator(uppercaseAsciiLetterRange) => ['A','B',...,'Z']
  * characterSequenceGenerator(uppercaseAsciiLetterRange, 'D', -1) => ['D','C','B','A']
