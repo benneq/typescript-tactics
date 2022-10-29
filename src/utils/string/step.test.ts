@@ -1,10 +1,11 @@
+import { letterGenerator } from './letterGenerator';
 import { lowercaseAsciiLetterRange } from './lowercaseAsciiLetterRange';
 import { step } from './step';
 import { uppercaseAsciiLetterRange } from './uppercaseAsciiLetterRange';
 
 describe('string.step', () => {
   it('should generate the same string if stepSize is 0', () => {
-    const generator = step('a', lowercaseAsciiLetterRange, 0);
+    const generator = step('a', letterGenerator(lowercaseAsciiLetterRange), 0);
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('a');
@@ -12,15 +13,14 @@ describe('string.step', () => {
   });
 
   it('should increase to the first letter if initial value was empty', () => {
-    const generator = step('');
-    expect(generator.next().value).toBe('');
+    const generator = step('', letterGenerator(lowercaseAsciiLetterRange));
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('b');
     expect(generator.next().done).toBe(false);
   });
 
   it('should generate an alphabetically ascending sequence if stepSize is greater than 0', () => {
-    const generator = step('a');
+    const generator = step('a', letterGenerator(lowercaseAsciiLetterRange));
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('b');
     expect(generator.next().value).toBe('c');
@@ -28,35 +28,37 @@ describe('string.step', () => {
   });
 
   it('should generate a alphabetically descending sequence if stepSize is less than 0', () => {
-    const generator3 = step('Z', uppercaseAsciiLetterRange, -2);
-    expect(generator3.next().value).toBe('Z');
-    expect(generator3.next().value).toBe('X');
-    expect(generator3.next().value).toBe('V');
-    expect(generator3.next().done).toBe(false);
+    const generator = step('Z', letterGenerator(uppercaseAsciiLetterRange), -2);
+    expect(generator.next().value).toBe('Z');
+    expect(generator.next().value).toBe('X');
+    expect(generator.next().value).toBe('V');
+    expect(generator.next().done).toBe(false);
   });
 
   it('should append a letter if last character has reached the maximum value', () => {
-    const generator3 = step('Z');
-    expect(generator3.next().value).toBe('Z');
-    expect(generator3.next().value).toBe('Za');
-    expect(generator3.next().value).toBe('Zb');
-    expect(generator3.next().done).toBe(false);
+    const generator = step('z', letterGenerator(lowercaseAsciiLetterRange));
+    expect(generator.next().value).toBe('z');
+    expect(generator.next().value).toBe('aa');
+    expect(generator.next().value).toBe('ab');
+    expect(generator.next().done).toBe(false);
   });
 
   it('should remove the last letter if it has reached the minimum value', () => {
-    const generator3 = step('Za', uppercaseAsciiLetterRange, -1);
-    expect(generator3.next().value).toBe('Za');
-    expect(generator3.next().value).toBe('Z');
-    expect(generator3.next().value).toBe('Y');
-    expect(generator3.next().done).toBe(false);
+    const generator = step(
+      'ZA',
+      letterGenerator(uppercaseAsciiLetterRange),
+      -1
+    );
+    expect(generator.next().value).toBe('ZA');
+    expect(generator.next().value).toBe('Z');
+    expect(generator.next().value).toBe('Y');
+    expect(generator.next().done).toBe(false);
   });
 
-  it('should return empty string if decreasing the mininum value', () => {
-    const generator3 = step('a', lowercaseAsciiLetterRange, -2);
-    expect(generator3.next().value).toBe('a');
-    expect(generator3.next().value).toBe('');
-    expect(generator3.next().value).toBe('');
-    expect(generator3.next().done).toBe(false);
+  it('should return done if decreasing the mininum value', () => {
+    const generator = step('a', letterGenerator(lowercaseAsciiLetterRange), -2);
+    expect(generator.next().value).toBe('a');
+    expect(generator.next().done).toBe(true);
   });
 });
 

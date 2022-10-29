@@ -1,50 +1,35 @@
-import { lowercaseAsciiLetterRange } from './lowercaseAsciiLetterRange';
 import { splice } from './splice';
+import { step as numberStep } from '../number/step';
+import { toArray } from '../iterable/toArray';
+import { isIndex } from '../array';
 
-/**
- * A Generator function that will start at the given value and increases the last character by stepSize for each call
- *
- * @example
- * step("a") => ["a","b","c",...]
- * step("b", undefined, -1) => ["b","a","","",...]
- * step("z", lowercaseAsciiLetterRange, -2) => ["z","x","v",...]
- * step("A", uppercaseAsciiLetterRange) => ["A", "B", "C", ...]
- * step("Z", uppercaseAsciiLetterRange, 1) => ["Z","ZA","ZB",...]
- *
- * @param value
- * @returns a Generator that steps through the characters
- */
 export function* step(
   value: string,
-  charCodeRange: [number, number] = lowercaseAsciiLetterRange,
+  characterIterable: Iterable<string>,
   stepSize = 1
 ): Generator<string, void, unknown> {
-  const startCharacter = String.fromCharCode(charCodeRange[0]);
+  const characters = toArray(characterIterable);
 
   while (true) {
-    yield value;
-
-    if (!value) {
-      if (stepSize > 0) {
-        value = startCharacter;
-      }
-      continue;
+    if (!value && stepSize < 0) {
+      return;
     }
 
-    const replacementCharCode = value.charCodeAt(value.length - 1) + stepSize;
+    const startIndex = value ? characters.indexOf(value.at(-1)!) : 0;
 
-    if (
-      replacementCharCode >= charCodeRange[0] &&
-      replacementCharCode <= charCodeRange[1]
-    ) {
-      const replacement = String.fromCharCode(replacementCharCode);
-      value = splice(value, -1, 1, replacement);
-    } else {
-      if (stepSize > 0) {
-        value = value + startCharacter;
-      } else {
-        value = value.slice(0, -1);
+    for (const index of numberStep(startIndex, stepSize)) {
+      if (!isIndex(characters)(index)) {
+        break;
       }
+
+      value = splice(value, -1, 1, characters[index]);
+      yield value;
+    }
+
+    if (stepSize > 0) {
+      value = splice(value, -1, 1, characters.at(0)! + characters.at(0));
+    } else {
+      value = splice(value, -1, 1, '');
     }
   }
 }
