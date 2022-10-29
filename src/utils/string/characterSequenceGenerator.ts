@@ -4,6 +4,17 @@ import { map } from '../iterable/map';
 import { takeWhile } from '../iterable/takeWhile';
 import { numberSequenceGenerator } from '../number/numberSequenceGenerator';
 
+/**
+ * A Generator function that will iterate over a range of characters
+ *
+ * @example
+ * characterSequenceGenerator(uppercaseAsciiLetterRange) => ['A','B',...,'Z']
+ * characterSequenceGenerator(uppercaseAsciiLetterRange, 'D', -1) => ['D','C','B','A']
+ * characterSequenceGenerator([67, 69], '', 1) => ['C','D','E']
+ *
+ * @param value
+ * @returns a Generator that steps through the characters
+ */
 export const characterSequenceGenerator = (
   [rangeStart, rangeEnd]: [number, number],
   value = '',
@@ -13,11 +24,11 @@ export const characterSequenceGenerator = (
     return done;
   }
 
-  let charCode = value.charCodeAt(0);
-
-  if (isNaN(charCode)) {
-    charCode = stepSize < 0 ? rangeEnd : rangeStart;
-  }
+  const charCode = value.length
+    ? value.charCodeAt(0)
+    : stepSize < 0
+    ? rangeEnd
+    : rangeStart;
 
   return pipe(
     takeWhile<number>((value) => value >= rangeStart && value <= rangeEnd),
