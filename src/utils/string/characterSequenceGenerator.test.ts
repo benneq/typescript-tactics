@@ -2,7 +2,7 @@ import { characterSequenceGenerator } from './characterSequenceGenerator';
 import { lowercaseAsciiLetterRange } from './lowercaseAsciiLetterRange';
 
 describe('string.letterGenerator', () => {
-  it('should start with a if no value was provided', () => {
+  it('should start with range start if no value was provided', () => {
     const generator = characterSequenceGenerator(lowercaseAsciiLetterRange);
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('b');
@@ -16,13 +16,10 @@ describe('string.letterGenerator', () => {
       '',
       0
     );
-    expect(generator.next().value).toBe('a');
-    expect(generator.next().value).toBe('a');
-    expect(generator.next().value).toBe('a');
-    expect(generator.next().done).toBe(false);
+    expect(generator.next().done).toBe(true);
   });
 
-  it('should stop after eaching the end of the range', () => {
+  it('should stop after reaching the end of the range', () => {
     const generator = characterSequenceGenerator(
       lowercaseAsciiLetterRange,
       'x'
