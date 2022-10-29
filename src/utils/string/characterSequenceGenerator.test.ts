@@ -1,9 +1,9 @@
-import { letterGenerator } from './letterGenerator';
+import { characterSequenceGenerator } from './characterSequenceGenerator';
 import { lowercaseAsciiLetterRange } from './lowercaseAsciiLetterRange';
 
 describe('string.letterGenerator', () => {
   it('should start with a if no value was provided', () => {
-    const generator = letterGenerator(lowercaseAsciiLetterRange);
+    const generator = characterSequenceGenerator(lowercaseAsciiLetterRange);
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('b');
     expect(generator.next().value).toBe('c');
@@ -11,7 +11,11 @@ describe('string.letterGenerator', () => {
   });
 
   it('should generate the same letter if stepSize is 0', () => {
-    const generator = letterGenerator(lowercaseAsciiLetterRange, '', 0);
+    const generator = characterSequenceGenerator(
+      lowercaseAsciiLetterRange,
+      '',
+      0
+    );
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('a');
@@ -19,7 +23,10 @@ describe('string.letterGenerator', () => {
   });
 
   it('should stop after eaching the end of the range', () => {
-    const generator = letterGenerator(lowercaseAsciiLetterRange, 'x');
+    const generator = characterSequenceGenerator(
+      lowercaseAsciiLetterRange,
+      'x'
+    );
     expect(generator.next().value).toBe('x');
     expect(generator.next().value).toBe('y');
     expect(generator.next().value).toBe('z');
@@ -27,21 +34,33 @@ describe('string.letterGenerator', () => {
   });
 
   it('should work with stepSize > 1', () => {
-    const generator = letterGenerator(lowercaseAsciiLetterRange, 'w', 2);
+    const generator = characterSequenceGenerator(
+      lowercaseAsciiLetterRange,
+      'w',
+      2
+    );
     expect(generator.next().value).toBe('w');
     expect(generator.next().value).toBe('y');
     expect(generator.next().done).toBe(true);
   });
 
   it('should work with stepSize < 0', () => {
-    const generator = letterGenerator(lowercaseAsciiLetterRange, 'b', -1);
+    const generator = characterSequenceGenerator(
+      lowercaseAsciiLetterRange,
+      'b',
+      -1
+    );
     expect(generator.next().value).toBe('b');
     expect(generator.next().value).toBe('a');
     expect(generator.next().done).toBe(true);
   });
 
   it('should start at last letter if step size is negative and no value was provided', () => {
-    const generator = letterGenerator(lowercaseAsciiLetterRange, '', -1);
+    const generator = characterSequenceGenerator(
+      lowercaseAsciiLetterRange,
+      '',
+      -1
+    );
     expect(generator.next().value).toBe('z');
     expect(generator.next().value).toBe('y');
     expect(generator.next().value).toBe('x');

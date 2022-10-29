@@ -1,9 +1,9 @@
 import { pipe } from '../function';
 import { map } from '../iterable/map';
 import { takeWhile } from '../iterable/takeWhile';
-import { step } from '../number/step';
+import { numberSequenceGenerator } from '../number/numberSequenceGenerator';
 
-export const letterGenerator = (
+export const characterSequenceGenerator = (
   [rangeStart, rangeEnd]: [number, number],
   value = '',
   stepSize = 1
@@ -17,5 +17,5 @@ export const letterGenerator = (
   return pipe(
     takeWhile<number>((value) => value >= rangeStart && value <= rangeEnd),
     map(String.fromCharCode)
-  )(step(charCode, stepSize));
+  )(numberSequenceGenerator(charCode, stepSize));
 };

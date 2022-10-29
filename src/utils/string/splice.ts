@@ -9,9 +9,9 @@ import { mod } from '../number/mod';
  * splice("aaa", "b", 0, 2) => "ba"
  *
  * @param str
+ * @param start
+ * @param deleteCount
  * @param replacement
- * @param startIndex
- * @param endIndex
  * @return the new String
  */
 export const splice = (

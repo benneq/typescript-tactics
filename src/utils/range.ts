@@ -3,7 +3,7 @@ import { equal as arrayEqual } from './array';
 import { toArray as iterableToArray } from './iterable/toArray';
 import { Predicate } from './predicate/_types';
 import { isFloat } from './number/isFloat';
-import { step } from './number/step';
+import { numberSequenceGenerator } from './number/numberSequenceGenerator';
 import { done } from './generator/done';
 import { takeWhile } from './iterable/takeWhile';
 
@@ -67,7 +67,9 @@ export const values = (
   }
 
   const stepSign = direction(range);
-  return takeWhile(contains(range))(step(range[0], stepSign * stepSize));
+  return takeWhile(contains(range))(
+    numberSequenceGenerator(range[0], stepSign * stepSize)
+  );
 };
 
 export const toArray = (range: Range, stepSize?: number): number[] => {

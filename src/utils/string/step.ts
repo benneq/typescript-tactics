@@ -1,5 +1,5 @@
 import { splice } from './splice';
-import { step as numberStep } from '../number/step';
+import { numberSequenceGenerator } from '../number/numberSequenceGenerator';
 import { toArray } from '../iterable/toArray';
 import { isIndex } from '../array';
 
@@ -15,9 +15,9 @@ export function* step(
       return;
     }
 
-    const startIndex = value ? characters.indexOf(value.at(-1)!) : 0;
+    const startIndex = value ? characters.indexOf(value.at(-1) as string) : 0;
 
-    for (const index of numberStep(startIndex, stepSize)) {
+    for (const index of numberSequenceGenerator(startIndex, stepSize)) {
       if (!isIndex(characters)(index)) {
         break;
       }
@@ -27,7 +27,12 @@ export function* step(
     }
 
     if (stepSize > 0) {
-      value = splice(value, -1, 1, characters.at(0)! + characters.at(0));
+      value = splice(
+        value,
+        -1,
+        1,
+        (characters.at(0) as string) + characters.at(0)
+      );
     } else {
       value = splice(value, -1, 1, '');
     }
