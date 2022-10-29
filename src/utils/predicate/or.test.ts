@@ -14,7 +14,7 @@ describe('predicate.or', () => {
     expect(or(alwaysFalse, alwaysTrue)(Symbol())).toBe(true);
   });
 
-  it('should return false when all Predicates return false', () => {
+  it('should return false if all Predicates return false', () => {
     expect(or(alwaysFalse)(Symbol())).toEqual(false);
     expect(or(alwaysFalse, alwaysFalse)(Symbol())).toBe(false);
   });
