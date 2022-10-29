@@ -1,3 +1,4 @@
+import { lowercaseAsciiLetterRange } from './lowercaseAsciiLetterRange';
 import { splice } from './splice';
 
 /**
@@ -5,39 +6,44 @@ import { splice } from './splice';
  *
  * @example
  * step("a") => ["a","b","c",...]
- * step("Z", -2) => ["Z","X","V",...]
- * step("ZZ", 1) => ["ZZ","ZZa","ZZb",...]
- * step("b", -1) => ["b","a","","",...]
+ * step("b", undefined, -1) => ["b","a","","",...]
+ * step("z", lowercaseAsciiLetterRange, -2) => ["z","x","v",...]
+ * step("A", uppercaseAsciiLetterRange) => ["A", "B", "C", ...]
+ * step("Z", uppercaseAsciiLetterRange, 1) => ["Z","ZA","ZB",...]
  *
  * @param value
  * @returns a Generator that steps through the characters
  */
 export function* step(
   value: string,
+  charCodeRange: [number, number] = lowercaseAsciiLetterRange,
   stepSize = 1
 ): Generator<string, void, unknown> {
+  const startCharacter = String.fromCharCode(charCodeRange[0]);
+
   while (true) {
     yield value;
 
-    const lastCharacter = value.at(-1);
-    if (!lastCharacter) {
+    if (!value) {
       if (stepSize > 0) {
-        value = 'a';
+        value = startCharacter;
       }
       continue;
     }
 
-    const nextCharacter = String.fromCharCode(
-      lastCharacter.charCodeAt(0) + stepSize
-    );
+    const replacementCharCode = value.charCodeAt(value.length - 1) + stepSize;
 
-    if (nextCharacter.match(/[a-zA-Z]/)) {
-      value = splice(value, -1, 1, nextCharacter);
+    if (
+      replacementCharCode >= charCodeRange[0] &&
+      replacementCharCode <= charCodeRange[1]
+    ) {
+      const replacement = String.fromCharCode(replacementCharCode);
+      value = splice(value, -1, 1, replacement);
     } else {
       if (stepSize > 0) {
-        value = splice(value, value.length, 0, 'a');
+        value = value + startCharacter;
       } else {
-        value = splice(value, -1);
+        value = value.slice(0, -1);
       }
     }
   }

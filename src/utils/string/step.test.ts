@@ -1,8 +1,10 @@
+import { lowercaseAsciiLetterRange } from './lowercaseAsciiLetterRange';
 import { step } from './step';
+import { uppercaseAsciiLetterRange } from './uppercaseAsciiLetterRange';
 
 describe('string.step', () => {
   it('should generate the same string if stepSize is 0', () => {
-    const generator = step('a', 0);
+    const generator = step('a', lowercaseAsciiLetterRange, 0);
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('a');
     expect(generator.next().value).toBe('a');
@@ -26,7 +28,7 @@ describe('string.step', () => {
   });
 
   it('should generate a alphabetically descending sequence if stepSize is less than 0', () => {
-    const generator3 = step('Z', -2);
+    const generator3 = step('Z', uppercaseAsciiLetterRange, -2);
     expect(generator3.next().value).toBe('Z');
     expect(generator3.next().value).toBe('X');
     expect(generator3.next().value).toBe('V');
@@ -34,7 +36,7 @@ describe('string.step', () => {
   });
 
   it('should append a letter if last character has reached the maximum value', () => {
-    const generator3 = step('Z', 1);
+    const generator3 = step('Z');
     expect(generator3.next().value).toBe('Z');
     expect(generator3.next().value).toBe('Za');
     expect(generator3.next().value).toBe('Zb');
@@ -42,7 +44,7 @@ describe('string.step', () => {
   });
 
   it('should remove the last letter if it has reached the minimum value', () => {
-    const generator3 = step('Za', -1);
+    const generator3 = step('Za', uppercaseAsciiLetterRange, -1);
     expect(generator3.next().value).toBe('Za');
     expect(generator3.next().value).toBe('Z');
     expect(generator3.next().value).toBe('Y');
@@ -50,7 +52,7 @@ describe('string.step', () => {
   });
 
   it('should return empty string if decreasing the mininum value', () => {
-    const generator3 = step('a', -2);
+    const generator3 = step('a', lowercaseAsciiLetterRange, -2);
     expect(generator3.next().value).toBe('a');
     expect(generator3.next().value).toBe('');
     expect(generator3.next().value).toBe('');

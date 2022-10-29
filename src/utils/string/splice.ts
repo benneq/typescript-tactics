@@ -1,5 +1,4 @@
 import { mod } from '../number/mod';
-import { normalizeIndex } from '../array/normalizeIndex';
 
 /**
  * Works like splice for Array
