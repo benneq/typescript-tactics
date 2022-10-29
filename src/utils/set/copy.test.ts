@@ -1,17 +1,23 @@
 import { copy } from './copy';
 
 describe('set.copy', () => {
-  it('copy', () => {
-    const set1 = new Set();
-    const res1 = copy(set1);
-    expect(res1).toEqual(new Set());
-    expect(res1).not.toBe(set1);
+  it('should return a new Set', () => {
+    const set = new Set();
 
+    const result = copy(set);
+
+    expect(result).toEqual(new Set());
+    expect(result).not.toBe(set);
+  });
+
+  it('should copy all elements', () => {
     const value = Symbol();
-    const set2 = new Set([value]);
-    const res2 = copy(set2);
-    expect(res2).toEqual(new Set([value]));
-    expect(res2).not.toBe(set2);
+    const set = new Set([value]);
+
+    const result = copy(set);
+
+    expect(result).toEqual(new Set([value]));
+    expect(result).not.toBe(set);
   });
 });
 
