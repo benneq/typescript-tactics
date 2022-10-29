@@ -35,9 +35,9 @@ export function* step(
       value = splice(value, -1, 1, nextCharacter);
     } else {
       if (stepSize > 0) {
-        value = value + 'a';
+        value = splice(value, value.length, 0, 'a');
       } else {
-        value = value.slice(0, -1);
+        value = splice(value, -1);
       }
     }
   }

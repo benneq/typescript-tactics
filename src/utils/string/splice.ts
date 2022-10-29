@@ -1,3 +1,4 @@
+import { mod } from '../number/mod';
 import { normalizeIndex } from '../array/normalizeIndex';
 
 /**
@@ -20,7 +21,7 @@ export const splice = (
   deleteCount: number = str.length - start,
   replacement = ''
 ) => {
-  start = normalizeIndex(str, start);
+  start = start < 0 ? mod(start, str.length) : start;
   deleteCount = deleteCount < 0 ? 0 : deleteCount;
   return str.slice(0, start) + replacement + str.slice(start + deleteCount);
 };
