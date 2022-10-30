@@ -1,8 +1,8 @@
 import { uuidRegExp } from '../string/uuidRegExp';
 import { randomUuidGenerator } from './randomUuidGenerator';
 
-describe('generator.randomUuidGenerator', () => {
-  it('should call the provider each time and yield its returned value', () => {
+describe('crypto.randomUuidGenerator', () => {
+  it('should yield a UUID each time', () => {
     expect(randomUuidGenerator.next().value).toMatch(uuidRegExp);
     expect(randomUuidGenerator.next().value).toMatch(uuidRegExp);
     expect(randomUuidGenerator.next().value).toMatch(uuidRegExp);
