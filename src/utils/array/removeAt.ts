@@ -10,6 +10,10 @@
  * @param array
  * @param index
  */
-export const removeAt = <T>(array: T[], index: number): void => {
-  array.splice(index, 1);
+export const removeAt = <T>(
+  array: T[],
+  index: number,
+  deleteCount = 1
+): void => {
+  array.splice(index, deleteCount);
 };

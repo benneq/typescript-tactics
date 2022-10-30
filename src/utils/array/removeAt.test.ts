@@ -38,6 +38,30 @@ describe('array.removeAt', () => {
 
     expect(array).toEqual([value1, value2]);
   });
+
+  it('should not modify the Array if deleteCount <= 0', () => {
+    const value = Symbol();
+    const array = [value];
+
+    removeAt(array, 0, 0);
+
+    expect(array).toEqual([value]);
+
+    removeAt(array, 0, -1);
+
+    expect(array).toEqual([value]);
+  });
+
+  it('should remove multiple elements if deleteCount > 1', () => {
+    const value1 = Symbol();
+    const value2 = Symbol();
+    const value3 = Symbol();
+    const array = [value1, value2, value3];
+
+    removeAt(array, 1, 2);
+
+    expect(array).toEqual([value1]);
+  });
 });
 
 export {};

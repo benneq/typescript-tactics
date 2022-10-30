@@ -1,4 +1,3 @@
-import { insertAt } from './insertAt';
 import { toReverseIterable } from './toReverseIterable';
 
 describe('array.toReverseIterable', () => {
