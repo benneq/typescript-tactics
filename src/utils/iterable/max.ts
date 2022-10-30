@@ -1,3 +1,5 @@
+import { undefinedFirst } from '../comparator/undefinedFirst';
+import { isLessThan } from '../comparator/isLessThan';
 import { Comparator } from '../comparator/_types';
 
 /**
@@ -10,14 +12,18 @@ import { Comparator } from '../comparator/_types';
  * @param comparator
  * @returns the maximum element from the provided Iterable
  */
-export const max =
-  <T>(comparator: Comparator<T>) =>
-  (iterable: Iterable<T>): T | undefined => {
-    let maxValue = undefined;
+export const max = <T>(
+  comparator: Comparator<T>
+): ((iterable: Iterable<T>) => T | undefined) => {
+  const maxValueIsLessOrUndefined = isLessThan(undefinedFirst(comparator));
+
+  return (iterable) => {
+    let maxValue: T | undefined;
     for (const value of iterable) {
-      if (maxValue === undefined || comparator(maxValue, value) < 0) {
+      if (maxValueIsLessOrUndefined(maxValue, value)) {
         maxValue = value;
       }
     }
     return maxValue;
   };
+};

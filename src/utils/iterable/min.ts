@@ -1,3 +1,5 @@
+import { undefinedLast } from '../comparator/undefinedLast';
+import { isGreaterThan } from '../comparator/isGreaterThan';
 import { Comparator } from '../comparator/_types';
 
 /**
@@ -10,14 +12,18 @@ import { Comparator } from '../comparator/_types';
  * @param comparator
  * @returns the minimum element from the provided Iterable
  */
-export const min =
-  <T>(comparator: Comparator<T>) =>
-  (iterable: Iterable<T>): T | undefined => {
-    let minValue = undefined;
+export const min = <T>(
+  comparator: Comparator<T>
+): ((iterable: Iterable<T>) => T | undefined) => {
+  const minValueIsGreaterOrUndefined = isGreaterThan(undefinedLast(comparator));
+
+  return (iterable) => {
+    let minValue: T | undefined;
     for (const value of iterable) {
-      if (minValue === undefined || comparator(minValue, value) > 0) {
+      if (minValueIsGreaterOrUndefined(minValue, value)) {
         minValue = value;
       }
     }
     return minValue;
   };
+};
