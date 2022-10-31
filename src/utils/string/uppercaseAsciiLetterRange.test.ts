@@ -1,4 +1,4 @@
-import { asciiCharacterRegExp } from './asciiCharacterRegExp';
+import { asciiCharacterRegExp } from '../regexp/asciiCharacterRegExp';
 import { uppercaseAsciiLetterRange } from './uppercaseAsciiLetterRange';
 
 describe('regexp.uppercaseAsciiLetterRange', () => {

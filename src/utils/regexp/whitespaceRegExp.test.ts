@@ -1,6 +1,6 @@
-import { whitespaceRegExp } from './whitespaceCharacterRegExp';
+import { whitespaceRegExp } from './whitespaceRegExp';
 
-describe('regexp.whitespaceCharacterRegExp', () => {
+describe('regexp.whitespaceRegExp', () => {
   it('should match space', () => {
     expect(whitespaceRegExp.test(' ')).toBe(true);
   });

@@ -1,4 +1,4 @@
-import { whitespaceRegExp } from '../regexp/whitespaceCharacterRegExp';
+import { whitespaceRegExp } from '../regexp/whitespaceRegExp';
 import { global } from '../regexp/global';
 import { times } from '../regexp/times';
 

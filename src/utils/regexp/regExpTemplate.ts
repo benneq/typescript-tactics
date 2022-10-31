@@ -1,10 +1,10 @@
 export const regExpTemplate = (
   strings: ReadonlyArray<string>,
-  ...keys: RegExp[]
+  ...values: RegExp[]
 ): RegExp => {
   return new RegExp(
     strings.reduce((acc, str, i) => {
-      return acc + str + (keys[i]?.source || '');
+      return acc + str + (values[i]?.source || '');
     }, '')
   );
 };
