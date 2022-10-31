@@ -1,3 +1,4 @@
+import { pipe } from '../function';
 import { not } from '../predicate/not';
 import { Predicate } from '../predicate/_types';
 import { dropWhile } from './dropWhile';
@@ -16,8 +17,9 @@ import { first } from './first';
 export const findFirst: {
   <T>(predicate: Predicate<[T]>): (iterable: Iterable<T>) => T | undefined;
   <T>(predicate: Predicate<[T]>, defaultValue: T): (iterable: Iterable<T>) => T;
-} =
-  <T>(predicate: Predicate<[T]>, defaultValue?: T) =>
-  (iterable: Iterable<T>): T | undefined => {
-    return first(defaultValue)(dropWhile(not(predicate))(iterable));
-  };
+} = <T>(
+  predicate: Predicate<[T]>,
+  defaultValue?: T
+): ((iterable: Iterable<T>) => T | undefined) => {
+  return pipe(dropWhile(not(predicate)), first(defaultValue));
+};

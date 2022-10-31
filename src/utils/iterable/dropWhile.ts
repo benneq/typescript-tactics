@@ -1,4 +1,4 @@
-import { Predicate } from 'utils/predicate/_types';
+import { Predicate } from '../predicate/_types';
 
 /**
  * Omits the first elements from the provided Iterable until the given Predicate returns `false`
