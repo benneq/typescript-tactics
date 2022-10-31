@@ -12,6 +12,6 @@ import { filter } from './filter';
  * @param setB
  * @returns
  */
-export const intersection = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  return filter(contains(setA))(setB);
+export const intersection = <T>(setA: Set<T>): ((setB: Set<T>) => Set<T>) => {
+  return filter(contains(setA));
 };

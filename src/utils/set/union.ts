@@ -13,7 +13,7 @@ import { SetCompatible } from './_types';
  * @returns
  */
 export const union = <T>(setA: Set<T>, setB: SetCompatible<T>): Set<T> => {
-  const union = copy(setA);
-  addAll(union)(setB);
-  return union;
+  setA = copy(setA);
+  addAll(setA)(setB);
+  return setA;
 };

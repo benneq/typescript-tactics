@@ -17,7 +17,7 @@ export const symmetricDifference = <T>(
   setA: Set<T>,
   setB: SetCompatible<T>
 ): Set<T> => {
-  const difference = copy(setA);
-  toggleAll(difference)(setB);
-  return difference;
+  setA = copy(setA);
+  toggleAll(setA)(setB);
+  return setA;
 };

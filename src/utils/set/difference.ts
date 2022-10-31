@@ -14,7 +14,7 @@ import { SetCompatible } from './_types';
  * @returns
  */
 export const difference = <T>(setA: Set<T>, setB: SetCompatible<T>): Set<T> => {
-  const difference = copy(setA);
-  removeAll(difference)(setB);
-  return difference;
+  setA = copy(setA);
+  removeAll(setA)(setB);
+  return setA;
 };
