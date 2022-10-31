@@ -18,21 +18,24 @@ import { splice } from './splice';
  * @returns
  */
 export const truncate = (
-  str: string,
   maxLength: number,
   suffix = '',
   separator = ''
-): string => {
+): ((str: string) => string) => {
   if (maxLength < suffix.length) {
-    suffix = splice(suffix, maxLength - suffix.length);
+    suffix = splice(maxLength - suffix.length)(suffix);
   }
 
   maxLength = maxLength - suffix.length;
 
-  const lastSeparatorIndex = str.slice(0, maxLength + 1).lastIndexOf(separator);
+  return (str) => {
+    const lastSeparatorIndex = str
+      .slice(0, maxLength + 1)
+      .lastIndexOf(separator);
 
-  const startIndex =
-    separator && lastSeparatorIndex > 0 ? lastSeparatorIndex : maxLength;
+    const startIndex =
+      separator && lastSeparatorIndex > 0 ? lastSeparatorIndex : maxLength;
 
-  return splice(str, startIndex, str.length, suffix);
+    return splice(startIndex, str.length, suffix)(str);
+  };
 };
