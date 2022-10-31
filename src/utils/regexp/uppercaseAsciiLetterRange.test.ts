@@ -1,7 +1,7 @@
 import { asciiCharacterRegExp } from './asciiCharacterRegExp';
 import { uppercaseAsciiLetterRange } from './uppercaseAsciiLetterRange';
 
-describe('string.uppercaseAsciiLetterRange', () => {
+describe('regexp.uppercaseAsciiLetterRange', () => {
   it('should return a range for the character codes from a to z', () => {
     for (
       let i = uppercaseAsciiLetterRange[0];

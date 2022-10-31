@@ -1,6 +1,6 @@
 import { asciiCharacterRegExp } from './asciiCharacterRegExp';
 
-describe('string.asciiCharacterRegExp', () => {
+describe('regexp.asciiCharacterRegExp', () => {
   it('should match space', () => {
     expect(asciiCharacterRegExp.test(' ')).toBe(true);
   });

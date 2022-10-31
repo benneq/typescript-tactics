@@ -1,4 +1,4 @@
-import { uuidRegExp } from '../string/uuidRegExp';
+import { uuidRegExp } from '../regexp/uuidRegExp';
 import { randomUuidGenerator } from './randomUuidGenerator';
 
 describe('crypto.randomUuidGenerator', () => {

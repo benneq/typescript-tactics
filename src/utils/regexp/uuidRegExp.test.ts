@@ -1,6 +1,6 @@
 import { uuidRegExp } from './uuidRegExp';
 
-describe('string.uuidRegExp', () => {
+describe('regexp.uuidRegExp', () => {
   it('should match random UUID', () => {
     expect(uuidRegExp.test(crypto.randomUUID())).toBe(true);
   });

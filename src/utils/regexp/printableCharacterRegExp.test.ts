@@ -1,6 +1,6 @@
 import { printableCharacterRegExp } from './printableCharacterRegExp';
 
-describe('string.printableCharacterRegExp', () => {
+describe('regexp.printableCharacterRegExp', () => {
   it('should match space', () => {
     expect(printableCharacterRegExp.test(' ')).toBe(true);
   });

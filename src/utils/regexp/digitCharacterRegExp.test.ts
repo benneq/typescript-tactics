@@ -1,6 +1,6 @@
 import { digitCharacterRegExp } from './digitCharacterRegExp';
 
-describe('string.digitCharacterRegExp', () => {
+describe('regexp.digitCharacterRegExp', () => {
   it('should match 0 to 9', () => {
     for (let i = 0; i <= 9; i++) {
       expect(digitCharacterRegExp.test(i.toString())).toBe(true);
