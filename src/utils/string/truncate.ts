@@ -27,14 +27,12 @@ export const truncate = (
     suffix = splice(suffix, maxLength - suffix.length);
   }
 
-  const totalLength = maxLength - suffix.length;
+  maxLength = maxLength - suffix.length;
 
-  const lastSeparatorIndex = str
-    .slice(0, totalLength + 1)
-    .lastIndexOf(separator);
+  const lastSeparatorIndex = str.slice(0, maxLength + 1).lastIndexOf(separator);
 
   const startIndex =
-    separator && lastSeparatorIndex > 0 ? lastSeparatorIndex : totalLength;
+    separator && lastSeparatorIndex > 0 ? lastSeparatorIndex : maxLength;
 
   return splice(str, startIndex, str.length, suffix);
 };
