@@ -1,10 +1,6 @@
 import { identity } from '../func';
 import { flatMap } from './flatMap';
 
-type Concat = <T>(
-  iterable: Iterable<Iterable<T>>
-) => Generator<T, void, unknown>;
-
 /**
  * Concatenates the provided Iterables
  *
@@ -13,4 +9,6 @@ type Concat = <T>(
  * concat([[1,2]]) => [1,2]
  * concat([[1,2],[3,4]]) => [1,2,3,4]
  */
-export const concat: Concat = flatMap(identity);
+export const concat: <T>(
+  iterable: Iterable<Iterable<T>>
+) => Generator<T, void, unknown> = flatMap(identity);
