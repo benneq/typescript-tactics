@@ -11,11 +11,10 @@ import { Comparator } from './_types';
  * @returns the result of the first Comparator that is not `0`, or else `0`
  */
 export const chain = <T>(...comparators: Comparator<T>[]): Comparator<T> => {
-  return (a, b) => {
-    return pipe(
+  return (a, b) =>
+    pipe(
       map((comparator: Comparator<T>) => comparator(a, b)),
       dropWhile((value: number) => value === 0),
       first(0)
     )(comparators);
-  };
 };
