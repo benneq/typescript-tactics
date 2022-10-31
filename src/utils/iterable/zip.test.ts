@@ -11,7 +11,7 @@ describe('iterable.zip', () => {
     expect(generator.next().done).toBe(true);
   });
 
-  it('should yield the nth element of each iterable in order', () => {
+  it('should yield the nth element of each Iterable combined as a tuple', () => {
     const generator = zip([], [1], [2, 3]);
     expect(generator.next().value).toEqual([undefined, 1, 2]);
     expect(generator.next().value).toEqual([undefined, undefined, 3]);
