@@ -5,8 +5,8 @@ import { Comparator } from './_types';
  *
  * @exmaple
  * booleanComparator(true, true) => 0
- * booleanComparator(false, true) => -1
- * booleanComparator(true, false) => 1
+ * booleanComparator(false, true) => < 0
+ * booleanComparator(true, false) => > 0
  *
  * @param a
  * @param b
