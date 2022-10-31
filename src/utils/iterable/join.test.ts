@@ -1,5 +1,4 @@
 import { join } from './join';
-import { zip } from './zip';
 
 describe('iterable.join', () => {
   it('should be done immediatly if Iterable is empty', () => {

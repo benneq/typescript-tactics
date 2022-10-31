@@ -7,11 +7,10 @@ import { flatMap } from './flatMap';
 import { skip } from './skip';
 
 export const join =
-  <T>(separator: ValueOrProvider<T, [number]>) =>
+  <T>(separator: ValueOrProvider<T>) =>
   (iterable: Iterable<T>): Generator<T, void, unknown> => {
-    let i = 0;
     return pipe(
-      flatMap((value: T) => [valueOrProviderResult(separator, i++), value]),
+      flatMap((value: T) => [valueOrProviderResult(separator), value]),
       skip<T>(1)
     )(iterable);
   };

@@ -1,5 +1,5 @@
 type ExtractValue<T extends ReadonlyArray<Iterable<unknown>>> = {
-  [K in keyof T]: T[K] extends Iterable<infer V> ? V | undefined : never;
+  [K in keyof T]: T[K] extends Iterable<infer V> ? V : never;
 };
 
 export function* zip<RArgs extends Iterable<unknown>[]>(
