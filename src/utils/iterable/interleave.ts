@@ -1,4 +1,4 @@
-import { flatMap } from './flatMap';
+import { concat } from './concat';
 import { zip } from './zip';
 
 type ExtractValue<T extends ReadonlyArray<Iterable<unknown>>> = {
@@ -8,5 +8,5 @@ type ExtractValue<T extends ReadonlyArray<Iterable<unknown>>> = {
 export const interleave = <RArgs extends Iterable<unknown>[]>(
   ...iterables: RArgs
 ): Generator<ExtractValue<RArgs>, void, unknown> => {
-  return flatMap<any>()(zip(...iterables));
+  return concat<any>(zip(...iterables));
 };
