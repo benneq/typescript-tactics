@@ -10,7 +10,7 @@ import { reduce } from '../iterable/reduce';
  * @param flags
  * @returns
  */
-export const mergeFlags = (regexp: RegExp, flags: string) => {
+export const mergeFlags = (regexp: RegExp, flags: string): string => {
   return reduce(
     (acc, flag: string) => (acc.includes(flag) ? acc : acc + flag),
     regexp.flags

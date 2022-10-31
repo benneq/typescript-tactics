@@ -13,5 +13,5 @@ import { filter } from './filter';
  * @returns
  */
 export const intersection = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
-  return filter(setB)(contains(setA));
+  return filter(contains(setA))(setB);
 };

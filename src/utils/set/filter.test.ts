@@ -6,11 +6,11 @@ describe('set.filter', () => {
   it('should return a new Set if the given Set was empty', () => {
     const set = new Set();
 
-    expect(filter(set)(alwaysTrue)).not.toBe(set);
-    expect(filter(set)(alwaysTrue)).toEqual(new Set());
+    expect(filter(alwaysTrue)(set)).not.toBe(set);
+    expect(filter(alwaysTrue)(set)).toEqual(new Set());
 
-    expect(filter(set)(alwaysFalse)).not.toBe(set);
-    expect(filter(set)(alwaysFalse)).toEqual(new Set());
+    expect(filter(alwaysFalse)(set)).not.toBe(set);
+    expect(filter(alwaysFalse)(set)).toEqual(new Set());
   });
 
   it('should return a new Set with only the elements from the given Set that match the Predicate', () => {
@@ -19,11 +19,11 @@ describe('set.filter', () => {
     const value3 = Symbol();
     const set = new Set([value1, value2, value3]);
 
-    expect(filter(set)((e) => e === value2)).not.toBe(set);
-    expect(filter(set)((e) => e === value2)).toEqual(new Set([value2]));
+    expect(filter((e) => e === value2)(set)).not.toBe(set);
+    expect(filter((e) => e === value2)(set)).toEqual(new Set([value2]));
 
-    expect(filter(set)((e) => e !== value2)).not.toBe(set);
-    expect(filter(set)((e) => e !== value2)).toEqual(new Set([value1, value3]));
+    expect(filter((e) => e !== value2)(set)).not.toBe(set);
+    expect(filter((e) => e !== value2)(set)).toEqual(new Set([value1, value3]));
   });
 });
 

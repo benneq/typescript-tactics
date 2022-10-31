@@ -10,7 +10,7 @@ import { filter as iterableFilter } from '../iterable/filter';
  * @returns
  */
 export const filter =
-  <T>(set: Set<T>) =>
-  (predicate: Predicate<[T]>): Set<T> => {
+  <T>(predicate: Predicate<[T]>) =>
+  (set: Set<T>): Set<T> => {
     return new Set<T>(iterableFilter(predicate)(set));
   };
