@@ -1,11 +1,18 @@
+import { reduce } from '../iterable/reduce';
+
+/**
+ *
+ * @example
+ * mergeFlags(/a/, 'g') => /a/g
+ * mergeFlags(/a/u, 'ug') => /a/ug
+ *
+ * @param regexp
+ * @param flags
+ * @returns
+ */
 export const mergeFlags = (regexp: RegExp, flags: string) => {
-  let newFlags = regexp.flags;
-
-  for (const flag of flags) {
-    if (!newFlags.includes(flag)) {
-      newFlags += flag;
-    }
-  }
-
-  return newFlags;
+  return reduce(
+    (acc, flag: string) => (acc.includes(flag) ? acc : acc + flag),
+    regexp.flags
+  )(flags);
 };

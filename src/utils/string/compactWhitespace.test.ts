@@ -7,7 +7,7 @@ describe('iterable.compactWhitespace', () => {
     expect(compactWhitespace(' ')).toBe(' ');
     expect(compactWhitespace(' a a ')).toBe(' a a ');
     expect(compactWhitespace('  ')).toBe(' ');
-    expect(compactWhitespace('  a  a  ')).toBe(' a a ');
+    expect(compactWhitespace('  a   a   ')).toBe(' a a ');
   });
 });
 

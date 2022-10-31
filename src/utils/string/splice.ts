@@ -19,7 +19,7 @@ export const splice = (
   start = 0,
   deleteCount: number = str.length - start,
   replacement = ''
-) => {
+): string => {
   start = start < 0 ? mod(start, str.length) : start;
   deleteCount = deleteCount < 0 ? 0 : deleteCount;
   return str.slice(0, start) + replacement + str.slice(start + deleteCount);

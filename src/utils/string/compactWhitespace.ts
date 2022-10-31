@@ -11,6 +11,6 @@ import { times } from '../regexp/times';
  * @param str
  * @returns
  */
-export const compactWhitespace = (str: string) => {
+export const compactWhitespace = (str: string): string => {
   return str.replace(global(times(whitespaceRegExp, 2)), ' ');
 };
