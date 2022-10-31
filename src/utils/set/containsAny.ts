@@ -11,8 +11,8 @@ import { SetCompatible } from './_types';
  * @param set
  * @returns
  */
-export const containsAny =
-  <T>(set: Set<T>) =>
-  (value: SetCompatible<T>): boolean => {
-    return some(value)(contains(set));
-  };
+export const containsAny = <T>(
+  set: Set<T>
+): ((value: SetCompatible<T>) => boolean) => {
+  return some(contains(set));
+};
