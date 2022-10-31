@@ -1,3 +1,5 @@
+import { mergeFlags } from './_helper';
+
 export const global = (regExp: RegExp) => {
-  return RegExp(regExp, regExp.flags + 'g');
+  return RegExp(regExp, mergeFlags(regExp, 'g'));
 };

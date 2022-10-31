@@ -1,6 +1,6 @@
-import { atLeastOnce } from '../regexp/atLeastOnce';
-import { whitespaceRegExp } from './whitespaceRegExp';
+import { whitespaceRegExp } from '../regexp/whitespaceCharacterRegExp';
 import { global } from '../regexp/global';
+import { times } from '../regexp/times';
 
 /**
  *
@@ -12,5 +12,5 @@ import { global } from '../regexp/global';
  * @returns
  */
 export const compactWhitespace = (str: string) => {
-  return str.replace(global(atLeastOnce(whitespaceRegExp)), ' ');
+  return str.replace(global(times(whitespaceRegExp, 2)), ' ');
 };

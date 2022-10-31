@@ -1,7 +1,12 @@
+import { defaultIfUndefined } from '../object/defaultIfUndefined';
+
 export const times = (
   regExp: RegExp,
   minTimes: number,
-  maxTimes = minTimes
+  maxTimes?: number | undefined
 ) => {
-  return RegExp(`(${regExp.source}){${minTimes},${maxTimes}}`);
+  return RegExp(
+    `(${regExp.source}){${minTimes},${defaultIfUndefined('')(maxTimes)}}`,
+    regExp.flags
+  );
 };
