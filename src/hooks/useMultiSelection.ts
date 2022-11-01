@@ -36,23 +36,23 @@ export const set =
     return value;
   };
 
-export const toggle =
-  <T>(value: SetCompatible<T>) =>
-  (prevValue: Value<T>): Value<T> => {
-    return symmetricDifference(prevValue, value);
-  };
+export const toggle = <T>(
+  value: SetCompatible<T>
+): ((prevValue: Value<T>) => Value<T>) => {
+  return symmetricDifference(value);
+};
 
-export const select =
-  <T>(value: SetCompatible<T>) =>
-  (prevValue: Value<T>): Value<T> => {
-    return union(prevValue, value);
-  };
+export const select = <T>(
+  value: SetCompatible<T>
+): ((prevValue: Value<T>) => Value<T>) => {
+  return union(value);
+};
 
-export const deselect =
-  <T>(value: SetCompatible<T>) =>
-  (prevValue: Value<T>): Value<T> => {
-    return difference(prevValue, value);
-  };
+export const deselect = <T>(
+  value: SetCompatible<T>
+): ((prevValue: Value<T>) => Value<T>) => {
+  return difference(value);
+};
 
 export const isEmpty = isEmptySet;
 

@@ -4,18 +4,18 @@ describe('set.difference', () => {
   it('should return an empty Set if setA is empty', () => {
     const value = Symbol();
 
-    expect(difference(new Set(), new Set())).toEqual(new Set());
+    expect(difference(new Set())(new Set())).toEqual(new Set());
 
-    expect(difference(new Set(), new Set([value]))).toEqual(new Set());
+    expect(difference(new Set([value]))(new Set())).toEqual(new Set());
   });
 
   it('should return an empty Set if setB contains all elements of setA', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(difference(new Set([value1]), new Set([value1]))).toEqual(new Set());
+    expect(difference(new Set([value1]))(new Set([value1]))).toEqual(new Set());
 
-    expect(difference(new Set([value1]), new Set([value1, value2]))).toEqual(
+    expect(difference(new Set([value1, value2]))(new Set([value1]))).toEqual(
       new Set()
     );
   });
@@ -24,7 +24,7 @@ describe('set.difference', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(difference(new Set([value1, value2]), new Set())).toEqual(
+    expect(difference(new Set())(new Set([value1, value2]))).toEqual(
       new Set([value1, value2])
     );
   });
@@ -33,11 +33,11 @@ describe('set.difference', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(difference(new Set([value1]), new Set([value2]))).toEqual(
+    expect(difference(new Set([value2]))(new Set([value1]))).toEqual(
       new Set([value1])
     );
 
-    expect(difference(new Set([value1, value2]), new Set([value1]))).toEqual(
+    expect(difference(new Set([value1]))(new Set([value1, value2]))).toEqual(
       new Set([value2])
     );
   });

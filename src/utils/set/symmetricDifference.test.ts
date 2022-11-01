@@ -2,19 +2,19 @@ import { symmetricDifference } from './symmetricDifference';
 
 describe('set.symmetricDifference', () => {
   it('should return an empty Set if both sets are empty', () => {
-    expect(symmetricDifference(new Set(), new Set())).toEqual(new Set());
+    expect(symmetricDifference(new Set())(new Set())).toEqual(new Set());
   });
 
   it('should return an empty Set if both sets contain the same elements', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(symmetricDifference(new Set([value1]), new Set([value1]))).toEqual(
+    expect(symmetricDifference(new Set([value1]))(new Set([value1]))).toEqual(
       new Set()
     );
 
     expect(
-      symmetricDifference(new Set([value1, value2]), new Set([value1, value2]))
+      symmetricDifference(new Set([value1, value2]))(new Set([value1, value2]))
     ).toEqual(new Set());
   });
 
@@ -22,7 +22,7 @@ describe('set.symmetricDifference', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(symmetricDifference(new Set([value1, value2]), new Set())).toEqual(
+    expect(symmetricDifference(new Set())(new Set([value1, value2]))).toEqual(
       new Set([value1, value2])
     );
   });
@@ -31,7 +31,7 @@ describe('set.symmetricDifference', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(symmetricDifference(new Set(), new Set([value1, value2]))).toEqual(
+    expect(symmetricDifference(new Set([value1, value2]))(new Set())).toEqual(
       new Set([value1, value2])
     );
   });
@@ -40,16 +40,16 @@ describe('set.symmetricDifference', () => {
     const value1 = Symbol();
     const value2 = Symbol();
 
-    expect(symmetricDifference(new Set([value1]), new Set([value2]))).toEqual(
+    expect(symmetricDifference(new Set([value2]))(new Set([value1]))).toEqual(
       new Set([value1, value2])
     );
 
     expect(
-      symmetricDifference(new Set([value1]), new Set([value1, value2]))
+      symmetricDifference(new Set([value1, value2]))(new Set([value1]))
     ).toEqual(new Set([value2]));
 
     expect(
-      symmetricDifference(new Set([value1, value2]), new Set([value1]))
+      symmetricDifference(new Set([value1]))(new Set([value1, value2]))
     ).toEqual(new Set([value2]));
   });
 });

@@ -13,11 +13,10 @@ import { SetCompatible } from './_types';
  * @param setB
  * @returns
  */
-export const symmetricDifference = <T>(
-  setA: Set<T>,
-  setB: SetCompatible<T>
-): Set<T> => {
-  setA = copy(setA);
-  toggleAll(setA)(setB);
-  return setA;
-};
+export const symmetricDifference =
+  <T>(setB: SetCompatible<T>) =>
+  (setA: Set<T>): Set<T> => {
+    setA = copy(setA);
+    toggleAll(setA)(setB);
+    return setA;
+  };
