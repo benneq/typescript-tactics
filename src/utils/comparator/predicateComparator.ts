@@ -3,9 +3,9 @@ import { Comparator } from './_types';
 /**
  *
  * @example
- * predicateComparator(numberNaturalOrder, isNull)(0, null) => 1
- * predicateComparator(numberNaturalOrder, isNull)(null, -1) => -1
- * predicateComparator(numberNaturalOrder, isNull)(null, null) => 0
+ * predicateComparator(numberComparator, isNull)(0, null) => 1
+ * predicateComparator(numberComparator, isNull)(null, -1) => -1
+ * predicateComparator(numberComparator, isNull)(null, null) => 0
  *
  * @param comparator
  * @param predicate

@@ -10,8 +10,8 @@
  * @returns `true` if both provided Arrays have the same elements in the same order
  */
 export const equal =
-  <T>(arrayA: T[]) =>
-  (arrayB: T[]): boolean => {
+  <T>(arrayB: ArrayLike<T>) =>
+  (arrayA: T[]): boolean => {
     return (
       arrayA.length === arrayB.length &&
       arrayA.every((value, index) => value === arrayB[index])

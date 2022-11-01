@@ -5,7 +5,7 @@ describe('array.includesAll', () => {
     const value = Symbol();
 
     expect(includesAll([])([])).toBe(true);
-    expect(includesAll([value])([])).toBe(true);
+    expect(includesAll<symbol>([])([value])).toBe(true);
   });
 
   it('should return true if Array includes all given values', () => {
@@ -14,7 +14,7 @@ describe('array.includesAll', () => {
     const value3 = Symbol();
 
     expect(includesAll([value1])([value1])).toBe(true);
-    expect(includesAll([value1, value2, value3])([value2, value3])).toBe(true);
+    expect(includesAll([value2, value3])([value1, value2, value3])).toBe(true);
   });
 
   it('should return false if Array does not include all given values', () => {
@@ -22,8 +22,8 @@ describe('array.includesAll', () => {
     const value2 = Symbol();
     const value3 = Symbol();
 
-    expect(includesAll([value1])([value1, value2])).toBe(false);
-    expect(includesAll([value1, value3])([value1, value2])).toBe(false);
+    expect(includesAll([value1, value2])([value1])).toBe(false);
+    expect(includesAll([value1, value2])([value1, value3])).toBe(false);
   });
 });
 

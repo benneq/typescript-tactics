@@ -14,7 +14,7 @@ import { contains } from '../range';
  * @returns `true` if the given index is between 0 and Array.length
  */
 export const isIndex =
-  <T>(array: T[] | string) =>
+  <T>(array: ArrayLike<T>) =>
   (index: number): boolean => {
     return contains([0, array.length])(index);
   };

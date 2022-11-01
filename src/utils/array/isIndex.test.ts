@@ -23,6 +23,13 @@ describe('array.isIndex', () => {
     expect(isIndex(array)(-1)).toBe(false);
     expect(isIndex(array)(3)).toBe(false);
   });
+
+  it('should work with Strings', () => {
+    expect(isIndex('')(-1)).toBe(false);
+    expect(isIndex('')(1)).toBe(false);
+    expect(isIndex('abc')(-1)).toBe(false);
+    expect(isIndex('abc')(1)).toBe(true);
+  });
 });
 
 export {};

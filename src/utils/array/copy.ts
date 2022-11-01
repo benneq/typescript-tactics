@@ -8,6 +8,6 @@
  * @param array
  * @returns a new Array with the same elements as the provided Array
  */
-export const copy = <T>(array: T[]): T[] => {
+export const copy = <T>(array: ArrayLike<T>): T[] => {
   return Array.from(array);
 };

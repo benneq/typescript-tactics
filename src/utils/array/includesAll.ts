@@ -1,5 +1,5 @@
 export const includesAll =
-  <T>(array: T[]) =>
-  (shouldIncludeValues: T[]) => {
+  <T>(shouldIncludeValues: T[]) =>
+  (array: T[]) => {
     return shouldIncludeValues.every((value) => array.includes(value));
   };
