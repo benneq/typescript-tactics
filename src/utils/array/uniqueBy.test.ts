@@ -5,8 +5,8 @@ import { uniqueBy } from './uniqueBy';
 
 describe('array.uniqueBy', () => {
   it('should return an empty Array if provided Array is empty', () => {
-    expect(uniqueBy([], alwaysTrue)).toEqual([]);
-    expect(uniqueBy([], alwaysFalse)).toEqual([]);
+    expect(uniqueBy(alwaysTrue)([])).toEqual([]);
+    expect(uniqueBy(alwaysFalse)([])).toEqual([]);
   });
 
   it('should return no duplicate elements according to keyProvider', () => {
@@ -15,7 +15,7 @@ describe('array.uniqueBy', () => {
     const value3 = Symbol();
     const array = [value1, value1, value2, value3, value2];
 
-    expect(uniqueBy(array, identity)).toEqual([value1, value2, value3]);
+    expect(uniqueBy(identity)(array)).toEqual([value1, value2, value3]);
   });
 });
 
